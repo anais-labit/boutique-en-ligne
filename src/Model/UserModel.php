@@ -1,11 +1,17 @@
 <?php
 
 
-class Model {
+class UserModel {
 
     // public ?PDO $SQL; 
 
     // = new PDO('mysql:host=localhost;dbname=EshopPACA;charset=utf8', 'root','');
+
+    private ?string $firstName;
+
+    private ?string $lastName;
+
+    private ?string $email;
 
     private ?string $password;
 
@@ -14,10 +20,32 @@ class Model {
         
     }
 
+
+
+    public function getFirstName():string {
+        
+        return $this->firstName;
+    }
+
+
+    public function getLastName():string {
+        
+        return $this->lastName;
+    }
+
+
+    public function getEmail():string {
+        
+        return $this->email;
+    }
+
+
     public function getPassword():string {
         
         return $this->password;
     }
+
+
 
     public function createUser(string $lastName, string $firstName, string $email, string $password) {
 
@@ -38,10 +66,6 @@ class Model {
     }
 
 
-    public function createArticle() {
-
-
-    }
 
     public function readAllUsers():array {
 
@@ -60,9 +84,6 @@ class Model {
     }
 
 
-    public function readAllArticles() {
-
-    }
 
     public function readOneUser(string $email):array {
 
@@ -79,18 +100,15 @@ class Model {
         return $resultCheckEmail;
     }
 
-    public function readOneArticle() {
-
-    }
 
 
-    public function update() {
+    public function updateUser() {
 
 
     }
 
 
-    public function delete() {
+    public function deleteUser() {
 
     }
 }

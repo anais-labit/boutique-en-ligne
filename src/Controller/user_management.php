@@ -3,6 +3,14 @@
 require_once '../Controller/AuthController.php';
 
 
+if(isset($_POST['disconnect'])) {
+
+    session_destroy();
+
+    header('Location: ../View/login.php');
+}
+
+
 if(isset($_POST['registerLastName']) && isset($_POST['registerFirstName']) && isset($_POST['registerEmail'])
 && isset($_POST['registerPassword']) && isset($_POST['registerConfirmPassword'])) {
 

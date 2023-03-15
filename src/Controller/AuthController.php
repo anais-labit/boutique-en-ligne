@@ -1,18 +1,9 @@
 <?php
 
-require_once '../Model/Model.php';
+require_once '../Model/UserModel.php';
 
 class AuthController {
 
-    private ?int $id;
-
-    private ?string $lastName;
-
-    private ?string $firstName;
-
-    private ?string $email;
-
-    private ?string $password;
 
     public function __construct()
     {
@@ -22,7 +13,7 @@ class AuthController {
 
     public function register(string $lastName, string $firstName, string $email, string $password) {
 
-        $applicant = new Model;
+        $applicant = new UserModel;
 
         $checkExistingEmail = $applicant->readOneUser($email);
 
@@ -44,7 +35,7 @@ class AuthController {
 
     public function login(string $email, string $password) {
         
-        $user = new Model;
+        $user = new UserModel;
 
         $checkExistingUser = $user->readOneUser($email);
 
