@@ -7,10 +7,14 @@
     <title>Page d'inscription</title>
     <!-- <script defer src="../Controller/register.js"></script> -->
     <script defer src="../src/Controller/register.js"></script>
+    <link rel="stylesheet" href="global.css">
+
 
 </head>
 
 <body>
+
+    <?php include 'header.php' ?>
 
     <form method="post" class="loginForms" id="registerForm">
 

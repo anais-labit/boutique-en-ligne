@@ -44,7 +44,7 @@ async function checkEmptyFields(...fields) {
 
     for(let i in fields) {
         
-        if(!fields[i].trim()){
+        if(!fields[i].trim()) {
 
             registerMessage.innerHTML = "Veuillez remplir tous les champs";
     

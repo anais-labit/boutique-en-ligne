@@ -1,34 +1,42 @@
 <?php
 
-require_once '../Controller/search.php';
+require_once '../src/Controller/search.php';
+
+if(isset($_POST['disconnect'])) {
+
+    session_destroy();
+
+    header('Location: ../View/login.php');
+}
+
+if(session_id() == "") session_start();
 
 ?>
 
-
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/427958ed2f.js" crossorigin="anonymous"></script>
-    <script src="../Controller/auto_complete.js" defer></script>
-
-</head>
-<body>
-
     <nav>
+        <div class=search id=search>
+            <form id=searchform action=header.php>
+                <input type=text id="field" name="field" autocomplete=off>
+                <input type=submit name="search" value="Rechercher">
+            </form>
+        </div>
 
+        <?php if(isset($_SESSION['user'])): ?>
+
+            <a href="profil.php">Profil</a>
+            <form method="POST" id="decoForm">
+                <button type="submit" name="disconnect" id="decoButton">Déconnexion</button>
+            </form>
+        <?php else: ?>
+
+            <a href="login.php">Connexion</a>
+            <a href="register.php">Inscription</a>
+
+        <?php endif ?>
     </nav>
 
-    <div class=search id=search>
-        <form id=searchform action=header.php>
-            <input type=text id="field" name="field" autocomplete=off>
-            <input type=submit name="search" value="Rechercher">
-        </form>
-    </div>
+    
 
 </body>
 
-</html>
+<script src="../src/Controller/auto_complete.js" defer></script>

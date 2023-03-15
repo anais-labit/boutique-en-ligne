@@ -2,6 +2,7 @@ const loginForm = document.querySelector("#loginForm");
 const loginEmail = document.querySelector("#loginEmail");
 const loginPassword =  document.querySelector("#loginPassword");
 const loginButton = document.querySelector("#loginButton");
+// const decoButton = document.querySelector("#decoButton");
 const loginMessage = document.createElement("p");
 
 loginButton.addEventListener("click", login)
@@ -36,3 +37,18 @@ async function login(ev) {
             location.reload();
         }
 }
+
+// decoButton.addEventListener("click", disconnectUser);
+
+// function disconnectUser() {
+
+//     const decoForm = new FormData();
+
+//     decoForm.append("disconnect", "disconnect");
+
+//     fetch("../src/Controller/user_management.php", {
+
+//         method: "POST",
+//         body: decoForm
+//     })
+// }
