@@ -19,12 +19,12 @@ if(session_id() == "") session_start();
         <a href="index.php">Nos produits</a>
         <a href="index.php">Nos producteurs</a>
         <a href="index.php">Actualités</a>
-        <div class=search id=search>
+        <!-- <div class=search id=search>
             <form id=searchform action=header.php>
                 <input type=text id="field" name="field" autocomplete=off>
                 <input type=submit name="search" value="Rechercher">
             </form>
-        </div>
+        </div> -->
 
         <?php if(isset($_SESSION['user'])): ?>
 
