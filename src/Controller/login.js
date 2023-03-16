@@ -21,7 +21,7 @@ async function login(ev) {
             body: reqLogin,
         };
 
-        let loginUser = await fetch("../src/Controller/user_management.php", requestOptions);
+        let loginUser = await fetch("../src/Routes/user_management.php", requestOptions);
 
         loginUser = await loginUser.json()
 

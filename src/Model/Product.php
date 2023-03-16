@@ -7,7 +7,7 @@ class Product
     private ?string $id_producteur;
 
     public function __construct() {
-        $DB_DSN = 'mysql:host=localhost; dbname=boutique-en-ligne';
+        $DB_DSN = 'mysql:host=localhost; dbname=eShop';
         $DB_USER = 'root';
         $DB_PASS = '';
 

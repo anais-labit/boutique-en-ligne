@@ -11,7 +11,8 @@ class AuthController {
     }
 
 
-    public function register(string $lastName, string $firstName, string $email, string $password) {
+    public function register(int $type, string $firstName, string $lastName, string $email, 
+    string $adress, int $CP, string $city, string $password) {
 
         $applicant = new UserModel;
 
@@ -25,7 +26,7 @@ class AuthController {
 
         elseif(empty($checkExistingEmail)) {
 
-            $applicant->createUser($lastName, $firstName, $email, $password);
+            $applicant->createUser($type, $firstName, $lastName, $email, $adress, $CP, $city, $password);
 
             return json_encode(["success" => true, "message" => "Compte créé avec succès"]);
 
@@ -47,7 +48,7 @@ class AuthController {
 
         elseif(!empty($checkExistingUser)) {
 
-            if(password_verify($password, $checkExistingUser[0][4])) {
+            if(password_verify($password, $checkExistingUser[0][9])) {
 
                 return $checkExistingUser;
 

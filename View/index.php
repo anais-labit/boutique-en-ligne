@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../Model/Product.php';
+require_once '../src/Model/Product.php';
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ require_once '../Model/Product.php';
 
 <body>
     <?php require_once '../View/header.php'; ?>
-    <form method="post" class="loginForms" id="registerForm">
+    <!-- <form method="post" class="loginForms" id="registerForm">
 
         <input type="text" name="registerLastName" class="loginInputs" id="registerLastName" placeholder="Nom">
         <input type="text" name="registerFirstName" class="loginInputs" id="registerFirstName" placeholder="Nom">
@@ -29,9 +29,9 @@ require_once '../Model/Product.php';
 
         <input type="password" name="registerConfirmPassword" class="loginInputs" id="registerConfirmPassword" placeholder="Confirmez votre mot de passe">
 
-        <button type="submit" id="registerButton">S'inscrire</button>
+        <button type="submit" id="registerButton">S'inscrire</button> -->
 
-    </form>
+    <!-- </form> -->
 
 </body>
 

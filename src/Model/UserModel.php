@@ -6,6 +6,7 @@ class UserModel {
     // public ?PDO $SQL; 
 
     // = new PDO('mysql:host=localhost;dbname=EshopPACA;charset=utf8', 'root','');
+    private ?int $id;
 
     private ?string $firstName;
 
@@ -21,6 +22,21 @@ class UserModel {
     }
 
 
+    public function setId(int $id) {
+
+        $this ->id = $id;
+    }
+
+    public function getId():int {
+        
+        return $this->id;
+    }
+
+
+    public function setFirstName(string $firstName) {
+
+        $this ->firstName = $firstName;
+    }
 
     public function getFirstName():string {
         
@@ -28,11 +44,23 @@ class UserModel {
     }
 
 
+
+    public function setLastName(string $lastName) {
+
+        $this ->lastName = $lastName;
+    }
+
     public function getLastName():string {
         
         return $this->lastName;
     }
 
+
+
+    public function setEmail(string $email) {
+
+        $this->email = $email;
+    }
 
     public function getEmail():string {
         
@@ -47,21 +75,29 @@ class UserModel {
 
 
 
-    public function createUser(string $lastName, string $firstName, string $email, string $password) {
+    public function createUser(int $type, string $firstName, string $lastName, string $email, 
+    string $adress, string $CP, string $city,string $password) {
 
-        $SQL = new PDO('mysql:host=localhost;dbname=EshopPACA;charset=utf8', 'root','');
+        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
 
         //$SQL = new PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
-        $request_create_user = "INSERT INTO utilisateurs(prenom, nom, email, password) VALUES (:prenom, :nom, :email, :password)";
+        $request_create_user = "INSERT INTO utilisateurs
+        (type, prenom, nom, email, adresse, code_postal, ville, password, verifie) 
+        VALUES (:type, :prenom, :nom, :email, :adresse, :code_postal, :ville, :password, :verifie)";
 
         $query_create_user = $SQL->prepare($request_create_user);
 
         $query_create_user->execute(array(
-            ':prenom' => $lastName,
-            ':nom' => $firstName,
+            'type' => $type,
+            ':prenom' => $firstName,
+            ':nom' => $lastName,
             ':email' => $email,
-            ':password' => password_hash($password, PASSWORD_DEFAULT)
+            ':adresse' => $adress,
+            ':code_postal' => $CP,
+            ':ville' => $city,
+            ':password' => password_hash($password, PASSWORD_DEFAULT),
+            'verifie' => "NON"
         ));
     }
 
@@ -69,7 +105,7 @@ class UserModel {
 
     public function readAllUsers():array {
 
-        $SQL = new PDO('mysql:host=localhost;dbname=EshopPACA;charset=utf8', 'root','');
+        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
 
         $requestUsersInfos = "SELECT * FROM utilisateurs";
 
@@ -87,7 +123,7 @@ class UserModel {
 
     public function readOneUser(string $email):array {
 
-        $SQL = new PDO('mysql:host=localhost;dbname=EshopPACA;charset=utf8', 'root','');
+        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
 
         $requestCheckEmail = "SELECT * FROM utilisateurs WHERE email = :email";
 

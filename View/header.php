@@ -1,6 +1,6 @@
 <?php
 
-require_once '../src/Controller/search.php';
+require_once '../src/Routes/search.php';
 
 if(isset($_POST['disconnect'])) {
 
@@ -14,6 +14,11 @@ if(session_id() == "") session_start();
 ?>
 
     <nav>
+        <a href="index.php">Accueil</a>
+        <a href="index.php">A propos</a>
+        <a href="index.php">Nos produits</a>
+        <a href="index.php">Nos producteurs</a>
+        <a href="index.php">Actualités</a>
         <div class=search id=search>
             <form id=searchform action=header.php>
                 <input type=text id="field" name="field" autocomplete=off>
@@ -23,10 +28,12 @@ if(session_id() == "") session_start();
 
         <?php if(isset($_SESSION['user'])): ?>
 
-            <a href="profil.php">Profil</a>
+            <?= $_SESSION['user']['type'] == 3 || $_SESSION['user']['type'] == 4  ?
+             "<a href='admin.php'>Admin</a>" : "<a href='profil.php'>Profil</a>" ?>
             <form method="POST" id="decoForm">
                 <button type="submit" name="disconnect" id="decoButton">Déconnexion</button>
             </form>
+        
         <?php else: ?>
 
             <a href="login.php">Connexion</a>

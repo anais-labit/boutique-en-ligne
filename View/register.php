@@ -18,10 +18,14 @@
 
     <form method="post" class="loginForms" id="registerForm">
 
-        <input type="text" name="registerLastName" class="loginInputs" id="registerLastName" placeholder="Prénom">
-        <input type="text" name="registerFirstName" class="loginInputs" id="registerFirstName" placeholder="Nom">
+        <input type="text" name="registerLastName" class="loginInputs" id="registerFirstName" placeholder="Prénom">
+        <input type="text" name="registerFirstName" class="loginInputs" id="registerLastName" placeholder="Nom">
 
         <input type="email" name="registerEmail" class="loginInputs" id="registerEmail" placeholder="Email">
+
+        <input type="text" name="registerAdress" class="loginInputs" id="registerAdress" placeholder="Adresse">
+        <input type="number" name="registerZipCode" class="loginInputs" id="registerZipCode" placeholder="Code Postal">
+        <input type="text" name="registerCity" class="loginInputs" id="registerCity" placeholder="Ville">
 
         <input type="password" name="registerPassword" class="loginInputs" id="registerPassword" placeholder="Mot de passe">
         

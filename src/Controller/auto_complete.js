@@ -7,7 +7,7 @@ field.addEventListener("keyup", async (event) => {
 //   console.log(filledField);
 
   if (filledField.length != 0) {
-    fetch("../Controller/search.php?field=" + filledField)
+    fetch("../src/Controller/search.php?field=" + filledField)
       .then((response) => response.json())
       .then((response) => {
         console.log(response)

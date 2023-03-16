@@ -29,7 +29,7 @@ async function register(ev) {
             body: reqRegister,
         };
 
-        let createUser = await fetch("../src/Controller/user_management.php", requestOptions);
+        let createUser = await fetch("../src/Routes/user_management.php", requestOptions);
 
         createUser = await createUser.json()
 

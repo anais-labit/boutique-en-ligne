@@ -16,7 +16,7 @@ if(isset($_POST['registerLastName']) && isset($_POST['registerFirstName']) && is
 
     $applicant = new AuthController;
 
-    echo $applicant->register($_POST['registerLastName'], $_POST['registerFirstName'], $_POST['registerEmail'], $_POST['registerPassword']);
+    echo $applicant->register(1, $_POST['registerFirstName'], $_POST['registerLastName'], $_POST['registerEmail'], "test", 13000, "Marseille", $_POST['registerPassword']);
 
 }
 
