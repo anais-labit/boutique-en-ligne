@@ -18,19 +18,37 @@
 
     <form method="post" class="loginForms" id="registerForm">
 
-        <input type="text" name="registerLastName" class="loginInputs" id="registerFirstName" placeholder="Prénom">
-        <input type="text" name="registerFirstName" class="loginInputs" id="registerLastName" placeholder="Nom">
+        <select name="registerType" id="registerType">
+            <option value="1">Particulier</option>
+            <option value="2">Entreprise</option>
+        </select>
 
-        <input type="email" name="registerEmail" class="loginInputs" id="registerEmail" placeholder="Email">
+        <label class="registerLabels" id="registerLabelFirstName" for="registerFirstName">Prénom</label>
+        <input type="text" name="registerFirstName" class="loginInputs" id="registerFirstName">
 
-        <input type="text" name="registerAdress" class="loginInputs" id="registerAdress" placeholder="Adresse">
-        <input type="number" name="registerZipCode" class="loginInputs" id="registerZipCode" placeholder="Code Postal">
-        <input type="text" name="registerCity" class="loginInputs" id="registerCity" placeholder="Ville">
+        <label class="registerLabels" id="registerLabelLastName" for="registerLastName">Nom</label>
+        <input type="text" name="registerLastName" class="loginInputs" id="registerLastName">
 
-        <input type="password" name="registerPassword" class="loginInputs" id="registerPassword" placeholder="Mot de passe">
+        <label class="registerLabels" id="registerLabelCompany" for="registerCompany">Raison Sociale</label>
+        <input type="text" name="registerCompany" class="loginInputs" id="registerCompany">
+
+        <label class="registerLabels" for="registerEmail">Email</label>
+        <input type="email" name="registerEmail" class="loginInputs" id="registerEmail">
         
+        <label class="registerLabels" for="registerAdress">Adresse</label>
+        <input type="text" name="registerAdress" class="loginInputs" id="registerAdress">
+
+        <label class="registerLabels" for="registerZipCode">Code Postal</label>
+        <input type="number" name="registerZipCode" class="loginInputs" id="registerZipCode">
+
+        <label class="registerLabels" for="registerCity">Ville</label>
+        <input type="text" name="registerCity" class="loginInputs" id="registerCity">
+
+        <label class="registerLabels" for="registerPassword">Mot de Passe</label>
+        <input type="password" name="registerPassword" class="loginInputs" id="registerPassword">
         
-        <input type="password" name="registerConfirmPassword" class="loginInputs" id="registerConfirmPassword" placeholder="Confirmez votre mot de passe">
+        <label class="registerLabels" for="registerConfirmPassword">Confirmez votre mot de passe</label>    
+        <input type="password" name="registerConfirmPassword" class="loginInputs" id="registerConfirmPassword">
         
         <button type="submit" id="registerButton">S'inscrire</button>
 
