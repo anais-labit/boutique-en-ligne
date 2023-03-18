@@ -1,11 +1,46 @@
 const registerForm = document.querySelector("#registerForm");
-const registerLastName = document.querySelector("#registerLastName");
+const registerType = document.querySelector("#registerType");
+const registerLabelFirstName = document.querySelector("#registerLabelFirstName");
 const registerFirstName = document.querySelector("#registerFirstName");
+const registerLabelLastName = document.querySelector("#registerLabelLastName");
+const registerLastName = document.querySelector("#registerLastName");
+const registerLabelCompany = document.querySelector("#registerLabelCompany");
+const registerCompany = document.querySelector("#registerCompany");
 const registerEmail = document.querySelector("#registerEmail");
 const registerPassword =  document.querySelector("#registerPassword");
 const registerConfirmPassword =  document.querySelector("#registerConfirmPassword");
 const registerButton = document.querySelector("#registerButton");
 const registerMessage = document.createElement("p");
+
+registerLabelCompany.style.display = "none";
+registerCompany.style.display = "none";
+
+registerType.addEventListener("change", function() {
+
+    if(registerType.value == 1) {
+
+        registerLabelCompany.style.display = "none";
+        registerCompany.style.display = "none";
+
+        registerLabelFirstName.style.display = "flex";
+        registerFirstName.style.display = "flex";
+
+        registerLabelLastName.style.display = "flex";
+        registerLastName.style.display = "flex";
+    }
+
+    else {
+
+        registerLabelFirstName.style.display = "none";
+        registerFirstName.style.display = "none";
+
+        registerLabelLastName.style.display = "none";
+        registerLastName.style.display = "none";
+
+        registerLabelCompany.style.display = "flex";
+        registerCompany.style.display = "flex";
+    }
+});
 
 registerButton.addEventListener("click", register)
 
@@ -15,27 +50,53 @@ async function register(ev) {
 
     const lastName = registerLastName.value;
     const firstName = registerFirstName.value;
+    const companyName = registerCompany.value;
     const email = registerEmail.value;
     const password = registerPassword.value;
     const confirmPassword = registerConfirmPassword.value;
 
-    if(await checkEmptyFields(lastName, firstName, email, password, confirmPassword)
-    && await checkPasswords(password, confirmPassword)) {
+    if(registerType.value == "1") {
 
-        const reqRegister = new FormData(registerForm)
+        if(await checkEmptyFields(lastName, firstName, email, password, confirmPassword)
+        && await checkPasswords(password, confirmPassword)) {
 
-        const requestOptions = {
-            method: 'POST',
-            body: reqRegister,
-        };
+            const reqRegister = new FormData(registerForm)
 
-        let createUser = await fetch("../src/Routes/user_management.php", requestOptions);
+            const requestOptions = {
+                method: 'POST',
+                body: reqRegister,
+            };
 
-        createUser = await createUser.json()
+            let createUser = await fetch("../src/Routes/user_management.php", requestOptions);
 
-        registerMessage.innerHTML = createUser.message
+            createUser = await createUser.json()
 
-        registerForm.appendChild(registerMessage);
+            registerMessage.innerHTML = createUser.message
+
+            registerForm.appendChild(registerMessage);
+        }
+    }
+
+    else if(registerType.value == "2") {
+        
+        if(await checkEmptyFields(companyName, email, password, confirmPassword)
+        && await checkPasswords(password, confirmPassword)) {
+
+            const reqRegister = new FormData(registerForm)
+
+            const requestOptions = {
+                method: 'POST',
+                body: reqRegister,
+            };
+
+            let createUser = await fetch("../src/Routes/user_management.php", requestOptions);
+
+            createUser = await createUser.json()
+
+            registerMessage.innerHTML = createUser.message
+
+            registerForm.appendChild(registerMessage);
+        }
     }
 }
 

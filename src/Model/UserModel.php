@@ -1,5 +1,6 @@
 <?php
 
+// namespace App//Usermodel;
 
 class UserModel {
 
@@ -92,6 +93,31 @@ class UserModel {
             'type' => $type,
             ':prenom' => $firstName,
             ':nom' => $lastName,
+            ':email' => $email,
+            ':adresse' => $adress,
+            ':code_postal' => $CP,
+            ':ville' => $city,
+            ':password' => password_hash($password, PASSWORD_DEFAULT),
+            'verifie' => "NON"
+        ));
+    }
+
+    public function createCompany(int $type, string $company, string $email, 
+    string $adress, string $CP, string $city,string $password) {
+
+        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
+
+        //$SQL = new PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
+
+        $request_create_user = "INSERT INTO utilisateurs
+        (type, raison_sociale, email, adresse, code_postal, ville, password, verifie) 
+        VALUES (:type, :raison_sociale, :email, :adresse, :code_postal, :ville, :password, :verifie)";
+
+        $query_create_user = $SQL->prepare($request_create_user);
+
+        $query_create_user->execute(array(
+            'type' => $type,
+            ':raison_sociale' => $company,
             ':email' => $email,
             ':adresse' => $adress,
             ':code_postal' => $CP,
