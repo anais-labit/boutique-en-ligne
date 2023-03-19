@@ -11,13 +11,23 @@ if(isset($_POST['disconnect'])) {
 }
 
 
-if(isset($_POST['registerLastName']) && isset($_POST['registerFirstName']) && isset($_POST['registerEmail'])
+if(isset($_POST['registerEmail'])
+&& isset($_POST['registerAdress']) && isset($_POST['registerZipCode']) && isset($_POST['registerCity'])
 && isset($_POST['registerPassword']) && isset($_POST['registerConfirmPassword'])) {
 
-    $applicant = new AuthController;
+    if(isset($_POST['registerLastName']) && isset($_POST['registerFirstName']) && $_POST['registerCompany'] == null) {
 
-    echo $applicant->register(1, $_POST['registerFirstName'], $_POST['registerLastName'], $_POST['registerEmail'], "test", 13000, "Marseille", $_POST['registerPassword']);
+        $applicant = new AuthController;
 
+        echo $applicant->register(1, $_POST['registerFirstName'], $_POST['registerLastName'], $_POST['registerCompany'], $_POST['registerEmail'], $_POST['registerAdress'], $_POST['registerZipCode'], $_POST['registerCity'], $_POST['registerPassword']);
+    }
+
+    if(isset($_POST['registerCompany']) && $_POST['registerFirstName'] == null && $_POST['registerLastName'] == null) {
+        
+        $applicant = new AuthController;
+
+        echo $applicant->register(2, $_POST['registerFirstName'], $_POST['registerLastName'], $_POST['registerCompany'], $_POST['registerEmail'], $_POST['registerAdress'], $_POST['registerZipCode'], $_POST['registerCity'], $_POST['registerPassword']);
+    }
 }
 
 

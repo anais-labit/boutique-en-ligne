@@ -4,3 +4,14 @@ nav {
     justify-content: space-between;
     margin-bottom: 50px;
 }
+
+.loginForms {
+
+    display: flex;
+    flex-direction: column;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}

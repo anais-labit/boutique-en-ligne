@@ -1,6 +1,8 @@
 <?php
 
 require_once '../src/Routes/search.php';
+require_once '../src/Model/ProductModel.php';
+
 
 if(isset($_POST['disconnect'])) {
 
@@ -20,7 +22,7 @@ if(session_id() == "") session_start();
         <a href="index.php">Nos producteurs</a>
         <a href="index.php">Actualités</a>
         <div class=search id=search>
-            <form id=searchform action=header.php>
+            <form id=searchForm action=header.php>
                 <input type=text id="field" name="field" autocomplete=off>
                 <input type=submit name="search" value="Rechercher">
             </form>
