@@ -30,12 +30,12 @@ require_once '../src/Routes/product_management.php';
 
         <label>Catégorie</label>
         <select name="productCat">
-            <?php displayCategories() ?>
+            <?php displayCategoriesInSelect() ?>
         </select>
 
         <label>Sous-catégorie</label>
         <select name="productSubCat">
-            <?php displaySubCategories() ?>
+            <?php displaySubCategoriesInSelect() ?>
         </select>
         
         <label>Origine</label>
@@ -80,7 +80,7 @@ require_once '../src/Routes/product_management.php';
 
         <label>Catégorie</label>
         <select name="subcatCat">
-            <?php displayCategories() ?>
+            <?php displayCategoriesinSelect() ?>
         </select>
 
         <button type="submit" name="addSubCategoryButton">Ajouter</button>

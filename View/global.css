@@ -15,3 +15,16 @@ form {
     display: flex;
     flex-direction: column;
 }
+
+
+#productsDiv {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+    .productCard {
+
+        border: solid 1px black;
+    }

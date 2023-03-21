@@ -18,7 +18,7 @@ if(session_id() == "") session_start();
     <nav>
         <a href="index.php">Accueil</a>
         <a href="index.php">A propos</a>
-        <a href="index.php">Nos produits</a>
+        <a href="products.php">Nos produits</a>
         <a href="index.php">Nos producteurs</a>
         <a href="index.php">Actualités</a>
         <div class=search id=search>
