@@ -3,7 +3,7 @@
 require_once '../src/Model/ProductModel.php';
 
 
-function displayCategories() {
+function displayCategoriesInSelect() {
 
     $categories = new ProductModel;
     $displayCategories = $categories->readAllCategories();
@@ -15,7 +15,7 @@ function displayCategories() {
     }
 }
 
-function displaySubCategories() {
+function displaySubCategoriesInSelect() {
 
     $subCategories = new ProductModel;
 
@@ -26,6 +26,27 @@ function displaySubCategories() {
 
         echo "
         <option value=" . $value['id'] .">" . $value["sous_categorie"] . "</option>";
+    }
+}
+
+
+function displayProducts() {
+
+    $products = new ProductModel;
+
+    $productList = $products->readAllProducts();
+
+    foreach($productList as $value) {
+
+        $value['prix_kg'] !== null ? $price = $value['prix_kg'] : $price = $value['prix_unit'];
+
+        echo '
+            <div class="productCard">
+                <h2>' . $value['nom'] . '</h2>
+                <p>' . $value['description'] . '</p>
+                <p>' . $price . '€' . '</p>
+            </div>
+        ';
     }
 }
 
