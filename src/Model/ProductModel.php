@@ -33,12 +33,14 @@ class ProductModel
 
 
     public function createProduct(
+        string $priceType,
         string $nom,
         int $cat,
         int $sous_cat,
         string $description,
         string $origine,
-        float $poids
+        float $poids,
+        float $price
     ) {
 
         $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
@@ -46,8 +48,8 @@ class ProductModel
         //$SQL = new PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
         $request_create_user = "INSERT INTO produits
-        (nom, cat, sous_cat, description, origine, poids) 
-        VALUES (:nom, :cat, :sous_cat, :description, :origine, :poids)";
+        (nom, cat, sous_cat, description, origine, poids, {$priceType}) 
+        VALUES (:nom, :cat, :sous_cat, :description, :origine, :poids, :{$priceType})";
 
         $query_create_user = $SQL->prepare($request_create_user);
 
@@ -58,6 +60,7 @@ class ProductModel
             ':description' => $description,
             ':origine' => $origine,
             ':poids' => $poids,
+            $priceType => $price
         ));
     }
 
