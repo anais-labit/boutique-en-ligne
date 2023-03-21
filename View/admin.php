@@ -1,6 +1,7 @@
 <?php 
 
 require_once '../src/Model/ProductModel.php';
+require_once '../src/Routes/product_management.php';
 
 
 function displayCategories() {
@@ -29,12 +30,12 @@ function displaySubCategories() {
     }
 }
 
-if(isset($_POST['addProdButton'])) {
+// if(isset($_POST['addProdButton'])) {
 
-    $newproduct = new ProductModel;
+//     $newproduct = new ProductModel;
 
-    $newproduct->createProduct($_POST['productName'], $_POST['productCat'], $_POST['productSubCat'], $_POST['productDesc'], $_POST['productOrigin'], $_POST['productWeight']);
-}
+//     $newproduct->createProduct($_POST['productName'], $_POST['productCat'], $_POST['productSubCat'], $_POST['productDesc'], $_POST['productOrigin'], $_POST['productWeight'], $_POST['productPrice']);
+// }
 
 
 
@@ -81,10 +82,10 @@ if(isset($_POST['addProdButton'])) {
         <label>Producteur</label>
         <select></select>
 
-        <label>Type de prix</label>
-        <select>
-            <option>kg</option>
-            <option>unitaire</option>
+        <label >Type de prix</label>
+        <select name="productPriceType">
+            <option value="prix_kg">kg</option>
+            <option value="prix_unit">unitaire</option>
         </select>
 
         <label>Prix</label>
