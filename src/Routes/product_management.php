@@ -38,13 +38,13 @@ function displayProducts() {
 
     foreach($productList as $value) {
 
-        $value['prix_kg'] !== null ? $price = $value['prix_kg'] : $price = $value['prix_unit'];
+        $value['prix_kg'] !== null ? $price = $value['prix_kg'] . '€/kg' : $price = $value['prix_unit'] . '€/unité';
 
         echo '
             <div class="productCard">
                 <h2>' . $value['nom'] . '</h2>
                 <p>' . $value['description'] . '</p>
-                <p>' . $price . '€' . '</p>
+                <p>' . $price . '</p>
             </div>
         ';
     }
