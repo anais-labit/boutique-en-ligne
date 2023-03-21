@@ -3,43 +3,6 @@
 require_once '../src/Model/ProductModel.php';
 require_once '../src/Routes/product_management.php';
 
-
-function displayCategories() {
-
-    $categories = new ProductModel;
-    $displayCategories = $categories->readAllCategories();
-
-    foreach($displayCategories as $key => $value) {
-
-        echo "
-        <option value=" . $value['id'] .">" . $value["categorie"] . "</option>";
-    }
-}
-
-function displaySubCategories() {
-
-    $subCategories = new ProductModel;
-
-    $displaySubCategories = $subCategories->readAllSubCategories();
-    var_dump($displaySubCategories);
-
-    foreach($displaySubCategories as $key => $value) {
-
-        echo "
-        <option value=" . $value['id'] .">" . $value["sous_categorie"] . "</option>";
-    }
-}
-
-// if(isset($_POST['addProdButton'])) {
-
-//     $newproduct = new ProductModel;
-
-//     $newproduct->createProduct($_POST['productName'], $_POST['productCat'], $_POST['productSubCat'], $_POST['productDesc'], $_POST['productOrigin'], $_POST['productWeight'], $_POST['productPrice']);
-// }
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +19,8 @@ function displaySubCategories() {
 <?php include 'header.php'?>
 
     <form method="POST" id="addProductForm">
+
+        <h1>Ajout de produit</h1>
 
         <label>Nom du produit</label>
         <input type="text" class="addProdInput" name="productName">
@@ -91,7 +56,34 @@ function displaySubCategories() {
         <label>Prix</label>
         <input type="number" class="addProdPrice" name="productPrice">
 
-        <button type="submit" name="addProdButton" id="addProdButton">Ajouter</button>
+        <button type="submit" name="addProdButton">Ajouter</button>
+
+    </form>
+
+    <form method="POST" id="addCategoryForm">
+
+        <h1>Ajout de catégorie</h1>
+
+        <label>Nom</label>
+        <input type="text" name="categoryName">
+
+        <button type="submit" name="addCategoryButton">Ajouter</button>
+
+    </form>
+
+    <form method="POST" id="addSubCategoryForm">
+
+        <h1>Ajout de sous-catégorie</h1>
+
+        <label>Nom</label>
+        <input type="text" name="subCategoryName">
+
+        <label>Catégorie</label>
+        <select name="subcatCat">
+            <?php displayCategories() ?>
+        </select>
+
+        <button type="submit" name="addSubCategoryButton">Ajouter</button>
 
     </form>
     

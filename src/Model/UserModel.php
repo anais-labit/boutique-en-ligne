@@ -4,9 +4,6 @@
 
 class UserModel {
 
-    // public ?PDO $SQL; 
-
-    // = new PDO('mysql:host=localhost;dbname=EshopPACA;charset=utf8', 'root','');
     private ?int $id;
 
     private ?string $firstName;
@@ -115,7 +112,7 @@ class UserModel {
 
         $query_create_user = $SQL->prepare($request_create_user);
 
-        $query_create_user->execute(array(
+        $query_create_user->execute([
             'type' => $type,
             ':raison_sociale' => $company,
             ':email' => $email,
@@ -124,7 +121,7 @@ class UserModel {
             ':ville' => $city,
             ':password' => password_hash($password, PASSWORD_DEFAULT),
             'verifie' => "NON"
-        ));
+        ]);
     }
 
 
