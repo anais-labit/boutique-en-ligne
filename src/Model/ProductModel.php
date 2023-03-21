@@ -4,12 +4,9 @@
 class ProductModel
 {
 
-    // public ?PDO $SQL; 
+    // private ?int $id;
 
-    // = new PDO('mysql:host=localhost;dbname=EshopPACA;charset=utf8', 'root','');
-    private ?int $id;
-
-    private ?string $category;
+    // private ?string $category;
 
 
     public function __construct()
@@ -17,19 +14,17 @@ class ProductModel
     }
 
 
-    public function setId(int $id)
-    {
+    // public function setId(int $id)
+    // {
 
-        $this->id = $id;
-    }
+    //     $this->id = $id;
+    // }
 
-    public function getId(): int
-    {
+    // public function getId(): int
+    // {
 
-        return $this->id;
-    }
-
-
+    //     return $this->id;
+    // }
 
 
     public function createProduct(
@@ -47,24 +42,55 @@ class ProductModel
 
         //$SQL = new PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
-        $request_create_user = "INSERT INTO produits
+        $requestCreateUser = "INSERT INTO produits
         (nom, cat, sous_cat, description, origine, poids, {$priceType}) 
         VALUES (:nom, :cat, :sous_cat, :description, :origine, :poids, :{$priceType})";
 
-        $query_create_user = $SQL->prepare($request_create_user);
+        $queryCreateUser = $SQL->prepare($requestCreateUser);
 
-        $query_create_user->execute(array(
+        $queryCreateUser->execute([
             'nom' => $nom,
             ':cat' => $cat,
-            ':sous_cat' => $sous_cat,
+            ':souname="productPriceType"s_cat' => $sous_cat,
             ':description' => $description,
             ':origine' => $origine,
             ':poids' => $poids,
             $priceType => $price
-        ));
+        ]);
     }
 
 
+    public function createCategory(string $category) {
+
+        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+
+        //$SQL = new PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
+
+        $requestCreateCategory = "INSERT INTO categories (categorie) VALUES (:categorie)";
+
+        $queryCreateCategory = $SQL->prepare($requestCreateCategory);
+
+        $queryCreateCategory->execute([':categorie' => $category]);
+
+    }
+
+
+    public function createSubCategory(string $subCategory, int $idCategory) {
+
+        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+
+        //$SQL = new PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
+
+        $requestCreateSubCategory = "INSERT INTO sousCategories (sous_categorie, id_categorie) VALUES (:sous_categorie, :id_categorie)";
+
+        $queryCreateSubCategory = $SQL->prepare($requestCreateSubCategory);
+
+        $queryCreateSubCategory->execute([
+            ':sous_categorie' => $subCategory,
+            'id_categorie' => $idCategory
+        ]);
+
+    }
 
     public function readAllProducts(): array
     {
@@ -84,24 +110,24 @@ class ProductModel
 
 
 
-    public function readOneProduct(string $email): array
+    public function readOneProduct(string $product): array
     {
 
         $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
-        $requestCheckEmail = "SELECT * FROM produits WHERE email = :email";
+        $requestCheckProduct = "SELECT * FROM produits WHERE nom = :nom";
 
-        $queryCheckEmail = $SQL->prepare($requestCheckEmail);
+        $queryCheckProduct = $SQL->prepare($requestCheckProduct);
 
-        $queryCheckEmail->execute(['email' => $email]);
+        $queryCheckProduct->execute([':nom' => $product]);
 
-        $resultCheckEmail = $queryCheckEmail->fetchAll();
+        $resultCheckProduct = $queryCheckProduct->fetchAll();
 
-        return $resultCheckEmail;
+        return $resultCheckProduct;
     }
 
 
-    public function readAllCategories()
+    public function readAllCategories():array
     {
 
         $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
@@ -114,17 +140,11 @@ class ProductModel
 
         $resultFetchAllCategories = $queryFetchAllCategories->fetchAll();
 
-        // $this->id = $resultFetchAllCategories[0][0];
-
-        // $this->category = $resultFetchAllCategories[0][1];
-
-        // return $this;
-
         return $resultFetchAllCategories;
     }
 
 
-    public function readAllSubCategories()
+    public function readAllSubCategories():array
     {
 
         $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
@@ -136,12 +156,6 @@ class ProductModel
         $queryFetchAllSubCategories->execute();
 
         $resultFetchAllSubCategories = $queryFetchAllSubCategories->fetchAll();
-
-        // $this->id = $resultFetchAllSubCategories[0][0];
-
-        // $this->category = $resultFetchAllSubCategories[0][1];
-
-        // return $this;
 
         return $resultFetchAllSubCategories;
     }

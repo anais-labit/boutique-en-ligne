@@ -3,31 +3,31 @@
 require_once '../src/Model/ProductModel.php';
 
 
-// function displayCategories() {
+function displayCategories() {
 
-//     $categories = new ProductModel;
-//     $displayCategories = $categories->readAllCategories();
+    $categories = new ProductModel;
+    $displayCategories = $categories->readAllCategories();
 
-//     foreach($displayCategories as $key => $value) {
+    foreach($displayCategories as $key => $value) {
 
-//         echo "
-//         <option value=" . $value['id'] .">" . $value["categorie"] . "</option>";
-//     }
-// }
+        echo "
+        <option value=" . $value['id'] .">" . $value["categorie"] . "</option>";
+    }
+}
 
-// function displaySubCategories() {
+function displaySubCategories() {
 
-//     $subCategories = new ProductModel;
+    $subCategories = new ProductModel;
 
-//     $displaySubCategories = $subCategories->readAllSubCategories();
-//     var_dump($displaySubCategories);
+    $displaySubCategories = $subCategories->readAllSubCategories();
+    var_dump($displaySubCategories);
 
-//     foreach($displaySubCategories as $key => $value) {
+    foreach($displaySubCategories as $key => $value) {
 
-//         echo "
-//         <option value=" . $value['id'] .">" . $value["sous_categorie"] . "</option>";
-//     }
-// }
+        echo "
+        <option value=" . $value['id'] .">" . $value["sous_categorie"] . "</option>";
+    }
+}
 
 if(isset($_POST['addProdButton'])) {
 
@@ -36,6 +36,20 @@ if(isset($_POST['addProdButton'])) {
     $productPriceType = $_POST['productPriceType'];
 
     $newproduct->createProduct($_POST['productPriceType'], $_POST['productName'], $_POST['productCat'], $_POST['productSubCat'], $_POST['productDesc'], $_POST['productOrigin'], $_POST['productWeight'], $_POST['productPrice']);
+}
+
+if(isset($_POST['addCategoryButton'])) {
+
+    $newproduct = new ProductModel;
+
+    $newproduct->createCategory($_POST['categoryName']);
+}
+
+if(isset($_POST['addSubCategoryButton'])) {
+
+    $newproduct = new ProductModel;
+
+    $newproduct->createSubCategory($_POST['subCategoryName'], $_POST['subcatCat']);
 }
 
 ?>
