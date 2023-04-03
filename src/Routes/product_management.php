@@ -11,7 +11,7 @@ function displayCategoriesInSelect() {
     foreach($displayCategories as $key => $value) {
 
         echo "
-        <option value=" . $value['id'] .">" . $value["categorie"] . "</option>";
+        <option value=" . $value['id'] .">" . $value["category"] . "</option>";
     }
 }
 
@@ -25,7 +25,7 @@ function displaySubCategoriesInSelect() {
     foreach($displaySubCategories as $key => $value) {
 
         echo "
-        <option value=" . $value['id'] .">" . $value["sous_categorie"] . "</option>";
+        <option value=" . $value['id'] .">" . $value["sub_category"] . "</option>";
     }
 }
 

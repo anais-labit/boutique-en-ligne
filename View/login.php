@@ -1,5 +1,7 @@
 <?php 
     // require_once '../src/Controller/AuthController.php';
+    require_once '../src/Model/UserModel.php';
+
     if(session_id() == "") session_start();
     var_dump($_SESSION['user']);
     // session_destroy();
@@ -7,7 +9,7 @@
     // var_dump($_SESSION['user']['email']);
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="fr">
 <head>
     <meta charset="UTF-8">

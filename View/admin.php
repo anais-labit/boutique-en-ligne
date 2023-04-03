@@ -49,8 +49,8 @@ require_once '../src/Routes/product_management.php';
 
         <label >Type de prix</label>
         <select name="productPriceType">
-            <option value="prix_kg">kg</option>
-            <option value="prix_unit">unitaire</option>
+            <option value="price_kg">kg</option>
+            <option value="price_unit">unitaire</option>
         </select>
 
         <label>Prix</label>

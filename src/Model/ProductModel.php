@@ -29,12 +29,12 @@ class ProductModel
 
     public function createProduct(
         string $priceType,
-        string $nom,
+        string $product,
         int $cat,
-        int $sous_cat,
+        int $sub_cat,
         string $description,
-        string $origine,
-        float $poids,
+        string $origin,
+        float $weight,
         float $price
     ) {
 
@@ -42,19 +42,19 @@ class ProductModel
 
         //$SQL = new PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
-        $requestCreateUser = "INSERT INTO produits
-        (nom, cat, sous_cat, description, origine, poids, {$priceType}) 
-        VALUES (:nom, :cat, :sous_cat, :description, :origine, :poids, :{$priceType})";
+        $requestCreateUser = "INSERT INTO products
+        (product, id_cat, id_sub_cat, description, origin, weight, {$priceType}) 
+        VALUES (:product, :id_cat, :id_sub_cat, :description, :origin, :weight, :{$priceType})";
 
         $queryCreateUser = $SQL->prepare($requestCreateUser);
 
         $queryCreateUser->execute([
-            'nom' => $nom,
-            ':cat' => $cat,
-            ':souname="productPriceType"s_cat' => $sous_cat,
+            'product' => $product,
+            ':id_cat' => $cat,
+            ':id_sub_cat' => $sub_cat,
             ':description' => $description,
-            ':origine' => $origine,
-            ':poids' => $poids,
+            ':origin' => $origin,
+            ':weight' => $weight,
             $priceType => $price
         ]);
     }
@@ -66,11 +66,11 @@ class ProductModel
 
         //$SQL = new PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
-        $requestCreateCategory = "INSERT INTO categories (categorie) VALUES (:categorie)";
+        $requestCreateCategory = "INSERT INTO categories (category) VALUES (:category)";
 
         $queryCreateCategory = $SQL->prepare($requestCreateCategory);
 
-        $queryCreateCategory->execute([':categorie' => $category]);
+        $queryCreateCategory->execute([':category' => $category]);
 
     }
 
@@ -81,13 +81,13 @@ class ProductModel
 
         //$SQL = new PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
-        $requestCreateSubCategory = "INSERT INTO sousCategories (sous_categorie, id_categorie) VALUES (:sous_categorie, :id_categorie)";
+        $requestCreateSubCategory = "INSERT INTO sub_categories (sub_category, id_category) VALUES (:sub_category, :id_category)";
 
         $queryCreateSubCategory = $SQL->prepare($requestCreateSubCategory);
 
         $queryCreateSubCategory->execute([
-            ':sous_categorie' => $subCategory,
-            'id_categorie' => $idCategory
+            ':sub_category' => $subCategory,
+            'id_category' => $idCategory
         ]);
 
     }
@@ -97,7 +97,7 @@ class ProductModel
 
         $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
-        $requestProductsInfos = "SELECT * FROM produits";
+        $requestProductsInfos = "SELECT * FROM products";
 
         $queryProductsInfos = $SQL->prepare($requestProductsInfos);
 
@@ -115,11 +115,11 @@ class ProductModel
 
         $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
-        $requestCheckProduct = "SELECT * FROM produits WHERE nom = :nom";
+        $requestCheckProduct = "SELECT * FROM products WHERE product = :product";
 
         $queryCheckProduct = $SQL->prepare($requestCheckProduct);
 
-        $queryCheckProduct->execute([':nom' => $product]);
+        $queryCheckProduct->execute([':product' => $product]);
 
         $resultCheckProduct = $queryCheckProduct->fetchAll();
 
@@ -149,7 +149,7 @@ class ProductModel
 
         $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
-        $requestFetchAllSubCategories = "SELECT * FROM sousCategories";
+        $requestFetchAllSubCategories = "SELECT * FROM sub_categories";
 
         $queryFetchAllSubCategories = $SQL->prepare($requestFetchAllSubCategories);
 
@@ -174,7 +174,7 @@ class ProductModel
     public function catchProductInfos($word)
     {
         $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-        $req = "SELECT * FROM produits WHERE nom LIKE '$word%'";
+        $req = "SELECT * FROM products WHERE product LIKE '$word%'";
 
         $catchProduct = $SQL->prepare($req);
         $catchProduct->execute();

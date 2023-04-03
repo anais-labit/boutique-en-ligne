@@ -1,3 +1,7 @@
+<?php 
+    // require_once '../src/Model/UserModel.php';
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 

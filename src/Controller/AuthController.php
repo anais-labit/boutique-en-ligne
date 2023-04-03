@@ -1,6 +1,7 @@
 <?php
 
 require_once '../Model/UserModel.php';
+// if(session_id() == "") session_start();
 
 class AuthController {
 
@@ -24,19 +25,25 @@ class AuthController {
 
         }
 
-        elseif(empty($checkExistingEmail && $type == 1)) {
+        elseif(empty($checkExistingEmail)) {
 
-            $applicant->createUser($type, $firstName, $lastName, $email, $adress, $CP, $city, $password);
+            if($type == 1) {
 
-            return json_encode(["success" => true, "message" => "Compte créé avec succès"]);
+                $applicant->createUser($type, $firstName, $lastName, $email, $adress, $CP, $city, $password);
+                
+                return json_encode(["success" => true, "message" => "Compte créé avec succès"]);
+            }
 
-        }
+            elseif($type == 2) {
 
-        elseif(empty($checkExistingEmail && $type == 2)) {
+                $applicant->createCompany($type, $company, $email, $adress, $CP, $city, $password);
+        
+                return json_encode(["success" => true, "message" => "Compte créé avec succès"]);
+            } 
 
-            $applicant->createCompany($type, $company, $email, $adress, $CP, $city, $password);
 
-            return json_encode(["success" => true, "message" => "Compte créé avec succès"]);
+      
+
 
         }
 }
@@ -58,7 +65,13 @@ class AuthController {
 
             if(password_verify($password, $checkExistingUser[0][9])) {
 
-                return $checkExistingUser;
+                // return $checkExistingUser;
+                // if(session_id() == "") session_start();
+                // if(session_id() == "") session_start();
+
+                $connectedUser = $user->setSession($email);
+
+                return $connectedUser;
 
             }
 

@@ -2,6 +2,10 @@
 
 require_once '../src/Routes/search.php';
 require_once '../src/Model/ProductModel.php';
+// require_once '../src/Model/UserModel.php';
+
+if(session_id() == "") session_start();
+// session_destroy();
 
 
 if(isset($_POST['disconnect'])) {
@@ -11,7 +15,7 @@ if(isset($_POST['disconnect'])) {
     header('Location: ../View/login.php');
 }
 
-if(session_id() == "") session_start();
+
 
 ?>
 
@@ -30,7 +34,7 @@ if(session_id() == "") session_start();
 
         <?php if(isset($_SESSION['user'])): ?>
 
-            <?= $_SESSION['user']['type'] == 3 || $_SESSION['user']['type'] == 4  ?
+            <?= $_SESSION['user']->getType() == 3 || $_SESSION['user']->getType() == 4  ?
              "<a href='admin.php'>Admin</a>" : "<a href='profil.php'>Profil</a>" ?>
             <form method="POST" id="decoForm">
                 <button type="submit" name="disconnect" id="decoButton">Déconnexion</button>
