@@ -11,13 +11,20 @@ nav {
     nav ul {
         width: 90%;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
     }
 
     nav li {
         list-style-type: none;
         text-decoration: none;
     }
+
+    /* #test {
+        position: fixed;
+        font-size: 200%;
+        border: solid 1px black;
+        right: 2%;
+    } */
 
     #searchForm {
         width: 100%;
