@@ -1,6 +1,7 @@
 <?php 
 
-require_once '../src/Model/ProductModel.php';
+require_once '../Model/ProductModel.php';
+// if(session_id() == "") session_start();
 
 
 function displayCategoriesInSelect() {
@@ -30,25 +31,27 @@ function displaySubCategoriesInSelect() {
 }
 
 
-function displayProducts() {
+// function displayProducts() {
 
-    $products = new ProductModel;
+//     $products = new ProductModel;
 
-    $productList = $products->readAllProducts();
+//     $productList = $products->readAllProducts();
 
-    foreach($productList as $value) {
+//     // foreach($productList as $value) {
 
-        $value['prix_kg'] !== null ? $price = $value['prix_kg'] . '€/kg' : $price = $value['prix_unit'] . '€/unité';
+//     //     $value['price_kg'] !== null ? $price = $value['price_kg'] . '€/kg' : $price = $value['price_unit'] . '€/unité';
 
-        echo '
-            <div class="productCard">
-                <h2>' . $value['nom'] . '</h2>
-                <p>' . $value['description'] . '</p>
-                <p>' . $price . '</p>
-            </div>
-        ';
-    }
-}
+//     //     echo '
+//     //         <div class="productCard">
+//     //             <h2>' . $value['product'] . '</h2>
+//     //             <p>' . $value['description'] . '</p>
+//     //             <p>' . $price . '</p>
+//     //             <button class="addCartButton" value="' . $value['id'] . '"> Ajouter</button>
+//     //         </div>
+//     //     ';
+//     // }
+//     echo json_encode($productList);
+// }
 
 if(isset($_POST['addProdButton'])) {
 
@@ -71,6 +74,28 @@ if(isset($_POST['addSubCategoryButton'])) {
     $newproduct = new ProductModel;
 
     $newproduct->createSubCategory($_POST['subCategoryName'], $_POST['subcatCat']);
+}
+
+if(isset($_POST['addOneProductToCart'])) {
+
+    $productToCart = new ProductModel;
+
+    $productObject = $productToCart->setObject($_POST["productID"]);
+if(session_id() == "") session_start();
+
+    // isset($_SESSION['cart']) ?
+    //     array_push($_SESSION['cart'], $productObject):
+    //     $_SESSION['cart'] = [] && array_push($_SESSION['cart'], $productObject);
+        
+    if(isset($_SESSION['cart'])) {
+        array_push($_SESSION['cart'], $productObject);
+
+    }
+
+    else {
+        $_SESSION['cart'] = [];
+        array_push($_SESSION['cart'], $productObject);
+    }
 }
 
 ?>
