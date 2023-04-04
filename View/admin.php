@@ -1,6 +1,7 @@
 <?php 
 
 require_once '../src/Model/ProductModel.php';
+require_once '../src/Model/UserModel.php';
 require_once '../src/Routes/product_management.php';
 
 ?>

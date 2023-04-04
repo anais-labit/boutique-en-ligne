@@ -1,9 +1,27 @@
+
 nav {
 
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     margin-bottom: 50px;
+    align-items: center;
 }
+
+    nav ul {
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    nav li {
+        list-style-type: none;
+        text-decoration: none;
+    }
+
+    #searchForm {
+        width: 100%;
+    }
 
 .loginForms {
 
@@ -24,7 +42,7 @@ form {
     justify-content: space-around;
 }
 
-    .productCard {
+    .productCards {
 
         border: solid 1px black;
     }

@@ -1,6 +1,8 @@
 <?php
-session_start();
-require_once '../src/Model/ProductModel.php';
+    require_once '../src/Model/ProductModel.php';
+    require_once '../src/Model/UserModel.php';
+
+    if (session_id() == "") session_start();
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +14,9 @@ require_once '../src/Model/ProductModel.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page d'accueil</title>
     <script defer src="../Controller/register_login.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" 
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="global.css">
 </head>
 

@@ -4,9 +4,18 @@
 class ProductModel
 {
 
-    // private ?int $id;
+    private int $id;
+    private string $product;
+    private int $cat;
+    private int $subCat;
+    private string $description;
+    private string $image;
+    private string $origin;
+    private int $weight;
+    private int $producer;
+    private int $priceKg;
+    private int $priceUnit;
 
-    // private ?string $category;
 
 
     public function __construct()
@@ -34,8 +43,8 @@ class ProductModel
         int $sub_cat,
         string $description,
         string $origin,
-        float $weight,
-        float $price
+        int $weight,
+        int $price
     ) {
 
         $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
@@ -183,5 +192,41 @@ class ProductModel
         // TODO : encode dans le CONTROLLER et non pas le MODEL ?????
         $json = json_encode($results);
         echo $json;
+    }
+
+    public function setObject(int $id):object {
+
+        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+
+        $requestSetProductObject = "SELECT * FROM products WHERE id = :id";
+
+        $querySetProductObject = $SQL->prepare($requestSetProductObject);
+
+        $querySetProductObject->execute([":id" => $id]);
+
+        $resultSetProductObject = $querySetProductObject->fetchAll();
+
+        $this->id = $resultSetProductObject[0][0];
+
+        $this->product = $resultSetProductObject[0][1];
+
+        $this->cat = $resultSetProductObject[0][2];
+
+        $this->subCat = $resultSetProductObject[0][3];
+
+        $this->description = $resultSetProductObject[0][4];
+
+        // $this->image = $resultSetProductObject[0][5];
+
+        $this->origin = $resultSetProductObject[0][6];
+
+        $this->weight = $resultSetProductObject[0][7];
+
+        // $this->producer = $resultSetProductObject[0][8];
+        $resultSetProductObject[0][9] !== null?
+            $this->priceKg = $resultSetProductObject[0][9]: 
+            $this->priceUnit = $resultSetProductObject[0][10];
+
+        return $this;
     }
 }
