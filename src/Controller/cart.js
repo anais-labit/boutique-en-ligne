@@ -3,13 +3,18 @@ const productsDiv =  document.querySelector("#productsDiv");
 
 async function displayAllProducts() {
 
-    const requestOptions = {
+    const allProductsForm = new FormData();
 
-        method: "GET"
+    allProductsForm.append("displayAllProducts", "displayAllProducts");
+
+    const requestAllProductsOptions = {
+
+        method: "POST",
+        body:allProductsForm
 
     }
 
-    const allProducts = await fetch("../src/Routes/product_display.php", requestOptions)
+    const allProducts = await fetch("../src/Routes/product_display.php", requestAllProductsOptions)
 
     const productList = await allProducts.json()
 
@@ -40,8 +45,9 @@ async function displayAllProducts() {
         card.appendChild(addCartButton);
 
         productsDiv.appendChild(card);
-    }
 
+        
+    }
     
 }
 
@@ -53,18 +59,19 @@ async function addCart() {
     addCartForm.append("addOneProductToCart", "addOneProductToCart");
     addCartForm.append("productID", this.value);
 
-    addrequest = {
+    addCartrequest = {
         method:"POST",
-        body:addCartForm
+        body: addCartForm
     }
     
-    const productToAdd = await fetch("../src/Routes/product_management.php", addrequest)
+    const productToAdd = await fetch("../src/Routes/cart_management.php", addCartrequest)
 
     const cartUpdate = await productToAdd.json();
 
-    // alert(cartUpdate.message);
+    if(cartUpdate.success == "true") {
 
-    // addCartForm.append("")
+        location.reload();
+    }
 }
 
 displayAllProducts();

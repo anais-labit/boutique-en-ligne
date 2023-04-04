@@ -2,11 +2,15 @@
 
 require_once '../Model/ProductModel.php';
 
-$products = new ProductModel;
+if(isset($_POST['displayAllProducts'])) {
 
+    $products = new ProductModel;
+    
     $productList = $products->readAllProducts();
-
+    
     echo json_encode($productList);
+
+}
 
 ?>
 
