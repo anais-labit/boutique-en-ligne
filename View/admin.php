@@ -1,17 +1,18 @@
-<?php 
+<?php
 
 require_once '../src/Model/ProductModel.php';
 require_once '../src/Model/UserModel.php';
 // require_once '../Routes/product_management.php';
 // require_once '../src/Routes/product_management.php';
 require_once '../src/Routes/admin_products.php';
-if(session_id() == "") session_start();
+if (session_id() == "") session_start();
 // session_destroy();
 
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,46 +20,50 @@ if(session_id() == "") session_start();
     <link rel="stylesheet" href="global.css">
     <title>Admin Page</title>
 </head>
+
 <body>
 
-<?php include 'header.php'?>
+    <?php include 'header.php' ?>
 
-    <form method="POST" id="addProductForm">
+    <form method="POST" id="addProductForm" enctype="multipart/form-data">
 
         <h1>Ajout de produit</h1>
 
-        <label>Nom du produit</label>
+        <label class="addProdLabel">Nom du produit</label>
         <input type="text" class="addProdInput" name="productName">
 
-        <label>Description</label>
+        <label class="addProdLabel">Description</label>
         <textarea name="productDesc"></textarea>
 
-        <label>Catégorie</label>
+        <label class="addProdLabel">Catégorie</label>
         <select name="productCat">
             <?php displayCategoriesInSelect() ?>
         </select>
 
-        <label>Sous-catégorie</label>
+        <label class="addProdLabel">Sous-catégorie</label>
         <select name="productSubCat">
             <?php displaySubCategoriesInSelect() ?>
         </select>
-        
-        <label>Origine</label>
+
+        <label class="addProdLabel">Image</label>
+        <input type="file" class="addProdInput" name="photo">
+
+        <label class="addProdLabel">Origine</label>
         <input type="text" class="addProdInput" name="productOrigin">
 
-        <label>Poids</label>
+        <label class="addProdLabel">Poids</label>
         <input type="number" class="addProdInput" name="productWeight">
 
-        <label>Producteur</label>
+        <label class="addProdLabel">Producteur</label>
         <select></select>
 
-        <label >Type de prix</label>
+        <label class="addProdLabel">Type de prix</label>
         <select name="productPriceType">
             <option value="price_kg">kg</option>
             <option value="price_unit">unitaire</option>
         </select>
 
-        <label>Prix</label>
+        <label class="addProdLabel">Prix</label>
         <input type="number" class="addProdPrice" name="productPrice">
 
         <button type="submit" name="addProdButton">Ajouter</button>
@@ -69,7 +74,7 @@ if(session_id() == "") session_start();
 
         <h1>Ajout de catégorie</h1>
 
-        <label>Nom</label>
+        <label class="addProdLabel">Nom</label>
         <input type="text" name="categoryName">
 
         <button type="submit" name="addCategoryButton">Ajouter</button>
@@ -80,10 +85,10 @@ if(session_id() == "") session_start();
 
         <h1>Ajout de sous-catégorie</h1>
 
-        <label>Nom</label>
+        <label class="addProdLabel">Nom</label>
         <input type="text" name="subCategoryName">
 
-        <label>Catégorie</label>
+        <label class="addProdLabel">Catégorie</label>
         <select name="subcatCat">
             <?php displayCategoriesinSelect() ?>
         </select>
@@ -91,6 +96,7 @@ if(session_id() == "") session_start();
         <button type="submit" name="addSubCategoryButton">Ajouter</button>
 
     </form>
-    
+
 </body>
+
 </html>

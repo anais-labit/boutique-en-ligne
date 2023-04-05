@@ -36,13 +36,20 @@ function displaySubCategoriesInSelect() {
     }
 }
 
+
+
 if(isset($_POST['addProdButton'])) {
 
     $newproduct = new ProductModel();
 
     $productPriceType = $_POST['productPriceType'];
 
-    $newproduct->createProduct($_POST['productPriceType'], $_POST['productName'], $_POST['productCat'], $_POST['productSubCat'], $_POST['productDesc'], $_POST['productOrigin'], $_POST['productWeight'], $_POST['productPrice']);
+    $targetDir = "../View/products/";
+    $targetFile = $targetDir . basename($_FILES['photo']['name']);
+    move_uploaded_file($_FILES['photo']['tmp_name'], $targetFile);
+    $path = $targetDir . ($_FILES['photo']['name']);
+    
+    $newproduct->createProduct($_POST['productPriceType'], $_POST['productName'], $_POST['productCat'], $_POST['productSubCat'], $_POST['productDesc'], $_POST['productOrigin'], $_POST['productWeight'], $_POST['productPrice'], $path);
 }
 
 if(isset($_POST['addCategoryButton'])) {
@@ -58,6 +65,3 @@ if(isset($_POST['addSubCategoryButton'])) {
 
     $newproduct->createSubCategory($_POST['subCategoryName'], $_POST['subcatCat']);
 }
-
-?>
-
