@@ -2,7 +2,10 @@
 
     // require_once '../Model/ProductModel.php';
 
+use App\Model\CartModel;
 use App\Model\ProductModel;
+// use App\Model\UserModel;
+
 
 is_file("../config.php") == true ?
 require_once '../config.php':
@@ -44,7 +47,19 @@ require_once ROOT_DIR .'/vendor/autoload.php';
         }
     
         else {
+
             $_SESSION['cart'] = [];
+            $_SESSION['cartId'] = [];
+
+            $newCart = new CartModel();
+            
+            $userId = $_SESSION['user']->getId();
+            $userType = $_SESSION['user']->getType();
+
+            $test = $newCart->createCart($userId, $userType);
+            $cartId = $newCart->getLastCartId();
+
+            array_push($_SESSION['cartId'], $cartId);
             array_push($_SESSION['cart'], $productObject);
         }
     

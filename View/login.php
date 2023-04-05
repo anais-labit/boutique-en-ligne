@@ -3,7 +3,6 @@
     require_once '../src/Model/UserModel.php';
 
     if(session_id() == "") session_start();
-    var_dump($_SESSION['user']);
     // session_destroy();
 
     // var_dump($_SESSION['user']['email']);
