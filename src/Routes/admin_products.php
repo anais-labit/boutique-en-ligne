@@ -1,11 +1,18 @@
 <?php
 
-require_once '../src/Model/ProductModel.php';
+use App\Model\ProductModel;
+
+is_file("../config.php") == true ?
+    require_once '../config.php':
+    require_once '../../config.php';
+
+// require_once '../../vendor/autoload.php';
+require_once ROOT_DIR .'/vendor/autoload.php';
 
 
 function displayCategoriesInSelect() {
 
-    $categories = new ProductModel;
+    $categories = new ProductModel();
     $displayCategories = $categories->readAllCategories();
 
     foreach($displayCategories as $key => $value) {
@@ -17,7 +24,7 @@ function displayCategoriesInSelect() {
 
 function displaySubCategoriesInSelect() {
 
-    $subCategories = new ProductModel;
+    $subCategories = new ProductModel();
 
     $displaySubCategories = $subCategories->readAllSubCategories();
     var_dump($displaySubCategories);
@@ -31,7 +38,7 @@ function displaySubCategoriesInSelect() {
 
 if(isset($_POST['addProdButton'])) {
 
-    $newproduct = new ProductModel;
+    $newproduct = new ProductModel();
 
     $productPriceType = $_POST['productPriceType'];
 
@@ -40,14 +47,14 @@ if(isset($_POST['addProdButton'])) {
 
 if(isset($_POST['addCategoryButton'])) {
 
-    $newproduct = new ProductModel;
+    $newproduct = new ProductModel();
 
     $newproduct->createCategory($_POST['categoryName']);
 }
 
 if(isset($_POST['addSubCategoryButton'])) {
 
-    $newproduct = new ProductModel;
+    $newproduct = new ProductModel();
 
     $newproduct->createSubCategory($_POST['subCategoryName'], $_POST['subcatCat']);
 }

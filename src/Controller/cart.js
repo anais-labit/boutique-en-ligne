@@ -17,6 +17,7 @@ async function displayAllProducts() {
     const allProducts = await fetch("../src/Routes/product_display.php", requestAllProductsOptions)
 
     const productList = await allProducts.json()
+    console.log(productList);
 
     for(let i in productList) {
 

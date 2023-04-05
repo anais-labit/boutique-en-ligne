@@ -1,6 +1,15 @@
 <?php
 
-    require_once '../Model/ProductModel.php';
+    // require_once '../Model/ProductModel.php';
+
+use App\Model\ProductModel;
+
+is_file("../config.php") == true ?
+require_once '../config.php':
+require_once '../../config.php';
+
+// require_once '../../vendor/autoload.php';
+require_once ROOT_DIR .'/vendor/autoload.php';
     
     if(session_id() == "") session_start();
 
@@ -22,7 +31,7 @@
 
     if(isset($_POST['addOneProductToCart'])) {
 
-        $productToCart = new ProductModel;
+        $productToCart = new ProductModel();
     
         $productObject = $productToCart->setObject($_POST["productID"]);
     

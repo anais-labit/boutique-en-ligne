@@ -68,8 +68,8 @@ class ProductModel
         //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
         $requestCreateProduct = "INSERT INTO products
-        (product, id_cat, id_sub_cat, description, origin, weight, {$priceType}) 
-        VALUES (:product, :id_cat, :id_sub_cat, :description, :origin, :weight, :{$priceType})";
+        (product, id_cat, id_sub_cat, description, origin, weight_gr, {$priceType}) 
+        VALUES (:product, :id_cat, :id_sub_cat, :description, :origin, :weight_gr, :{$priceType})";
 
         $queryCreateProduct = $SQL->prepare($requestCreateProduct);
 
@@ -79,7 +79,7 @@ class ProductModel
             ':id_sub_cat' => $sub_cat,
             ':description' => $description,
             ':origin' => $origin,
-            ':weight' => $weight,
+            ':weight_gr' => $weight,
             $priceType => $price
         ]);
     }
