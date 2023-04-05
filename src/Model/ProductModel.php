@@ -64,7 +64,8 @@ class ProductModel
         string $description,
         string $origin,
         int $weight,
-        int $price
+        int $price,
+        string $path
     ) {
 
         $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
@@ -72,8 +73,8 @@ class ProductModel
         //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
         $requestCreateProduct = "INSERT INTO products
-        (product, id_cat, id_sub_cat, description, origin, weight_gr, {$priceType}) 
-        VALUES (:product, :id_cat, :id_sub_cat, :description, :origin, :weight_gr, :{$priceType})";
+        (product, id_cat, id_sub_cat, description, image, origin, weight_gr, {$priceType}) 
+        VALUES (:product, :id_cat, :id_sub_cat, :description, :image, :origin, :weight_gr, :{$priceType})";
 
         $queryCreateProduct = $SQL->prepare($requestCreateProduct);
 
@@ -82,6 +83,7 @@ class ProductModel
             ':id_cat' => $cat,
             ':id_sub_cat' => $sub_cat,
             ':description' => $description,
+            ':image' => $path,
             ':origin' => $origin,
             ':weight_gr' => $weight,
             $priceType => $price
