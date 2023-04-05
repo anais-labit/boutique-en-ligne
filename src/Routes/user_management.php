@@ -1,6 +1,20 @@
 <?php
 
-require_once '../Controller/AuthController.php';
+// require_once '../Controller/AuthController.php';
+
+use App\Controller\AuthController;
+is_file("../config.php") == true ?
+    require_once '../config.php':
+    require_once '../../config.php';
+
+
+
+// require_once '../vendor/autoload.php';
+// if(session_id() == "") session_start();
+require_once ROOT_DIR .'/vendor/autoload.php';
+// require_once '../../vendor/autoload.php';
+
+
 
 // if(session_id() == "") session_start();
 
@@ -18,14 +32,14 @@ if(isset($_POST['registerEmail'])
 
     if(isset($_POST['registerLastName']) && isset($_POST['registerFirstName']) && $_POST['registerCompany'] == null && $_POST['registerType'] == 1) {
 
-        $applicant = new AuthController;
+        $applicant = new AuthController();
 
         echo $applicant->register(1, $_POST['registerFirstName'], $_POST['registerLastName'], $_POST['registerCompany'], $_POST['registerEmail'], $_POST['registerAdress'], $_POST['registerZipCode'], $_POST['registerCity'], $_POST['registerPassword']);
     }
 
     if(isset($_POST['registerCompany']) && $_POST['registerFirstName'] == null && $_POST['registerLastName'] == null && $_POST['registerType'] == 2) {
         
-        $applicant = new AuthController;
+        $applicant = new AuthController();
 
         echo $applicant->register(2, $_POST['registerFirstName'], $_POST['registerLastName'], $_POST['registerCompany'], $_POST['registerEmail'], $_POST['registerAdress'], $_POST['registerZipCode'], $_POST['registerCity'], $_POST['registerPassword']);
     }
@@ -34,7 +48,7 @@ if(isset($_POST['registerEmail'])
 
 if(isset($_POST['loginEmail']) && isset($_POST['loginPassword'])) {
 
-    $newAuth = new AuthController;
+    $newAuth = new AuthController();
 
     $connect = $newAuth->login($_POST['loginEmail'], $_POST['loginPassword']);
 
