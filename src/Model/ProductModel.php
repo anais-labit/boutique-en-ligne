@@ -1,4 +1,5 @@
 <?php
+namespace App\Model;
 
 
 class ProductModel
@@ -62,23 +63,23 @@ class ProductModel
         int $price
     ) {
 
-        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
-        //$SQL = new PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
+        //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
-        $requestCreateUser = "INSERT INTO products
-        (product, id_cat, id_sub_cat, description, origin, weight, {$priceType}) 
-        VALUES (:product, :id_cat, :id_sub_cat, :description, :origin, :weight, :{$priceType})";
+        $requestCreateProduct = "INSERT INTO products
+        (product, id_cat, id_sub_cat, description, origin, weight_gr, {$priceType}) 
+        VALUES (:product, :id_cat, :id_sub_cat, :description, :origin, :weight_gr, :{$priceType})";
 
-        $queryCreateUser = $SQL->prepare($requestCreateUser);
+        $queryCreateProduct = $SQL->prepare($requestCreateProduct);
 
-        $queryCreateUser->execute([
+        $queryCreateProduct->execute([
             'product' => $product,
             ':id_cat' => $cat,
             ':id_sub_cat' => $sub_cat,
             ':description' => $description,
             ':origin' => $origin,
-            ':weight' => $weight,
+            ':weight_gr' => $weight,
             $priceType => $price
         ]);
     }
@@ -86,9 +87,9 @@ class ProductModel
 
     public function createCategory(string $category) {
 
-        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
-        //$SQL = new PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
+        //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
         $requestCreateCategory = "INSERT INTO categories (category) VALUES (:category)";
 
@@ -101,9 +102,9 @@ class ProductModel
 
     public function createSubCategory(string $subCategory, int $idCategory) {
 
-        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
-        //$SQL = new PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
+        //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
         $requestCreateSubCategory = "INSERT INTO sub_categories (sub_category, id_category) VALUES (:sub_category, :id_category)";
 
@@ -119,7 +120,7 @@ class ProductModel
     public function readAllProducts(): array
     {
 
-        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
         $requestProductsInfos = "SELECT * FROM products";
 
@@ -137,7 +138,7 @@ class ProductModel
     public function readOneProduct(string $product): array
     {
 
-        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
         $requestCheckProduct = "SELECT * FROM products WHERE product = :product";
 
@@ -154,7 +155,7 @@ class ProductModel
     public function readAllCategories():array
     {
 
-        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
         $requestFetchAllCategories = "SELECT * FROM categories";
 
@@ -171,7 +172,7 @@ class ProductModel
     public function readAllSubCategories():array
     {
 
-        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
         $requestFetchAllSubCategories = "SELECT * FROM sub_categories";
 
@@ -197,12 +198,12 @@ class ProductModel
 
     public function catchProductInfos($word)
     {
-        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
         $req = "SELECT * FROM products WHERE product LIKE '$word%'";
 
         $catchProduct = $SQL->prepare($req);
         $catchProduct->execute();
-        $results = $catchProduct->fetchAll(PDO::FETCH_ASSOC);
+        $results = $catchProduct->fetchAll(\PDO::FETCH_ASSOC);
 
         // TODO : encode dans le CONTROLLER et non pas le MODEL ?????
         $json = json_encode($results);
@@ -211,7 +212,7 @@ class ProductModel
 
     public function setObject(int $id):object {
 
-        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
         $requestSetProductObject = "SELECT * FROM products WHERE id = :id";
 

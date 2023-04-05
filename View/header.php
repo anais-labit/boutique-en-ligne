@@ -62,7 +62,7 @@ var_dump($_SESSION['cart']);
 
         <?php endif ?>
 
-        <li id="test">
+        <li id="cartContainer">
             <a href="cart.php">
                 <i id="cartIcon" class="fa-solid fa-cart-shopping"></i>
             </a>
@@ -84,6 +84,6 @@ var_dump($_SESSION['cart']);
 
 </body>
 
-<script defer src="../src/Controller/header_cart.js"></script>
+<script defer src="../src/Controller/cart.js"></script>
 
 <script src="../src/Controller/auto_complete.js" defer></script>

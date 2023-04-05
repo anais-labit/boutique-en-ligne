@@ -1,6 +1,6 @@
 <?php
 
-// namespace App//Usermodel;
+namespace App\Model;
 
 class UserModel {
 
@@ -155,9 +155,9 @@ class UserModel {
     public function createUser(int $type, string $firstName, string $lastName, string $email, 
     string $address, string $CP, string $city,string $password) {
 
-        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
 
-        //$SQL = new PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
+        //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
         $request_create_user = "INSERT INTO users
         (type, firstname, lastname, email, address, zip_code, city, password, verified) 
@@ -181,9 +181,9 @@ class UserModel {
     public function createCompany(int $type, string $company, string $email, 
     string $address, string $CP, string $city,string $password) {
 
-        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
 
-        //$SQL = new PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
+        //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
         $request_create_company = "INSERT INTO users
         (type, company, email, address, zip_code, city, password, verified) 
@@ -207,7 +207,7 @@ class UserModel {
 
     public function readAllUsers():array {
 
-        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
 
         $requestUsersInfos = "SELECT * FROM users";
 
@@ -225,7 +225,7 @@ class UserModel {
 
     public function readOneUser(string $email):array {
 
-        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
 
         $requestCheckEmail = "SELECT * FROM users WHERE email = :email";
 
@@ -253,7 +253,7 @@ class UserModel {
 
     public function setSession(string $email):object {
 
-        $SQL = new PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
 
         $requestUserInfo = "SELECT * FROM users WHERE email = :email";
 

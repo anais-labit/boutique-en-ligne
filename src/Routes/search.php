@@ -1,12 +1,17 @@
 <?php
 
-define('ANAIS_ROOT_DIR', '/var/www/html/boutique-en-ligne/src');
+use App\Model\ProductModel;
 
-require_once ANAIS_ROOT_DIR . '/Model/ProductModel.php';
+is_file("../config.php") == true ?
+    require_once '../config.php':
+    require_once '../../config.php';
+
+// require_once '../../vendor/autoload.php';
+require_once ROOT_DIR .'/vendor/autoload.php';
 
 if (isset($_GET['field'])) {
     $word = $_GET['field'];
-    $search = new ProductModel();
+    $search = new ProductModel;
     $search->catchProductInfos($word);
     // var_dump($word);
 }

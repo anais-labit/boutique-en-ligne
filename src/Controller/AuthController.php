@@ -1,8 +1,13 @@
 <?php
 
-require_once '../Model/UserModel.php';
+// require_once '../Model/UserModel.php';
 // if(session_id() == "") session_start();
 
+namespace App\Controller;
+
+use App\Model\UserModel;
+
+require_once '../../vendor/autoload.php';
 class AuthController {
 
 
@@ -15,7 +20,7 @@ class AuthController {
     public function register(int $type, string $firstName, string $lastName, string $company, string $email, 
     string $adress, int $CP, string $city, string $password) {
 
-        $applicant = new UserModel;
+        $applicant = new UserModel();
 
         $checkExistingEmail = $applicant->readOneUser($email);
 
