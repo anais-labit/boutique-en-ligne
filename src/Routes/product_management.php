@@ -1,12 +1,31 @@
 <?php 
 
-require_once '../Model/ProductModel.php';
+use App\Model\ProductModel;
+// var_dump(is_file("../config.php"));
+// var_dump(is_file("../../config.php"));
+
+// if(is_file("../config.php") == true) {
+//     require_once '../config.php';
+//     echo ROOT_DIR;
+
+
+// }    
+
+is_file("../config.php") == true ?
+    require_once '../config.php':
+    require_once '../../config.php';
+
+
+
+// require_once '../vendor/autoload.php';
 // if(session_id() == "") session_start();
+require_once ROOT_DIR .'/vendor/autoload.php';
+
 
 
 function displayCategoriesInSelect() {
 
-    $categories = new ProductModel;
+    $categories = new ProductModel();
     $displayCategories = $categories->readAllCategories();
 
     foreach($displayCategories as $key => $value) {
@@ -18,7 +37,7 @@ function displayCategoriesInSelect() {
 
 function displaySubCategoriesInSelect() {
 
-    $subCategories = new ProductModel;
+    $subCategories = new ProductModel();
 
     $displaySubCategories = $subCategories->readAllSubCategories();
     var_dump($displaySubCategories);

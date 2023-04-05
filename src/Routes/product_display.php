@@ -1,8 +1,10 @@
 <?php
+use App\Model\ProductModel;
+require_once '../../vendor/autoload.php';
 
-require_once '../Model/ProductModel.php';
+// require_once '../Model/ProductModel.php';
 
-$products = new ProductModel;
+$products = new ProductModel();
 
     $productList = $products->readAllProducts();
 
