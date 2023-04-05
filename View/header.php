@@ -16,7 +16,9 @@ if (isset($_POST['disconnect'])) {
 }
 
 
-var_dump($_SESSION['cart']);
+// var_dump($_SESSION['cart']);
+// var_dump($_SESSION);
+var_dump($_SESSION['cartId']);
 ?>
 
 <nav>
