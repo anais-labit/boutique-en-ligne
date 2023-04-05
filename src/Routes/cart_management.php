@@ -1,6 +1,6 @@
 <?php
 
-    // require_once '../Model/ProductModel.php';
+// require_once '../Model/ProductModel.php';
 
 use App\Model\CartModel;
 use App\Model\ProductModel;
@@ -8,62 +8,63 @@ use App\Model\ProductModel;
 
 
 is_file("../config.php") == true ?
-require_once '../config.php':
-require_once '../../config.php';
+    require_once '../config.php' :
+    require_once '../../config.php';
 
 // require_once '../../vendor/autoload.php';
-require_once ROOT_DIR .'/vendor/autoload.php';
-    
-    if(session_id() == "") session_start();
+require_once ROOT_DIR . '/vendor/autoload.php';
 
-    if(isset($_POST['displayHeaderCart'])) {
+if (session_id() == "") session_start();
 
-        $productListForJs = [];
+if (isset($_POST['displayHeaderCart'])) {
 
-        foreach($_SESSION['cart'] as $index => $product) {
+    $productListForJs = [];
 
-            array_push($productListForJs, $product->getName());
-        }
+    foreach ($_SESSION['cart'] as $index => $product) {
 
-        echo json_encode(["result" => $productListForJs, "count" => count($productListForJs)]);
-
-        // echo json_encode($_SESSION['cart']);
+        array_push($productListForJs, $product->getName());
     }
 
+    echo json_encode(["result" => $productListForJs, "count" => count($productListForJs)]);
+
+    // echo json_encode($_SESSION['cart']);
+}
 
 
-    if(isset($_POST['addOneProductToCart'])) {
 
-        $productToCart = new ProductModel();
-    
-        $productObject = $productToCart->setObject($_POST["productID"]);
-    
-        // isset($_SESSION['cart']) ?
-        //     array_push($_SESSION['cart'], $productObject):
-        //     $_SESSION['cart'] = [] && array_push($_SESSION['cart'], $productObject);
-            
-        if(isset($_SESSION['cart'])) {
-            array_push($_SESSION['cart'], $productObject);
-        }
-    
-        else {
+if (isset($_POST['addOneProductToCart'])) {
 
-            $_SESSION['cart'] = [];
-            $_SESSION['cartId'] = [];
+    $userId = $_SESSION['user']->getId();
+    $userType = $_SESSION['user']->getType();
 
-            $newCart = new CartModel();
-            
-            $userId = $_SESSION['user']->getId();
-            $userType = $_SESSION['user']->getType();
 
-            $test = $newCart->createCart($userId, $userType);
-            $cartId = $newCart->getLastCartId();
+    $productToCart = new ProductModel();
 
-            array_push($_SESSION['cartId'], $cartId);
-            array_push($_SESSION['cart'], $productObject);
-        }
-    
-        echo json_encode(["success" => "true", "message" => "Produit ajouté avec succès"]);
+    $productObject = $productToCart->setObject($_POST["productID"]);
+
+    // isset($_SESSION['cart']) ?
+    //     array_push($_SESSION['cart'], $productObject):
+    //     $_SESSION['cart'] = [] && array_push($_SESSION['cart'], $productObject);
+
+    if (isset($_SESSION['cart'])) {
+        array_push($_SESSION['cart'], $productObject);
+        $productObject->insertProduct($userId, ($_POST['productID']), ($_SESSION['cartId'][0]));
+    } else {
+
+        $_SESSION['cart'] = [];
+        $_SESSION['cartId'] = [];
+
+        $newCart = new CartModel();
+
+
+
+        $test = $newCart->createCart($userId, $userType);
+        $cartId = $newCart->getLastCartId();
+
+        array_push($_SESSION['cartId'], $cartId);
+        array_push($_SESSION['cart'], $productObject);
+        $productObject->insertProduct($userId, ($_POST['productID']), ($_SESSION['cartId'][0]));
     }
 
-?>
+    echo json_encode(["success" => "true", "message" => "Produit ajouté avec succès"]);
+}
