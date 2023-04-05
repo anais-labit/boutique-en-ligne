@@ -53,19 +53,22 @@ var_dump($_SESSION['cart']);
         <?php else : ?>
 
             <li>
-
                 <a href="login.php">Connexion</a>
             </li>
+
             <li>
                 <a href="register.php">Inscription</a>
-
             </li>
 
         <?php endif ?>
-        <li>
+
+        <li id="test">
             <a href="cart.php">
-                <i class="fa-solid fa-cart-shopping"></i>
+                <i id="cartIcon" class="fa-solid fa-cart-shopping"></i>
             </a>
+            <div id="headerCartDiv">
+
+            </div>
         </li>
     </ul>
 
@@ -80,5 +83,7 @@ var_dump($_SESSION['cart']);
 
 
 </body>
+
+<script defer src="../src/Controller/header_cart.js"></script>
 
 <script src="../src/Controller/auto_complete.js" defer></script>

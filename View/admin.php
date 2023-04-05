@@ -2,7 +2,11 @@
 
 require_once '../src/Model/ProductModel.php';
 require_once '../src/Model/UserModel.php';
-require_once '../src/Routes/product_management.php';
+// require_once '../Routes/product_management.php';
+// require_once '../src/Routes/product_management.php';
+require_once '../src/Routes/admin_products.php';
+if(session_id() == "") session_start();
+// session_destroy();
 
 ?>
 

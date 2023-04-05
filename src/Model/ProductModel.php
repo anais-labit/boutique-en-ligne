@@ -36,6 +36,21 @@ class ProductModel
     //     return $this->id;
     // }
 
+    public function setId(int $id) {
+
+        $this->id = $id;
+    }
+
+    public function setName(string $product) {
+
+        $this->product = $product;
+    }
+
+    public function getName():string {
+
+        return $this->product;
+    }
+
 
     public function createProduct(
         string $priceType,
