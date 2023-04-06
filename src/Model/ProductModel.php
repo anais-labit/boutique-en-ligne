@@ -16,6 +16,7 @@ class ProductModel
     private int $producer;
     private int $priceKg;
     private int $priceUnit;
+    private int $quantity;
 
 
 
@@ -39,6 +40,16 @@ class ProductModel
     public function setId(int $id) {
 
         $this->id = $id;
+    }
+
+    public function setQuantity(int $quantity) {
+
+        $this->quantity = $quantity;
+    }
+
+    public function getQuantity():int {
+
+        return $this->quantity;
     }
 
     public function setName(string $product) {
