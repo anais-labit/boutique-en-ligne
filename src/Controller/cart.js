@@ -1,3 +1,4 @@
+console.log(location.pathname);
 
 const productsDiv =  document.querySelector("#productsDiv");
 const cartIcon = document.querySelector("#cartIcon");
@@ -10,7 +11,6 @@ cartContainer.addEventListener("mouseover", showHeaderCart);
 cartContainer.addEventListener("mouseout", hideHeaderCart);
 
 async function displayAllProducts() {
-
     const allProductsForm = new FormData();
 
     allProductsForm.append("displayAllProducts", "displayAllProducts");
@@ -46,6 +46,11 @@ async function displayAllProducts() {
             cardPrice.innerHTML = productList[i].price_unit + " €/unité";
         card.appendChild(cardPrice)
 
+        const addQuantityButton = document.createElement("input");
+        addQuantityButton.setAttribute("type", "number");
+        addQuantityButton.setAttribute("id", `quantity${productList[i].id}`)
+        card.appendChild(addQuantityButton);
+
         const addCartButton =  document.createElement("button");
         addCartButton.setAttribute("value", productList[i].id);
         addCartButton.innerHTML = "Ajouter";
@@ -60,11 +65,18 @@ async function displayAllProducts() {
 
 
 async function addCart() {
+    console.log(this.value);
 
     const addCartForm = new FormData();
+    const quantityToAdd = document.querySelector(`#quantity${this.value}`);
+
 
     addCartForm.append("addOneProductToCart", "addOneProductToCart");
     addCartForm.append("productID", this.value);
+    addCartForm.append("quantity", quantityToAdd.value);
+
+    console.log(quantityToAdd.value);
+
 
     addCartrequest = {
         method:"POST",
@@ -99,7 +111,7 @@ async function fetchHeaderCart() {
 
    const result = await searchHeaderCart.json();
 
-   console.log(result);
+//    console.log(result);
 
    return result
 
@@ -109,29 +121,31 @@ async function displayHeaderCart() {
 
     const cartList = await fetchHeaderCart();
 
-    headerCartDiv.innerHTML = "";
+    if(cartList !== null) {
 
-    for(let i in cartList.list) {
-
-        const cartLine = document.createElement("p");
-
-        cartLine.innerHTML= cartList.list[i].name + " " + cartList.list[i].weight;
-
-        headerCartDiv.appendChild(cartLine);
-
+        headerCartDiv.innerHTML = "";
+    
+        for(let i in cartList.list) {
+    
+            const cartLine = document.createElement("p");
+    
+            cartLine.innerHTML= cartList.list[i].name + " " + cartList.list[i].quantity;
+    
+            headerCartDiv.appendChild(cartLine);
+    
+       }
+    
+       const goToCart = document.createElement("a");
+       goToCart.setAttribute("href", "cart.php");
        
-
-   }
-
-   const goToCart = document.createElement("a");
-   goToCart.setAttribute("href", "cart.php");
-   
-   const goToCartButton = document.createElement("button");
-   goToCartButton.innerHTML = "Voir mon panier";
-
-   goToCart.appendChild(goToCartButton);
-   headerCartDiv.appendChild(goToCart);
+       const goToCartButton = document.createElement("button");
+       goToCartButton.innerHTML = "Voir mon panier";
+    
+       goToCart.appendChild(goToCartButton);
+       headerCartDiv.appendChild(goToCart);
+    }
 }
+
 
 function showHeaderCart() {
 
@@ -153,7 +167,8 @@ async function showCartNumber() {
 
 }
 
-displayAllProducts();
+
+if(location.pathname == "/boutique-en-ligne/View/products.php") displayAllProducts();
 showCartNumber();
 displayHeaderCart();
 
