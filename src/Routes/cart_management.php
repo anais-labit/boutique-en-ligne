@@ -33,7 +33,7 @@ if (isset($_POST['displayHeaderCart'])) {
         $count++;
     }
 
-    echo json_encode(["list" => $productListForJs, "count" => count($productListForJs)]);
+    echo json_encode(["list" => $productListForJs, "count" => $count]);
 
     // echo json_encode($_SESSION['cart']);
 }

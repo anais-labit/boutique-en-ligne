@@ -65,7 +65,6 @@ async function displayAllProducts() {
 
 
 async function addCart() {
-    console.log(this.value);
 
     const addCartForm = new FormData();
     const quantityToAdd = document.querySelector(`#quantity${this.value}`);
@@ -74,9 +73,6 @@ async function addCart() {
     addCartForm.append("addOneProductToCart", "addOneProductToCart");
     addCartForm.append("productID", this.value);
     addCartForm.append("quantity", quantityToAdd.value);
-
-    console.log(quantityToAdd.value);
-
 
     addCartrequest = {
         method:"POST",
