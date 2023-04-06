@@ -2,7 +2,8 @@
 
 namespace App\Model;
 
-class UserModel {
+class UserModel
+{
 
     private ?int $id;
 
@@ -29,133 +30,162 @@ class UserModel {
 
     public function __construct()
     {
-        
     }
 
 
-    public function setId(int $id) {
+    public function setId(int $id)
+    {
 
-        $this ->id = $id;
+        $this->id = $id;
     }
 
-    public function getId():int {
-        
+    public function getId(): int
+    {
+
         return $this->id;
     }
 
-    public function setType(int $type) {
+    public function setType(int $type)
+    {
 
-        $this ->type = $type;
+        $this->type = $type;
     }
 
-    public function getType():int {
-        
+    public function getType(): int
+    {
+
         return $this->type;
     }
 
 
-    public function setFirstName(string $firstName) {
+    public function setFirstName(string $firstName)
+    {
 
-        $this ->firstName = $firstName;
+        $this->firstName = $firstName;
     }
 
 
-    public function getFirstName():string {
-        
+    public function getFirstName(): string
+    {
+
         return $this->firstName;
     }
 
 
 
-    public function setLastName(string $lastName) {
+    public function setLastName(string $lastName)
+    {
 
-        $this ->lastName = $lastName;
+        $this->lastName = $lastName;
     }
 
-    public function getLastName():string {
-        
+    public function getLastName(): string
+    {
+
         return $this->lastName;
     }
 
 
-    public function setCompany(string $company) {
+    public function setCompany(string $company)
+    {
 
-        $this ->company = $company;
+        $this->company = $company;
     }
 
-    public function getCompany():string {
-        
+    public function getCompany(): string
+    {
+
         return $this->company;
     }
 
 
 
-    public function setEmail(string $email) {
+    public function setEmail(string $email)
+    {
 
         $this->email = $email;
     }
 
-    public function getEmail():string {
-        
+    public function getEmail(): string
+    {
+
         return $this->email;
     }
 
-    public function setAddress(string $address) {
+    public function setAddress(string $address)
+    {
 
         $this->address = $address;
     }
 
-    public function getAddress():string {
-        
+    public function getAddress(): string
+    {
+
         return $this->address;
     }
 
-    public function setZipCode(int $zipCode) {
+    public function setZipCode(int $zipCode)
+    {
 
-        $this ->zipCode = $zipCode;
+        $this->zipCode = $zipCode;
     }
 
-    public function getZipCode():int {
-        
+    public function getZipCode(): int
+    {
+
         return $this->zipCode;
     }
 
-    public function setCity(string $city) {
+    public function setCity(string $city)
+    {
 
         $this->city = $city;
     }
 
-    public function getCity():string {
-        
+    public function getCity(): string
+    {
+
         return $this->city;
     }
 
-    public function setAvatar(int $avatar) {
+    public function setAvatar(int $avatar)
+    {
 
-        $this ->avatar = $avatar;
+        $this->avatar = $avatar;
     }
 
-    public function getAvatar():int {
-        
+    public function getAvatar(): int
+    {
+
         return $this->avatar;
     }
 
-    public function setVerified(string $verified) {
+    public function setVerified(string $verified)
+    {
 
         $this->verified = $verified;
     }
 
-    public function getVerified():string {
-        
+    public function getVerified(): string
+    {
+
         return $this->verified;
     }
 
 
 
-    public function createUser(int $type, string $firstName, string $lastName, string $email, 
-    string $address, string $CP, string $city,string $password) {
+    public function createUser(
+        int $type,
+        string $firstName,
+        string $lastName,
+        string $email,
+        string $address,
+        string $CP,
+        string $city,
+        string $password
+    ) {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
         //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
@@ -178,10 +208,17 @@ class UserModel {
         ));
     }
 
-    public function createCompany(int $type, string $company, string $email, 
-    string $address, string $CP, string $city,string $password) {
+    public function createCompany(
+        int $type,
+        string $company,
+        string $email,
+        string $address,
+        string $CP,
+        string $city,
+        string $password
+    ) {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
         //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
@@ -205,9 +242,10 @@ class UserModel {
 
 
 
-    public function readAllUsers():array {
+    public function readAllUsers(): array
+    {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
         $requestUsersInfos = "SELECT * FROM users";
 
@@ -218,14 +256,14 @@ class UserModel {
         $resultUsersInfos = $queryUsersInfos->fetchAll();
 
         return $resultUsersInfos;
-        
     }
 
 
 
-    public function readOneUser(string $email):array {
+    public function readOneUser(string $email): array
+    {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
         $requestCheckEmail = "SELECT * FROM users WHERE email = :email";
 
@@ -240,20 +278,49 @@ class UserModel {
 
 
 
-    public function updateUser() {
+    public function updateUser(
+        int $id,
+        string $firstName,
+        string $lastName,
+        string $email,
+        string $address,
+        int $CP,
+        string $city,
+        string $password,
+    ) {
 
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
+        $request_update_user = "UPDATE users SET 
+        firstname = :firstname, lastname = :lastname, email = :email, address = :address, zip_code = :zip_code, city = :city, password = :password
+        WHERE id = :id";
+
+        $query_update_user = $SQL->prepare($request_update_user);
+
+        $query_update_user->execute(array(
+            ':firstname' => $firstName,
+            ':lastname' => $lastName,
+            ':email' => $email,
+            ':address' => $address,
+            ':zip_code' => $CP,
+            ':city' => $city,
+            ':password' => password_hash($password, PASSWORD_DEFAULT),
+            'id' => $id
+        ));
+
+        if ($query_update_user) return 'ye';
     }
 
 
-    public function deleteUser() {
-
+    public function deleteUser()
+    {
     }
 
 
-    public function setSession(string $email):object {
+    public function setSession(string $email): object
+    {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root','');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
         $requestUserInfo = "SELECT * FROM users WHERE email = :email";
 
@@ -267,12 +334,10 @@ class UserModel {
 
         $this->type = $resultUserInfo[0][1];
 
-        if($resultUserInfo[0][1] == 2) {
+        if ($resultUserInfo[0][1] == 2) {
 
             $this->company = $resultUserInfo[0][4];
-        }
-
-        else {
+        } else {
 
             $this->firstName = $resultUserInfo[0][2];
 
@@ -295,5 +360,3 @@ class UserModel {
         return $this;
     }
 }
-
-?>
