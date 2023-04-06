@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Model;
 
 
@@ -37,24 +36,25 @@ class ProductModel
     //     return $this->id;
     // }
 
-    public function setId(int $id)
-    {
+    public function setId(int $id) {
 
         $this->id = $id;
     }
 
-    public function setName(string $product)
-    {
+    public function setName(string $product) {
 
         $this->product = $product;
     }
 
-    public function getName(): string
-    {
+    public function getName():string {
 
         return $this->product;
     }
 
+    public function getWeight():int {
+
+        return $this->weight;
+    }
 
     public function createProduct(
         string $priceType,
@@ -64,8 +64,7 @@ class ProductModel
         string $description,
         string $origin,
         int $weight,
-        int $price,
-        string $path
+        int $price
     ) {
 
         $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
@@ -73,8 +72,8 @@ class ProductModel
         //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
         $requestCreateProduct = "INSERT INTO products
-        (product, id_cat, id_sub_cat, description, image, origin, weight_gr, {$priceType}) 
-        VALUES (:product, :id_cat, :id_sub_cat, :description, :image, :origin, :weight_gr, :{$priceType})";
+        (product, id_cat, id_sub_cat, description, origin, weight_gr, {$priceType}) 
+        VALUES (:product, :id_cat, :id_sub_cat, :description, :origin, :weight_gr, :{$priceType})";
 
         $queryCreateProduct = $SQL->prepare($requestCreateProduct);
 
@@ -83,7 +82,6 @@ class ProductModel
             ':id_cat' => $cat,
             ':id_sub_cat' => $sub_cat,
             ':description' => $description,
-            ':image' => $path,
             ':origin' => $origin,
             ':weight_gr' => $weight,
             $priceType => $price
@@ -91,8 +89,7 @@ class ProductModel
     }
 
 
-    public function createCategory(string $category)
-    {
+    public function createCategory(string $category) {
 
         $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
@@ -103,11 +100,11 @@ class ProductModel
         $queryCreateCategory = $SQL->prepare($requestCreateCategory);
 
         $queryCreateCategory->execute([':category' => $category]);
+
     }
 
 
-    public function createSubCategory(string $subCategory, int $idCategory)
-    {
+    public function createSubCategory(string $subCategory, int $idCategory) {
 
         $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
@@ -121,6 +118,7 @@ class ProductModel
             ':sub_category' => $subCategory,
             'id_category' => $idCategory
         ]);
+
     }
 
     public function readAllProducts(): array
@@ -158,7 +156,7 @@ class ProductModel
     }
 
 
-    public function readAllCategories(): array
+    public function readAllCategories():array
     {
 
         $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
@@ -175,7 +173,7 @@ class ProductModel
     }
 
 
-    public function readAllSubCategories(): array
+    public function readAllSubCategories():array
     {
 
         $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
@@ -216,8 +214,7 @@ class ProductModel
         echo $json;
     }
 
-    public function setObject(int $id): object
-    {
+    public function setObject(int $id):object {
 
         $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
@@ -246,24 +243,10 @@ class ProductModel
         $this->weight = $resultSetProductObject[0][7];
 
         // $this->producer = $resultSetProductObject[0][8];
-        $resultSetProductObject[0][9] !== null ?
-            $this->priceKg = $resultSetProductObject[0][9] :
+        $resultSetProductObject[0][9] !== null?
+            $this->priceKg = $resultSetProductObject[0][9]: 
             $this->priceUnit = $resultSetProductObject[0][10];
 
         return $this;
-    }
-
-    public function insertProduct(int $idUser, int $idProduct, int $idCart)
-    {
-
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-
-        $requestInsertProduct = "INSERT INTO cart_products (id_user, id_product, id_cart) VALUES (:id_user, :id_product, :id_cart)";
-        $queryInsertProduct = $SQL->prepare($requestInsertProduct);
-        $queryInsertProduct->execute([
-            ':id_user' => $idUser,
-            ':id_product' => $idProduct,
-            ':id_cart' => (int)$idCart
-        ]);
     }
 }
