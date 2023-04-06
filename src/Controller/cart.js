@@ -32,6 +32,12 @@ async function displayAllProducts() {
         card.setAttribute("class", "productCards");
         card.setAttribute("id", `card${productList[i].id}`);
 
+        const cardImage = document.createElement("img");
+        cardImage.setAttribute("src", productList[i].image);
+        cardImage.setAttribute("width", "300px");
+        cardImage.setAttribute("height", "300px");
+        card.appendChild(cardImage);
+
         const cardTitle = document.createElement("p");
         cardTitle.innerHTML = productList[i].product;
         card.appendChild(cardTitle);
@@ -42,8 +48,8 @@ async function displayAllProducts() {
 
         const cardPrice =  document.createElement("p");
         productList[i].price_kg !== null ?
-            cardPrice.innerHTML = productList[i].price_kg + " €/kg":
-            cardPrice.innerHTML = productList[i].price_unit + " €/unité";
+            cardPrice.innerHTML = (productList[i].price_kg/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + "/kg":
+            cardPrice.innerHTML = (productList[i].price_unit/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + "/unité";
         card.appendChild(cardPrice)
 
         const addQuantityButton = document.createElement("input");

@@ -49,7 +49,7 @@ if (isset($_POST['addOneProductToCart'])) {
     $productToCart = new ProductModel();
 
     $productObject = $productToCart->setObject($_POST["productID"]);
-    $productObject->setQuantity($_POST['quantity']);
+    $productObject->setQuantity((int)$_POST['quantity']);
 
     // isset($_SESSION['cart']) ?
     //     array_push($_SESSION['cart'], $productObject):

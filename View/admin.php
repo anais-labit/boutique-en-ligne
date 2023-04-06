@@ -97,6 +97,23 @@ if (session_id() == "") session_start();
 
     </form>
 
+    <form method="POST" id="addProducerForm" enctype="multipart/form-data">
+
+        <h1>Ajout de producteur</h1>
+
+        <label class="addProdLabel">Nom</label>
+        <input type="text" name="producerName">
+
+        <label class="addProdLabel">Description</label>
+        <textarea name="producerDesc"></textarea>
+
+        <label class="addProdLabel">Image</label>
+        <input type="file" class="addProdInput" name="producerPhoto">
+
+        <button type="submit" name="addProducerButton">Ajouter</button>
+
+    </form>
+
 </body>
 
 </html>

@@ -62,6 +62,16 @@ class ProductModel
         return $this->product;
     }
 
+    public function setImage(string $image) {
+
+        $this->image = $image;
+    }
+
+    public function getImage():string {
+
+        return $this->image;
+    }
+
     public function getWeight():int {
 
         return $this->weight;
@@ -73,6 +83,7 @@ class ProductModel
         int $cat,
         int $sub_cat,
         string $description,
+        string $image,
         string $origin,
         int $weight,
         int $price
@@ -83,8 +94,8 @@ class ProductModel
         //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
         $requestCreateProduct = "INSERT INTO products
-        (product, id_cat, id_sub_cat, description, origin, weight_gr, {$priceType}) 
-        VALUES (:product, :id_cat, :id_sub_cat, :description, :origin, :weight_gr, :{$priceType})";
+        (product, id_cat, id_sub_cat, description, image, origin, weight_gr, {$priceType}) 
+        VALUES (:product, :id_cat, :id_sub_cat, :description, :image, :origin, :weight_gr, :{$priceType})";
 
         $queryCreateProduct = $SQL->prepare($requestCreateProduct);
 
@@ -93,6 +104,7 @@ class ProductModel
             ':id_cat' => $cat,
             ':id_sub_cat' => $sub_cat,
             ':description' => $description,
+            ':image' => $image,
             ':origin' => $origin,
             ':weight_gr' => $weight,
             $priceType => $price
@@ -129,6 +141,25 @@ class ProductModel
             ':sub_category' => $subCategory,
             'id_category' => $idCategory
         ]);
+
+    }
+
+    public function createProducer(string $name, string $description, string $image) {
+
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+
+        //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
+
+        $requestCreateProducer = "INSERT INTO producers (producer, description, image) VALUES (:producer, :description, :image)";
+
+        $queryCreateProducer = $SQL->prepare($requestCreateProducer);
+
+        $queryCreateProducer->execute([
+            ':producer' => $name,
+            ':description' => $description,
+            ':image' => $image
+        
+    ]);
 
     }
 
@@ -247,7 +278,7 @@ class ProductModel
 
         $this->description = $resultSetProductObject[0][4];
 
-        // $this->image = $resultSetProductObject[0][5];
+        $this->image = $resultSetProductObject[0][5];
 
         $this->origin = $resultSetProductObject[0][6];
 

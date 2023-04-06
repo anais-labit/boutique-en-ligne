@@ -23,6 +23,7 @@ function displayCategoriesInSelect()
     }
 }
 
+
 function displaySubCategoriesInSelect()
 {
 
@@ -46,12 +47,12 @@ if (isset($_POST['addProdButton'])) {
 
     $productPriceType = $_POST['productPriceType'];
 
-    $targetDir = "../View/images/";
+    $targetDir = "../View/images/products/";
     $targetFile = $targetDir . basename($_FILES['photo']['name']);
     move_uploaded_file($_FILES['photo']['tmp_name'], $targetFile);
     $path = $targetDir . ($_FILES['photo']['name']);
 
-    $newproduct->createProduct($_POST['productPriceType'], $_POST['productName'], $_POST['productCat'], $_POST['productSubCat'], $_POST['productDesc'], $_POST['productOrigin'], $_POST['productWeight'], $_POST['productPrice'], $path);
+    $newproduct->createProduct($_POST['productPriceType'], $_POST['productName'], $_POST['productCat'], $_POST['productSubCat'], $_POST['productDesc'], $path, $_POST['productOrigin'], (int)$_POST['productWeight'], (int)$_POST['productPrice']);
 }
 
 if (isset($_POST['addCategoryButton'])) {
@@ -66,4 +67,17 @@ if (isset($_POST['addSubCategoryButton'])) {
     $newproduct = new ProductModel();
 
     $newproduct->createSubCategory($_POST['subCategoryName'], $_POST['subcatCat']);
+}
+
+if (isset($_POST['addProducerButton'])) {
+
+    $newproducer = new ProductModel();
+
+    $targetDir = "../View/images/producers/";
+    $targetFile = $targetDir . basename($_FILES['producerPhoto']['name']);
+    move_uploaded_file($_FILES['producerPhoto']['tmp_name'], $targetFile);
+    $path = $targetDir . ($_FILES['producerPhoto']['name']);
+
+    $newproducer->createProducer($_POST['producerName'], $_POST['producerDesc'], $path);
+    // var_dump($_FILES);
 }
