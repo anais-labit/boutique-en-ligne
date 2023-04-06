@@ -1,55 +1,53 @@
-
 nav {
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-bottom: 50px;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  align-items: center;
 }
 
-    nav ul {
-        width: 90%;
-        display: flex;
-        justify-content: space-around;
-    }
+nav ul {
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+}
 
-    nav li {
-        list-style-type: none;
-        text-decoration: none;
-    }
+nav li {
+  list-style-type: none;
+  text-decoration: none;
+}
 
-    /* #test {
+/* #test {
         position: fixed;
         font-size: 200%;
         border: solid 1px black;
         right: 2%;
     } */
 
-    #searchForm {
-        width: 100%;
-    }
+#searchForm {
+  width: 100%;
+}
 
 .loginForms {
-
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
-
 
 #productsDiv {
-
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
-    .productCards {
+.productCards {
+  border: solid 1px black;
+}
 
-        border: solid 1px black;
-    }
+.avatar {
+  border-radius: 50px;
+}
