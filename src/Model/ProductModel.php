@@ -51,6 +51,10 @@ class ProductModel
         return $this->product;
     }
 
+    public function getWeight():int {
+
+        return $this->weight;
+    }
 
     public function createProduct(
         string $priceType,

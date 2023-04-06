@@ -19,13 +19,23 @@ require_once ROOT_DIR .'/vendor/autoload.php';
     if(isset($_POST['displayHeaderCart'])) {
 
         $productListForJs = [];
+        $count = 0;
 
         foreach($_SESSION['cart'] as $index => $product) {
 
-            array_push($productListForJs, $product->getName());
+            // array_push($productListForJs, $product->getName());
+            $entity =
+                ["name" => $product->getName(),
+                "weight"=> $product->getWeight()                     
+        ];
+
+        array_push($productListForJs, $entity);
+        $count++;
+
         }
 
-        echo json_encode(["result" => $productListForJs, "count" => count($productListForJs)]);
+        // echo json_encode(["result" => $productListForJs, "count" => count($productListForJs)]);
+        echo json_encode(["list" => $productListForJs, "count" => $count]);
 
         // echo json_encode($_SESSION['cart']);
     }
