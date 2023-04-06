@@ -99,7 +99,7 @@ async function fetchHeaderCart() {
 
    const result = await searchHeaderCart.json();
 
-   console.log(result[0]);
+   console.log(result);
 
    return result
 
@@ -111,11 +111,11 @@ async function displayHeaderCart() {
 
     headerCartDiv.innerHTML = "";
 
-    for(let i in cartList.result) {
+    for(let i in cartList.list) {
 
         const cartLine = document.createElement("p");
 
-        cartLine.innerHTML= cartList.result[i];
+        cartLine.innerHTML= cartList.list[i].name + " " + cartList.list[i].weight;
 
         headerCartDiv.appendChild(cartLine);
 
