@@ -17,8 +17,6 @@ const updateConfirmPassword = document.querySelector("#updateConfirmPassword");
 const updateButton = document.querySelector("#updateButton");
 const updateMessage = document.createElement("p");
 
-console.log(updateFirstName.value);
-console.log(updateAddress.value);
 
 async function update() {
   const reqUpdate = new FormData(updateForm);
@@ -31,7 +29,7 @@ async function update() {
 
   const update = await fetch("../src/Routes/user_management.php", options);
   const results = await update.json();
-  console.log(results.message);
+  // console.log(results.message);
 }
 
 console.log(updateForm);
