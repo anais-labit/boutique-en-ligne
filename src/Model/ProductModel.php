@@ -199,6 +199,55 @@ class ProductModel
         return $resultCheckProduct;
     }
 
+    public function readOneCategoryProducts(int $id_category):array {
+
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+
+        $requestSingleCategoryProducts = "SELECT * FROM products WHERE id_cat = :id_cat";
+
+        $querySingleCategoryProducts = $SQL->prepare($requestSingleCategoryProducts);
+
+        $querySingleCategoryProducts->execute([':id_cat' => $id_category]);
+
+        $resultSingleCategoryProducts = $querySingleCategoryProducts->fetchAll();
+
+        return $resultSingleCategoryProducts;
+
+    }
+
+
+    public function readOneSubCategoryProducts(int $id_sub_category):array {
+
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+
+        $requestSingleSubCategoryProducts = "SELECT * FROM products WHERE id_sub_cat = :id_sub_cat";
+
+        $querySingleSubCategoryProducts = $SQL->prepare($requestSingleSubCategoryProducts);
+
+        $querySingleSubCategoryProducts->execute([':id_sub_cat' => $id_sub_category]);
+
+        $resultSingleSubCategoryProducts = $querySingleSubCategoryProducts->fetchAll();
+
+        return $resultSingleSubCategoryProducts;
+
+    }
+
+    public function readOneCategoryFilters(int $id_category):array {
+
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+
+        $requestSingleSubCategoryProducts = "SELECT * FROM sub_categories WHERE id_category = :id_category";
+
+        $querySingleSubCategoryProducts = $SQL->prepare($requestSingleSubCategoryProducts);
+
+        $querySingleSubCategoryProducts->execute([':id_category' => $id_category]);
+
+        $resultSingleSubCategoryProducts = $querySingleSubCategoryProducts->fetchAll();
+
+        return $resultSingleSubCategoryProducts;
+
+    }
+
 
     public function readAllCategories():array
     {

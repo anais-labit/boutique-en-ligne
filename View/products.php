@@ -34,6 +34,14 @@ if(session_id() =="") session_start();
     <?php require_once '../View/header.php'; ?>
     <div id="filterDiv">
 
+        <div id="categoriesFiltersDiv">
+
+        </div>
+
+        <div id="subCategoriesFiltersDiv">
+
+        </div>
+
 
     </div>
     <div id="productsDiv">
