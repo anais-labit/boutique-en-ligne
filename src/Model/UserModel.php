@@ -154,7 +154,7 @@ class UserModel
         $this->avatar = $avatar;
     }
 
-    public function getAvatar(): int
+    public function getAvatar(): ?int
     {
 
         return $this->avatar;
@@ -278,6 +278,7 @@ class UserModel
 
 
 
+
     public function updateUser(
         int $id,
         string $firstName,
@@ -286,7 +287,7 @@ class UserModel
         string $address,
         int $CP,
         string $city,
-        string $password,
+        string $password
     ) {
 
         $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
@@ -308,7 +309,7 @@ class UserModel
             'id' => $id
         ));
 
-        if ($query_update_user) return 'ye';
+        if ($query_update_user) return 'Les mises à jour ont bien été prises en compte';
     }
 
 
