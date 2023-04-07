@@ -86,6 +86,7 @@ class ProductModel
         string $image,
         string $origin,
         int $weight,
+        int $producer,
         int $price
     ) {
 
@@ -94,8 +95,8 @@ class ProductModel
         //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
         $requestCreateProduct = "INSERT INTO products
-        (product, id_cat, id_sub_cat, description, image, origin, weight_gr, {$priceType}) 
-        VALUES (:product, :id_cat, :id_sub_cat, :description, :image, :origin, :weight_gr, :{$priceType})";
+        (product, id_cat, id_sub_cat, description, image, origin, weight_gr, id_producer, {$priceType}) 
+        VALUES (:product, :id_cat, :id_sub_cat, :description, :image, :origin, :weight_gr, :id_producer, :{$priceType})";
 
         $queryCreateProduct = $SQL->prepare($requestCreateProduct);
 
@@ -107,6 +108,7 @@ class ProductModel
             ':image' => $image,
             ':origin' => $origin,
             ':weight_gr' => $weight,
+            'id_producer' => $producer,
             $priceType => $price
         ]);
     }
@@ -232,6 +234,24 @@ class ProductModel
     }
 
 
+    public function readAllProducers():array
+    {
+
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+
+        $requestFetchAllProducers = "SELECT * FROM producers";
+
+        $queryFetchAllProducers = $SQL->prepare($requestFetchAllProducers);
+
+        $queryFetchAllProducers->execute();
+
+        $resultFetchAllProducers = $queryFetchAllProducers->fetchAll();
+
+        return $resultFetchAllProducers;
+    }
+
+
+
 
     public function updateProduct()
     {
@@ -284,7 +304,8 @@ class ProductModel
 
         $this->weight = $resultSetProductObject[0][7];
 
-        // $this->producer = $resultSetProductObject[0][8];
+        $this->producer = $resultSetProductObject[0][8];
+
         $resultSetProductObject[0][9] !== null?
             $this->priceKg = $resultSetProductObject[0][9]: 
             $this->priceUnit = $resultSetProductObject[0][10];

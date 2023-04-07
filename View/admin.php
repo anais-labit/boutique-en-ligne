@@ -45,6 +45,11 @@ if (session_id() == "") session_start();
             <?php displaySubCategoriesInSelect() ?>
         </select>
 
+        <label class="addProdLabel">Producteur</label>
+        <select name="productProducer">
+            <?php displayProducersInSelect() ?>
+        </select>
+
         <label class="addProdLabel">Image</label>
         <input type="file" class="addProdInput" name="photo">
 
@@ -53,9 +58,6 @@ if (session_id() == "") session_start();
 
         <label class="addProdLabel">Poids</label>
         <input type="number" class="addProdInput" name="productWeight">
-
-        <label class="addProdLabel">Producteur</label>
-        <select></select>
 
         <label class="addProdLabel">Type de prix</label>
         <select name="productPriceType">

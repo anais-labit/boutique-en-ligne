@@ -39,6 +39,21 @@ function displaySubCategoriesInSelect()
     }
 }
 
+function displayProducersInSelect()
+{
+
+    $subCategories = new ProductModel();
+
+    $displaySubCategories = $subCategories->readAllProducers();
+    var_dump($displaySubCategories);
+
+    foreach ($displaySubCategories as $key => $value) {
+
+        echo "
+        <option value=" . $value['id'] . ">" . $value["producer"] . "</option>";
+    }
+}
+
 
 
 if (isset($_POST['addProdButton'])) {
@@ -52,7 +67,7 @@ if (isset($_POST['addProdButton'])) {
     move_uploaded_file($_FILES['photo']['tmp_name'], $targetFile);
     $path = $targetDir . ($_FILES['photo']['name']);
 
-    $newproduct->createProduct($_POST['productPriceType'], $_POST['productName'], $_POST['productCat'], $_POST['productSubCat'], $_POST['productDesc'], $path, $_POST['productOrigin'], (int)$_POST['productWeight'], (int)$_POST['productPrice']);
+    $newproduct->createProduct($_POST['productPriceType'], $_POST['productName'], $_POST['productCat'], $_POST['productSubCat'], $_POST['productDesc'], $path, $_POST['productOrigin'], (int)$_POST['productWeight'], (int)$_POST['productProducer'], (int)$_POST['productPrice']);
 }
 
 if (isset($_POST['addCategoryButton'])) {
