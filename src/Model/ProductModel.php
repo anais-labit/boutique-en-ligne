@@ -299,6 +299,27 @@ class ProductModel
         return $resultFetchAllProducers;
     }
 
+    public function insertProduct(?int $idUser, ?int $idProduct, ?int $idCart, ?int $quantity) {
+
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+
+        $requestFetchAllProducers = "INSERT INTO cart_products (id_user, id_product, id_cart, quantity) VALUES (:id_user, :id_product, :id_cart, :quantity)";
+
+        $queryFetchAllProducers = $SQL->prepare($requestFetchAllProducers);
+
+        $queryFetchAllProducers->execute([
+            ':id_user' => $idUser,
+            ':id_product' => $idProduct,
+            ':id_cart' => $idCart,
+            ':quantity' => $quantity
+        ]);
+
+        // $resultFetchAllProducers = $queryFetchAllProducers->fetchAll();
+
+        // return $resultFetchAllProducers;
+
+    }
+
 
 
 

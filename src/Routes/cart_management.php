@@ -57,7 +57,7 @@ if (isset($_POST['addOneProductToCart'])) {
 
     if (isset($_SESSION['cart'])) {
         array_push($_SESSION['cart'], $productObject);
-        $productObject->insertProduct($userId, ($_POST['productID']), ($_SESSION['cartId'][0]));
+        $productObject->insertProduct($userId, ($_POST['productID']), ($_SESSION['cartId'][0]), $productObject->getQuantity());
     } else {
 
         $_SESSION['cart'] = [];
@@ -72,7 +72,7 @@ if (isset($_POST['addOneProductToCart'])) {
 
         array_push($_SESSION['cartId'], $cartId);
         array_push($_SESSION['cart'], $productObject);
-        $productObject->insertProduct($userId, ($_POST['productID']), ($_SESSION['cartId'][0]));
+        $productObject->insertProduct($userId, ($_POST['productID']), ($_SESSION['cartId'][0]), $productObject->getQuantity());
     }
 
     echo json_encode(["success" => "true", "message" => "Produit ajouté avec succès"]);
