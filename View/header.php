@@ -1,6 +1,7 @@
 <?php
+require_once ROOT_DIR .'/vendor/autoload.php';  
 
-require_once '../src/Routes/search.php';
+// require_once 'src/Routes/search.php';
 // require_once '../src/Model/ProductModel.php';
 // require_once '../src/Model/UserModel.php';
 
@@ -25,7 +26,7 @@ if (isset($_POST['disconnect'])) {
     <ul>
 
         <li>
-            <a href="index.php">Accueil</a>
+            <a href="index">Accueil</a>
         </li>
 
         <li>
@@ -33,7 +34,7 @@ if (isset($_POST['disconnect'])) {
         </li>
 
         <li>
-            <a href="products.php">Nos produits</a>
+            <a href="produits">Nos produits</a>
         </li>
 
         <li>
@@ -62,7 +63,7 @@ if (isset($_POST['disconnect'])) {
                 <a href="register.php">Inscription</a>
             </li>
 
-        <?php endif ?>
+        <?php endif ?>ERR_ABORTED
 
         <li id="cartContainer">
             <a href="cart.php">
@@ -86,6 +87,6 @@ if (isset($_POST['disconnect'])) {
 
 </body>
 
-<script defer src="../src/Controller/cart.js"></script>
+<script defer src="/boutique-en-ligne/src/Controller/cart.js"></script>
 
-<script src="../src/Controller/auto_complete.js" defer></script>
+<script src="/boutique-en-ligne/src/Controller/auto_complete.js" defer></script>

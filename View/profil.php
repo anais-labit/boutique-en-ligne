@@ -1,8 +1,8 @@
 <?php
 
-is_file("../config.php") == true ?
-    require_once '../config.php' :
-    require_once '../../config.php';
+// is_file("../config.php") == true ?
+//     require_once '../config.php' :
+//     require_once '../../config.php';
 
 require_once ROOT_DIR . '/vendor/autoload.php';
 

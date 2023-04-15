@@ -308,7 +308,7 @@ async function fetchHeaderCart() {
         body: fetchHeaderCartForm
    }
 
-   const searchHeaderCart = await fetch("../src/Routes/cart_management.php", requestfetchHeaderCart);
+   const searchHeaderCart = await fetch("/boutique-en-ligne/src/Routes/cart_management.php", requestfetchHeaderCart);
 
    const result = await searchHeaderCart.json();
 
@@ -369,7 +369,7 @@ async function showCartNumber() {
 }
 
 
-if(location.pathname == "/boutique-en-ligne/View/products.php") displayAllProducts() && displayCategoriesFilters();
+if(location.pathname == "/View/products.php") displayAllProducts() && displayCategoriesFilters();
 showCartNumber();
 displayHeaderCart();
 

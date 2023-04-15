@@ -1,6 +1,6 @@
 <?php
-    require_once '../src/Model/ProductModel.php';
-    require_once '../src/Model/UserModel.php';
+    // require_once '../src/Model/ProductModel.php';
+    // require_once '../src/Model/UserModel.php';
 
     if (session_id() == "") session_start();
 ?>
@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <?php require_once '../View/header.php'; ?>
+    <?php include 'header.php'; ?>
     <!-- <form method="post" class="loginForms" id="registerForm">
 
         <input type="text" name="registerLastName" class="loginInputs" id="registerLastName" placeholder="Nom">

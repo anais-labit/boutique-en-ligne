@@ -11,5 +11,5 @@
             "email": "alexandre.aloesode@laplateforme.io"
         }
     ],
-    "require": {}
+    "require": {"altorouter/altorouter": "^2.0"}
 }

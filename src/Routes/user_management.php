@@ -5,9 +5,9 @@
 use App\Controller\AuthController;
 use App\Controller\UpdateController;
 
-is_file("../config.php") == true ?
-    require_once '../config.php':
-    require_once '../../config.php';
+// is_file("../config.php") == true ?
+//     require_once '../config.php':
+//     require_once '../../config.php';
 
 
 
