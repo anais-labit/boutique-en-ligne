@@ -17,11 +17,13 @@ class ProductModel
     private int $priceKg;
     private int $priceUnit;
     private int $quantity;
+    // private string $tableName = 'products';
 
 
 
     public function __construct()
     {
+        // $this->tableName = 'products';
     }
 
 
