@@ -27,19 +27,7 @@ class ProductModel extends AbstractModel
     {
         $this->tableName = 'products';
     }
-
-
-    // public function setId(int $id)
-    // {
-
-    //     $this->id = $id;
-    // }
-
-    // public function getId(): int
-    // {
-
-    //     return $this->id;
-    // }
+    
 
     public function setId(int $id) {
 
@@ -81,174 +69,35 @@ class ProductModel extends AbstractModel
         return $this->weight;
     }
 
-    public function createProduct(
-        string $priceType,
-        string $product,
-        int $cat,
-        int $sub_cat,
-        string $description,
-        string $image,
-        string $origin,
-        int $weight,
-        int $producer,
-        int $price
-    ) {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+    public function createCategory(array $params) {
 
-        //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
+        $this->tableName = "categories";
 
-        $requestCreateProduct = "INSERT INTO products
-        (product, id_cat, id_sub_cat, description, image, origin, weight_gr, id_producer, {$priceType}) 
-        VALUES (:product, :id_cat, :id_sub_cat, :description, :image, :origin, :weight_gr, :id_producer, :{$priceType})";
-
-        $queryCreateProduct = $SQL->prepare($requestCreateProduct);
-
-        $queryCreateProduct->execute([
-            'product' => $product,
-            ':id_cat' => $cat,
-            ':id_sub_cat' => $sub_cat,
-            ':description' => $description,
-            ':image' => $image,
-            ':origin' => $origin,
-            ':weight_gr' => $weight,
-            'id_producer' => $producer,
-            $priceType => $price
-        ]);
+        $this->createOne($params);
     }
 
 
-    public function createCategory(string $category) {
+    public function createSubCategory(array $params) {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $this->tableName = "sub_categories";
 
-        //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
-
-        $requestCreateCategory = "INSERT INTO categories (category) VALUES (:category)";
-
-        $queryCreateCategory = $SQL->prepare($requestCreateCategory);
-
-        $queryCreateCategory->execute([':category' => $category]);
-
+        $this->createOne($params);
     }
 
+    public function createProducer(array $params) {
 
-    public function createSubCategory(string $subCategory, int $idCategory) {
+        $this->tableName = "producers";
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-
-        //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
-
-        $requestCreateSubCategory = "INSERT INTO sub_categories (sub_category, id_category) VALUES (:sub_category, :id_category)";
-
-        $queryCreateSubCategory = $SQL->prepare($requestCreateSubCategory);
-
-        $queryCreateSubCategory->execute([
-            ':sub_category' => $subCategory,
-            'id_category' => $idCategory
-        ]);
-
-    }
-
-    public function createProducer(string $name, string $description, string $image) {
-
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-
-        //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
-
-        $requestCreateProducer = "INSERT INTO producers (producer, description, image) VALUES (:producer, :description, :image)";
-
-        $queryCreateProducer = $SQL->prepare($requestCreateProducer);
-
-        $queryCreateProducer->execute([
-            ':producer' => $name,
-            ':description' => $description,
-            ':image' => $image
-        
-    ]);
-
-    }
-
-    public function readAllProducts(): array
-    {
-
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-
-        $requestProductsInfos = "SELECT * FROM products";
-
-        $queryProductsInfos = $SQL->prepare($requestProductsInfos);
-
-        $queryProductsInfos->execute();
-
-        $resultProductsInfos = $queryProductsInfos->fetchAll();
-
-        return $resultProductsInfos;
-    }
-
-
-
-    public function readOneProduct(string $product): array
-    {
-
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-
-        $requestCheckProduct = "SELECT * FROM products WHERE product = :product";
-
-        $queryCheckProduct = $SQL->prepare($requestCheckProduct);
-
-        $queryCheckProduct->execute([':product' => $product]);
-
-        $resultCheckProduct = $queryCheckProduct->fetchAll();
-
-        return $resultCheckProduct;
-    }
-
-    public function readOneCategoryProducts(int $id_category):array {
-
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-
-        $requestSingleCategoryProducts = "SELECT * FROM products WHERE id_cat = :id_cat";
-
-        $querySingleCategoryProducts = $SQL->prepare($requestSingleCategoryProducts);
-
-        $querySingleCategoryProducts->execute([':id_cat' => $id_category]);
-
-        $resultSingleCategoryProducts = $querySingleCategoryProducts->fetchAll();
-
-        return $resultSingleCategoryProducts;
-
-    }
-
-
-    public function readOneSubCategoryProducts(int $id_sub_category):array {
-
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-
-        $requestSingleSubCategoryProducts = "SELECT * FROM products WHERE id_sub_cat = :id_sub_cat";
-
-        $querySingleSubCategoryProducts = $SQL->prepare($requestSingleSubCategoryProducts);
-
-        $querySingleSubCategoryProducts->execute([':id_sub_cat' => $id_sub_category]);
-
-        $resultSingleSubCategoryProducts = $querySingleSubCategoryProducts->fetchAll();
-
-        return $resultSingleSubCategoryProducts;
+        $this->createOne($params);
 
     }
 
     public function readOneCategoryFilters(int $id_category):array {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $this->tableName = "sub_categories";
 
-        $requestSingleSubCategoryProducts = "SELECT * FROM sub_categories WHERE id_category = :id_category";
-
-        $querySingleSubCategoryProducts = $SQL->prepare($requestSingleSubCategoryProducts);
-
-        $querySingleSubCategoryProducts->execute([':id_category' => $id_category]);
-
-        $resultSingleSubCategoryProducts = $querySingleSubCategoryProducts->fetchAll();
-
-        return $resultSingleSubCategoryProducts;
+        return $this->readOnebyForeignKey('id_category', $id_category);
 
     }
 
@@ -256,51 +105,27 @@ class ProductModel extends AbstractModel
     public function readAllCategories():array
     {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $this->tableName = "categories";
 
-        $requestFetchAllCategories = "SELECT * FROM categories";
-
-        $queryFetchAllCategories = $SQL->prepare($requestFetchAllCategories);
-
-        $queryFetchAllCategories->execute();
-
-        $resultFetchAllCategories = $queryFetchAllCategories->fetchAll();
-
-        return $resultFetchAllCategories;
+        return $this->readAll();
     }
 
 
     public function readAllSubCategories():array
     {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $this->tableName = "sub_categories";
 
-        $requestFetchAllSubCategories = "SELECT * FROM sub_categories";
-
-        $queryFetchAllSubCategories = $SQL->prepare($requestFetchAllSubCategories);
-
-        $queryFetchAllSubCategories->execute();
-
-        $resultFetchAllSubCategories = $queryFetchAllSubCategories->fetchAll();
-
-        return $resultFetchAllSubCategories;
+        return $this->readAll();
     }
 
 
     public function readAllProducers():array
     {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $this->tableName = "producers";
 
-        $requestFetchAllProducers = "SELECT * FROM producers";
-
-        $queryFetchAllProducers = $SQL->prepare($requestFetchAllProducers);
-
-        $queryFetchAllProducers->execute();
-
-        $resultFetchAllProducers = $queryFetchAllProducers->fetchAll();
-
-        return $resultFetchAllProducers;
+        return $this->readAll();
     }
 
     public function insertProduct(?int $idUser, ?int $idProduct, ?int $idCart, ?int $quantity) {
