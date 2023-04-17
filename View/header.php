@@ -1,6 +1,10 @@
 <?php
 
-require_once '../src/Routes/search.php';
+is_file("../config.php") == true ?
+    require_once '../config.php' :
+    require_once '../../config.php';
+// require_once ROOT_DIR .'/src/Routes/product_display.php';
+require_once ROOT_DIR .'/vendor/autoload.php';
 // require_once '../src/Model/ProductModel.php';
 // require_once '../src/Model/UserModel.php';
 
@@ -14,7 +18,6 @@ if (isset($_POST['disconnect'])) {
 
     header('Location: ../View/login.php');
 }
-
 
 // var_dump($_SESSION['cart']);
 // var_dump($_SESSION);
