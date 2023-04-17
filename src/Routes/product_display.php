@@ -15,7 +15,7 @@ if(isset($_POST['displayAllProducts'])) {
 
     $products = new ProductModel();
     
-    $productList = $products->readAllProducts();
+    $productList = $products->readAll();
     
     echo json_encode($productList);
 

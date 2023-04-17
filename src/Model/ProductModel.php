@@ -1,8 +1,10 @@
 <?php
 namespace App\Model;
 
+use App\Model\Abstract\AbstractModel;
 
-class ProductModel
+
+class ProductModel extends AbstractModel
 {
 
     private int $id;
@@ -23,7 +25,7 @@ class ProductModel
 
     public function __construct()
     {
-        // $this->tableName = 'products';
+        $this->tableName = 'products';
     }
 
 

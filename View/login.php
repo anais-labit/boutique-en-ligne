@@ -1,6 +1,12 @@
 <?php 
     // require_once '../src/Controller/AuthController.php';
-    require_once '../src/Model/UserModel.php';
+    // require_once '../src/Model/UserModel.php';
+    is_file("../config.php") == true ?
+    require_once '../config.php' :
+    require_once '../../config.php';
+// require_once ROOT_DIR .'/src/Routes/product_display.php';
+require_once ROOT_DIR .'/vendor/autoload.php';
+
 
     if(session_id() == "") session_start();
     // session_destroy();
