@@ -328,10 +328,14 @@ async function displayHeaderCart() {
     
         for(let i in cartList.list) {
     
-            const cartLine = document.createElement("p");
-    
+            const cartLine = document.createElement("p");   
             cartLine.innerHTML= cartList.list[i].name + " " + cartList.list[i].quantity;
-    
+            
+            const trashCan = document.createElement("i");
+            trashCan.setAttribute("class","fa-regular fa-trash-can");
+            trashCan.addEventListener("click", () => {deleteFromCart(cartList.list[i].productId)})
+            cartLine.appendChild(trashCan);
+
             headerCartDiv.appendChild(cartLine);
     
        }
@@ -345,6 +349,27 @@ async function displayHeaderCart() {
        goToCart.appendChild(goToCartButton);
        headerCartDiv.appendChild(goToCart);
     }
+}
+
+async function deleteFromCart(productId) {
+
+    const deleteFromCartForm = new FormData();
+
+   deleteFromCartForm.append("deleteFromCart", productId);
+
+   const requestDeleteFromCart = {
+
+        method:"POST",
+        body: deleteFromCartForm
+   }
+
+   const refreshCart = await fetch("../src/Routes/cart_management.php", requestDeleteFromCart);
+
+   const result = await refreshCart.json();
+
+//    console.log(result);
+
+   return result
 }
 
 

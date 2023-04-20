@@ -29,6 +29,11 @@ class ProductModel extends AbstractModel
     }
     
 
+    public function getId() {
+
+        return $this->id;
+    }
+
     public function setId(int $id) {
 
         $this->id = $id;
@@ -128,25 +133,16 @@ class ProductModel extends AbstractModel
         return $this->readAll();
     }
 
-    public function insertProduct(?int $idUser, ?int $idProduct, ?int $idCart, ?int $quantity) {
+    public function addToCart(?int $idUser, ?int $idProduct, ?int $idCart, ?int $quantity) {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $this->tableName = 'cart_products';
 
-        $requestFetchAllProducers = "INSERT INTO cart_products (id_user, id_product, id_cart, quantity) VALUES (:id_user, :id_product, :id_cart, :quantity)";
-
-        $queryFetchAllProducers = $SQL->prepare($requestFetchAllProducers);
-
-        $queryFetchAllProducers->execute([
+        $this->createOne([
             ':id_user' => $idUser,
             ':id_product' => $idProduct,
             ':id_cart' => $idCart,
             ':quantity' => $quantity
         ]);
-
-        // $resultFetchAllProducers = $queryFetchAllProducers->fetchAll();
-
-        // return $resultFetchAllProducers;
-
     }
 
 
@@ -157,8 +153,24 @@ class ProductModel extends AbstractModel
     }
 
 
-    public function deleteProduct()
-    {
+    public function deleteFromCart(int $idProduct, int $idCart)
+    {        
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $requestDeleteOne = "DELETE FROM cart_products
+        WHERE  id_product = :id_product
+        AND id_cart = :id_cart
+        ";
+
+        $queryDeleteOne = $SQL->prepare($requestDeleteOne);
+
+        $queryDeleteOne->execute([
+            ":id_product" => $idProduct,
+            ":id_cart" => $idCart
+        ]);
+        // $this->tableName = 'cart_products';
+
+        // $this->deleteOneInForeignTable($params);
+
     }
 
     public function catchProductInfos($word)

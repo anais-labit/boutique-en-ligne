@@ -91,6 +91,41 @@ abstract class AbstractModel {
 
         $queryCreateOne->execute($params);
     }
+
+    public function deleteOneById(int $id) {
+
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+
+        $requestDeleteOne = "DELETE FROM $this->tableName WHERE id = :id";
+
+        $queryDeleteOne = $SQL->prepare($requestDeleteOne);
+
+        $queryDeleteOne->execute(['id:' => $id]);
+
+    }
+
+    public function deleteOneInForeignTable(array $params) {
+        var_dump($params);
+
+        $test = implode(', ', array_keys($params));
+
+        $primaryKey = $test[0];
+        $foreignKey = $test[1];
+        $primaryName = str_replace(':', '', $primaryKey);
+        $foreignName = str_replace(':', '', $foreignKey);
+
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+
+        $requestDeleteOne = "DELETE FROM $this->tableName 
+        WHERE  id_product = :id_product
+        AND id_cart = :id_cart
+        ";
+
+        $queryDeleteOne = $SQL->prepare($requestDeleteOne);
+
+        $queryDeleteOne->execute($params);
+
+    }
 }
 
 ?>

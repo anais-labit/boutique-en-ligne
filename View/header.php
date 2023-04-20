@@ -19,7 +19,7 @@ if (isset($_POST['disconnect'])) {
     header('Location: ../View/login.php');
 }
 
-// var_dump($_SESSION['cart']);
+var_dump($_SESSION['cart']);
 // var_dump($_SESSION);
 // var_dump($_SESSION['cartId']);
 ?>

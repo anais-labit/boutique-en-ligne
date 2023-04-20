@@ -2,10 +2,13 @@
 
 namespace App\Model;
 
-class CartModel {
+use App\Model\Abstract\AbstractModel;
+
+class CartModel extends AbstractModel {
 
     public function __construct()
     {
+        $this->tableName = 'carts';
         
     }
 
@@ -22,8 +25,7 @@ class CartModel {
         $queryCreateCart = $SQL->prepare($requestCreateCart);
 
         $queryCreateCart->execute([
-            ':id_user' => $idUser,
-   
+            ':id_user' => $idUser,  
             ':type_client' => $typeClient,
             ':paid' => "NO"
         ]);
