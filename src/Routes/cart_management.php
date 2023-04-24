@@ -16,7 +16,20 @@ require_once ROOT_DIR . '/vendor/autoload.php';
 
 if (session_id() == "") session_start();
 
-if (isset($_POST['displayHeaderCart'])) {
+
+if(isset($_POST['displayCart']) 
+// && $_SERVER['REQUEST_URI'] == 'cart.php')
+)
+ {
+
+
+ 
+    
+}
+
+
+
+if (isset($_POST['displayHeaderCart']) || isset($_POST['displayCart'])) {
 
     $productListForJs = [];
     $count = 0;
@@ -92,6 +105,8 @@ if(isset($_POST['deleteFromCart'])) {
         if($product->getId() == $_POST['deleteFromCart']) {
 
             $product->deleteFromCart((int)$_POST['deleteFromCart'], (int)$_SESSION['cartId'][0]);
+
+            unset($_SESSION['cart'][$key]);
         }
     }
 

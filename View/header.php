@@ -89,6 +89,6 @@ var_dump($_SESSION['cart']);
 
 </body>
 
-<script defer src="../src/Controller/cart.js"></script>
+<script defer src="../src/Controller/products.js"></script>
 
 <script src="../src/Controller/auto_complete.js" defer></script>
