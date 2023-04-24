@@ -1,6 +1,10 @@
 <?php 
     // require_once '../src/Model/UserModel.php';
-
+    is_file("../config.php") == true ?
+    require_once '../config.php' :
+    require_once '../../config.php';
+// require_once ROOT_DIR .'/src/Routes/product_display.php';
+require_once ROOT_DIR .'/vendor/autoload.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">

@@ -60,28 +60,42 @@ if (isset($_POST['addProdButton'])) {
 
     $newproduct = new ProductModel();
 
-    $productPriceType = $_POST['productPriceType'];
+    // $productPriceType = $_POST['productPriceType'];
 
     $targetDir = "../View/images/products/";
     $targetFile = $targetDir . basename($_FILES['photo']['name']);
     move_uploaded_file($_FILES['photo']['tmp_name'], $targetFile);
     $path = $targetDir . ($_FILES['photo']['name']);
 
-    $newproduct->createProduct($_POST['productPriceType'], $_POST['productName'], $_POST['productCat'], $_POST['productSubCat'], $_POST['productDesc'], $path, $_POST['productOrigin'], (int)$_POST['productWeight'], (int)$_POST['productProducer'], (int)$_POST['productPrice']);
+    $newproduct->createOne([
+        ':product' => $_POST['productName'],
+        ':id_cat' => (int)$_POST['productCat'],
+        ':id_sub_cat' => (int)$_POST['productSubCat'],
+        ':description' => $_POST['productDesc'],
+        ':image' => $path,
+        ':origin' => $_POST['productOrigin'],
+        ':weight_gr' => (int)$_POST['productWeight'],
+        ':id_producer' => (int)$_POST['productProducer'],
+        ':' . $_POST['productPriceType'] => (int)$_POST['productPrice']
+    ]);
 }
 
 if (isset($_POST['addCategoryButton'])) {
 
     $newproduct = new ProductModel();
 
-    $newproduct->createCategory($_POST['categoryName']);
+    $newproduct->createCategory([':category' => $_POST['categoryName']]);
 }
 
 if (isset($_POST['addSubCategoryButton'])) {
 
     $newproduct = new ProductModel();
 
-    $newproduct->createSubCategory($_POST['subCategoryName'], $_POST['subcatCat']);
+    $newproduct->createSubCategory([
+        ':sub_category' => $_POST['subCategoryName'],
+        ':id_category' => $_POST['subcatCat']
+    ]);
+            
 }
 
 if (isset($_POST['addProducerButton'])) {
@@ -93,6 +107,11 @@ if (isset($_POST['addProducerButton'])) {
     move_uploaded_file($_FILES['producerPhoto']['tmp_name'], $targetFile);
     $path = $targetDir . ($_FILES['producerPhoto']['name']);
 
-    $newproducer->createProducer($_POST['producerName'], $_POST['producerDesc'], $path);
+    $newproducer->createProducer([
+        ':producer' => $_POST['producerName'],
+        ':description' => $_POST['producerDesc'],
+        ':image' => $path
+    ]);
+            
     // var_dump($_FILES);
 }

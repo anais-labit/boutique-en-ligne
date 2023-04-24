@@ -1,7 +1,5 @@
 <?php
 
-// require_once '../Model/UserModel.php';
-// if(session_id() == "") session_start();
 
 namespace App\Controller;
 
@@ -13,16 +11,16 @@ class AuthController {
 
     public function __construct()
     {
-        
+
     }
 
 
     public function register(int $type, string $firstName, string $lastName, string $company, string $email, 
-    string $adress, int $CP, string $city, string $password) {
+    string $address, int $zipCode, string $city, string $password) {
 
         $applicant = new UserModel();
 
-        $checkExistingEmail = $applicant->readOneUser($email);
+        $checkExistingEmail = $applicant->readOnebyString($email, 'email');
 
         if(!empty($checkExistingEmail)) {
 
@@ -34,14 +32,38 @@ class AuthController {
 
             if($type == 1) {
 
-                $applicant->createUser($type, $firstName, $lastName, $email, $adress, $CP, $city, $password);
+                // $applicant->createUser($type, $firstName, $lastName, $email, $adress, $CP, $city, $password);
+                $cryptedPassword = password_hash($password, PASSWORD_DEFAULT);
+                // $params = [
+                //     ':type' => $type,
+                //     ':firstname' => $firstName,
+                //     ':lastname' => $lastName,
+                //     ':email' => $email,
+                //     ':address' => $address,
+                //     ':zip_code' => $zipCode,
+                //     ':city' => $city,
+                //     ':password' => $cryptedPassword,
+                //     'verified' => "NON"
+                // ];
+                // $applicant->createOne($params);
+                $applicant->createOne([
+                    ':type' => $type,
+                    ':firstname' => $firstName,
+                    ':lastname' => $lastName,
+                    ':email' => $email,
+                    ':address' => $address,
+                    ':zip_code' => $zipCode,
+                    ':city' => $city,
+                    ':password' => $cryptedPassword,
+                    ':verified' => "NON"
+                ]);
                 
                 return json_encode(["success" => true, "message" => "Compte créé avec succès"]);
             }
 
             elseif($type == 2) {
 
-                $applicant->createCompany($type, $company, $email, $adress, $CP, $city, $password);
+                $applicant->createCompany($type, $company, $email, $address, $zipCode, $city, $password);
         
                 return json_encode(["success" => true, "message" => "Compte créé avec succès"]);
             } 
@@ -58,7 +80,7 @@ class AuthController {
         
         $user = new UserModel;
 
-        $checkExistingUser = $user->readOneUser($email);
+        $checkExistingUser = $user->readOnebyString($email, 'email');
 
         if(empty($checkExistingUser)) {
 

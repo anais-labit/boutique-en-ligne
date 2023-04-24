@@ -1,7 +1,5 @@
 <?php
 
-// require_once '../Controller/AuthController.php';
-
 use App\Controller\AuthController;
 use App\Controller\UpdateController;
 
@@ -9,24 +7,9 @@ is_file("../config.php") == true ?
     require_once '../config.php':
     require_once '../../config.php';
 
-
-
-// require_once '../vendor/autoload.php';
-// if(session_id() == "") session_start();
 require_once ROOT_DIR .'/vendor/autoload.php';
-// require_once '../../vendor/autoload.php';
-
-
 
 // if(session_id() == "") session_start();
-
-// if(isset($_POST['disconnect'])) {
-
-//     session_destroy();
-
-//     header('Location: ../View/login.php');
-// }
-
 
 if(isset($_POST['registerEmail'])
 && isset($_POST['registerAdress']) && isset($_POST['registerZipCode']) && isset($_POST['registerCity'])

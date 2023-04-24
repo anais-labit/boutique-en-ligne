@@ -2,7 +2,9 @@
 
 namespace App\Model;
 
-class UserModel
+use App\Model\Abstract\AbstractModel;
+
+class UserModel extends AbstractModel
 {
 
     private ?int $id;
@@ -30,6 +32,7 @@ class UserModel
 
     public function __construct()
     {
+        $this->tableName = 'users';
     }
 
 
@@ -241,40 +244,7 @@ class UserModel
     }
 
 
-
-    public function readAllUsers(): array
-    {
-
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-
-        $requestUsersInfos = "SELECT * FROM users";
-
-        $queryUsersInfos = $SQL->prepare($requestUsersInfos);
-
-        $queryUsersInfos->execute();
-
-        $resultUsersInfos = $queryUsersInfos->fetchAll();
-
-        return $resultUsersInfos;
-    }
-
-
-
-    public function readOneUser(string $email): array
-    {
-
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-
-        $requestCheckEmail = "SELECT * FROM users WHERE email = :email";
-
-        $queryCheckEmail = $SQL->prepare($requestCheckEmail);
-
-        $queryCheckEmail->execute(['email' => $email]);
-
-        $resultCheckEmail = $queryCheckEmail->fetchAll();
-
-        return $resultCheckEmail;
-    }
+   
 
 
 
