@@ -77,4 +77,4 @@ class UpdateController
 
 // TODO : redemander l'ancien password si maj du password
 // TODO : rehacher le mdp si changement
-// TODO : display les message côté client 
+// TODO : display les messages côté client 

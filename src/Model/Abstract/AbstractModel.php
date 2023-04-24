@@ -10,7 +10,7 @@ abstract class AbstractModel {
 
     public function __construct()
     {
-        $this->password = $_SERVER['HTTP_SEC_CH_UA_PLATFORM'] == '"Linux"'? '' : 'root';
+        $this->password = PHP_OS == 'Linux'? '' : 'root';
         // $this->password = strpos('Linux', $_SERVER['HTTP_SEC_CH_UA_PLATFORM']) ? '' : 'root';
 
         // $this->password = '';     
