@@ -44,12 +44,12 @@ class UpdateController
             header('Content-Type: application/json');
             echo json_encode(['error' => 'Les mots de passe ne correspondent pas.']);
             $isValid = false;
-        } else if ($oldpassword !== $savedPassword) {
+        } else if (!password_verify($oldpassword, $savedPassword)) {
             header('Content-Type: application/json');
             echo json_encode(['error' => 'Les modifications n\'ont pas été prises en compte']);
-        }
+            $isValid = false;
+        } else if ($isValid) {
 
-        if ($isValid) {
             $userModel->updateUser(
                 $id,
                 $firstName,
@@ -62,11 +62,11 @@ class UpdateController
             );
 
             $_SESSION['user']->setFirstName($_POST['updateFirstName']);
-            $_SESSION['user']->setFirstName($_POST['updateLastName']);
-            $_SESSION['user']->setFirstName($_POST['updateEmail']);
-            $_SESSION['user']->setFirstName($_POST['updateAddress']);
-            $_SESSION['user']->setFirstName($_POST['updateZipCode']);
-            $_SESSION['user']->setFirstName($_POST['updateCity']);
+            $_SESSION['user']->setLastName($_POST['updateLastName']);
+            $_SESSION['user']->setEmail($_POST['updateEmail']);
+            $_SESSION['user']->setAddress($_POST['updateAddress']);
+            $_SESSION['user']->setZipCode($_POST['updateZipCode']);
+            $_SESSION['user']->setCity($_POST['updateCity']);
 
             header('Content-Type: application/json');
             echo (json_encode(['success' => 'Les mises à jour ont bien été prises en compte.']));
@@ -74,5 +74,4 @@ class UpdateController
     }
 }
 
-// TODO : redemander l'ancien password si maj du password
 // TODO : display les messages côté client 
