@@ -32,6 +32,7 @@ class UserModel extends AbstractModel
 
     public function __construct()
     {
+        parent::__construct();
         $this->tableName = 'users';
     }
 
