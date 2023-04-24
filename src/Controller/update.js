@@ -24,7 +24,7 @@ async function update() {
 
   const options = {
     method: "POST",
-    body: reqUpdate,
+    // body: reqUpdate,
   };
 
   const update = await fetch("../src/Routes/user_management.php", options);

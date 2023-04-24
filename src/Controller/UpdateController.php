@@ -22,11 +22,15 @@ class UpdateController
         int $CP,
         string $city,
         string $password,
-        string $confpassword
+        string $confpassword,
+        string $oldpassword,
     ) {
+
+        $userModel = new UserModel();
 
         $error = 'Certains champs sont vides';
         $isValid = true; // variable de contrôle
+        $savedPassword = $userModel->getPassword($email);
 
         if (empty(trim($firstName)) || empty(trim($lastName)) || empty(trim($email)) || empty(trim($address)) || empty(trim($CP)) || empty(trim($city)) || empty(trim($password))) {
             header('Content-Type: application/json');
@@ -40,17 +44,13 @@ class UpdateController
             header('Content-Type: application/json');
             echo json_encode(['error' => 'Les mots de passe ne correspondent pas.']);
             $isValid = false;
+        } else if ($oldpassword !== $savedPassword) {
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'Les modifications n\'ont pas été prises en compte']);
         }
-        
-
-
-
-
-
 
         if ($isValid) {
-            $update = new UserModel();
-            $update->updateUser(
+            $userModel->updateUser(
                 $id,
                 $firstName,
                 $lastName,
@@ -74,7 +74,5 @@ class UpdateController
     }
 }
 
-
 // TODO : redemander l'ancien password si maj du password
-// TODO : rehacher le mdp si changement
 // TODO : display les messages côté client 
