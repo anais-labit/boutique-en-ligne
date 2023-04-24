@@ -29,6 +29,7 @@ class UserModel extends AbstractModel
 
     private ?string $email;
 
+    // private ?string $password;
 
     public function __construct()
     {
@@ -176,6 +177,11 @@ class UserModel extends AbstractModel
         return $this->verified;
     }
 
+    // public function setPassword(string $password)
+    // {
+
+    //     $this->password = $password;
+    // }
 
 
     public function createUser(
@@ -244,11 +250,14 @@ class UserModel extends AbstractModel
         ]);
     }
 
-
-   
-
-
-
+    public function getPassword(string $email): ?string
+    {
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
+        $queryUserPassword = $SQL->prepare('SELECT password FROM users WHERE email = :email');
+        $queryUserPassword->execute(['email' => $email]);
+        $userPassword = $queryUserPassword->fetch();
+        if ($queryUserPassword) return $userPassword['password'];
+    }
 
     public function updateUser(
         int $id,
