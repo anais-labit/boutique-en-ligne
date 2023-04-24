@@ -6,7 +6,7 @@ $router = new AltoRouter();
 $router->setBasePath('/boutique-en-ligne');
 
 $router->map( 'GET', '/index', function() {
-    require __DIR__ . '/View/index.php';
+    require __DIR__ . '/View/homepage.php';
     // echo 'test';
 });
 

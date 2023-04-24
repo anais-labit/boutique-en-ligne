@@ -1,10 +1,10 @@
 <?php
-require_once ROOT_DIR .'/vendor/autoload.php';  
+// require_once ROOT_DIR .'/vendor/autoload.php';  
 
 
-is_file("../config.php") == true ?
-    require_once '../config.php' :
-    require_once '../../config.php';
+// is_file("../config.php") == true ?
+//     require_once '../config.php' :
+//     require_once '../../config.php';
 // require_once ROOT_DIR .'/src/Routes/product_display.php';
 require_once ROOT_DIR .'/vendor/autoload.php';
 // require_once '../src/Model/ProductModel.php';
