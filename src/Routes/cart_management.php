@@ -16,7 +16,20 @@ use App\Model\ProductModel;
 
 if (session_id() == "") session_start();
 
-if (isset($_POST['displayHeaderCart'])) {
+
+if(isset($_POST['displayCart']) 
+// && $_SERVER['REQUEST_URI'] == 'cart.php')
+)
+ {
+
+
+ 
+    
+}
+
+
+
+if (isset($_POST['displayHeaderCart']) || isset($_POST['displayCart'])) {
 
     $productListForJs = [];
     $count = 0;
@@ -26,7 +39,8 @@ if (isset($_POST['displayHeaderCart'])) {
         // array_push($productListForJs, $product->getName());
         $product = [
             "name" => $product->getName(),
-            "quantity" => $product->getQuantity()
+            "quantity" => $product->getQuantity(),
+            "productId" => $product->getId()
         ];
         
         array_push($productListForJs, $product);
@@ -57,7 +71,7 @@ if (isset($_POST['addOneProductToCart'])) {
 
     if (isset($_SESSION['cart'])) {
         array_push($_SESSION['cart'], $productObject);
-        $productObject->insertProduct($userId, ($_POST['productID']), ($_SESSION['cartId'][0]));
+        $productObject->addToCart($userId, ($_POST['productID']), ($_SESSION['cartId'][0]), $productObject->getQuantity());
     } else {
 
         $_SESSION['cart'] = [];
@@ -65,15 +79,37 @@ if (isset($_POST['addOneProductToCart'])) {
 
         $newCart = new CartModel();
 
+        $date = new DateTime();
 
-
-        $test = $newCart->createCart($userId, $userType);
+        $newSqlCart = $newCart->createOne([
+            ':id_user' => $userId,  
+            ':type_client' => $userType,
+            ':date' => $date->format('Y-m-d H:i:s'),
+            ':paid' => "NO"
+        ]);
+        
         $cartId = $newCart->getLastCartId();
 
         array_push($_SESSION['cartId'], $cartId);
         array_push($_SESSION['cart'], $productObject);
-        $productObject->insertProduct($userId, ($_POST['productID']), ($_SESSION['cartId'][0]));
+        $productObject->addToCart($userId, ($_POST['productID']), ($_SESSION['cartId'][0]), $productObject->getQuantity());
     }
 
     echo json_encode(["success" => "true", "message" => "Produit ajouté avec succès"]);
+}
+
+if(isset($_POST['deleteFromCart'])) {
+
+    foreach($_SESSION['cart'] as $key => $product) {
+
+        if($product->getId() == $_POST['deleteFromCart']) {
+
+            $product->deleteFromCart((int)$_POST['deleteFromCart'], (int)$_SESSION['cartId'][0]);
+
+            unset($_SESSION['cart'][$key]);
+        }
+    }
+    echo json_encode(["success" => "true", "message" => "Produit supprimé avec succès"]);
+
+
 }

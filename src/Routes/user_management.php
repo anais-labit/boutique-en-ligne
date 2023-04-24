@@ -1,7 +1,5 @@
 <?php
 
-// require_once '../Controller/AuthController.php';
-
 use App\Controller\AuthController;
 use App\Controller\UpdateController;
 
@@ -9,24 +7,9 @@ use App\Controller\UpdateController;
 //     require_once '../config.php':
 //     require_once '../../config.php';
 
-
-
-// require_once '../vendor/autoload.php';
-// if(session_id() == "") session_start();
 require_once ROOT_DIR .'/vendor/autoload.php';
-// require_once '../../vendor/autoload.php';
-
-
 
 // if(session_id() == "") session_start();
-
-// if(isset($_POST['disconnect'])) {
-
-//     session_destroy();
-
-//     header('Location: ../View/login.php');
-// }
-
 
 if(isset($_POST['registerEmail'])
 && isset($_POST['registerAdress']) && isset($_POST['registerZipCode']) && isset($_POST['registerCity'])
@@ -72,11 +55,9 @@ if(isset($_POST['loginEmail']) && isset($_POST['loginPassword'])) {
     }
 }
 
-if (isset($_POST['updateProfile'])) {
-    // echo json_encode($_POST['updateFirstName']);
 
+// MAJ DU PROFIL 
+if (isset($_POST['updateProfile'])) {
     $update = new UpdateController();
     $reqUpdate = $update->updateUserProfile((int)$_SESSION['user']->getId(), $_POST['updateFirstName'], $_POST['updateLastName'], $_POST['updateEmail'], $_POST['updateAddress'], (int)$_POST['updateZipCode'], $_POST['updateCity'], $_POST['updatePassword'], $_POST['updateConfirmPassword']);
-    echo json_encode(['message' => $reqUpdate]);
-
-}
+} 

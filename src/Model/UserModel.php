@@ -2,7 +2,9 @@
 
 namespace App\Model;
 
-class UserModel
+use App\Model\Abstract\AbstractModel;
+
+class UserModel extends AbstractModel
 {
 
     private ?int $id;
@@ -30,6 +32,8 @@ class UserModel
 
     public function __construct()
     {
+        parent::__construct();
+        $this->tableName = 'users';
     }
 
 
@@ -154,7 +158,7 @@ class UserModel
         $this->avatar = $avatar;
     }
 
-    public function getAvatar(): int
+    public function getAvatar(): ?int
     {
 
         return $this->avatar;
@@ -185,7 +189,7 @@ class UserModel
         string $password
     ) {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
@@ -218,7 +222,7 @@ class UserModel
         string $password
     ) {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
@@ -241,40 +245,8 @@ class UserModel
     }
 
 
+   
 
-    public function readAllUsers(): array
-    {
-
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-
-        $requestUsersInfos = "SELECT * FROM users";
-
-        $queryUsersInfos = $SQL->prepare($requestUsersInfos);
-
-        $queryUsersInfos->execute();
-
-        $resultUsersInfos = $queryUsersInfos->fetchAll();
-
-        return $resultUsersInfos;
-    }
-
-
-
-    public function readOneUser(string $email): array
-    {
-
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-
-        $requestCheckEmail = "SELECT * FROM users WHERE email = :email";
-
-        $queryCheckEmail = $SQL->prepare($requestCheckEmail);
-
-        $queryCheckEmail->execute(['email' => $email]);
-
-        $resultCheckEmail = $queryCheckEmail->fetchAll();
-
-        return $resultCheckEmail;
-    }
 
 
 
@@ -286,10 +258,10 @@ class UserModel
         string $address,
         int $CP,
         string $city,
-        string $password,
+        string $password
     ) {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $request_update_user = "UPDATE users SET 
         firstname = :firstname, lastname = :lastname, email = :email, address = :address, zip_code = :zip_code, city = :city, password = :password
@@ -308,7 +280,7 @@ class UserModel
             'id' => $id
         ));
 
-        if ($query_update_user) return 'ye';
+        if ($query_update_user) return 'Les mises à jour ont bien été prises en compte';
     }
 
 
@@ -320,7 +292,7 @@ class UserModel
     public function setSession(string $email): object
     {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $requestUserInfo = "SELECT * FROM users WHERE email = :email";
 

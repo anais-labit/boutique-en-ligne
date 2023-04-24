@@ -19,7 +19,7 @@ field.addEventListener("keyup", async (event) => {
         // Création de nouveaux éléments "p" pour afficher les nouveaux résultats de recherche
         response.forEach((result) => {
           const p = document.createElement("p");
-          p.textContent = result.nom;
+          p.textContent = result.product;
           searchForm.appendChild(p);
           // Ajout de chaque élément "p" créé dans le tableau "suggestionsArray"
           suggestionsArray.push(p);

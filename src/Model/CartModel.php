@@ -2,16 +2,20 @@
 
 namespace App\Model;
 
-class CartModel {
+use App\Model\Abstract\AbstractModel;
+
+class CartModel extends AbstractModel {
 
     public function __construct()
     {
+        parent::__construct();
+        $this->tableName = 'carts';
         
     }
 
     public function createCart(int $idUser, int $typeClient) {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
@@ -22,8 +26,7 @@ class CartModel {
         $queryCreateCart = $SQL->prepare($requestCreateCart);
 
         $queryCreateCart->execute([
-            ':id_user' => $idUser,
-   
+            ':id_user' => $idUser,  
             ':type_client' => $typeClient,
             ':paid' => "NO"
         ]);
@@ -33,7 +36,7 @@ class CartModel {
     }
 
     public function getLastCartId():int {
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         // $requestGetCartId = "SELECT LAST(id) FROM carts";
          $requestGetCartId = "SELECT id FROM carts ORDER BY id DESC";

@@ -18,6 +18,9 @@ var_dump($_SESSION['user']);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" 
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script defer src="../src/Controller/update.js"></script>
     <link rel="stylesheet" href="global.css">
 
@@ -37,8 +40,7 @@ var_dump($_SESSION['user']);
         </select>
 
         <!-- <label class="updateLabels" id="updateLabelAvatar" for="updateLabelAvatar">Avatar</label> -->
-        <div class="avatar" id="avatarContainer"><img src="<?= './images/avatar' . $actualAvatar . '.png' ?>" width="60" height="60" alt="avatar"></div>
-
+        <div class="avatar" id="avatarContainer"><img src="<?= './images/avatars/avatar' . $actualAvatar . '.png' ?>" width="60" height="60" alt="avatar"></div>
 
         <!-- <input type=" radio" class="updateLabels" name="avatar" id="avatar1" value="1">
             <img class="avatar" alt="avatar" src="./images/avatar1.png" width="60" height="60" />

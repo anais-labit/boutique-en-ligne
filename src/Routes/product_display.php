@@ -15,7 +15,7 @@ if(isset($_POST['displayAllProducts'])) {
 
     $products = new ProductModel();
     
-    $productList = $products->readAllProducts();
+    $productList = $products->readAll();
     
     echo json_encode($productList);
 
@@ -36,7 +36,7 @@ if(isset($_POST['displaySingleCategory'])) {
 
     $singleCategoryProducts = new ProductModel();
     
-    $singleCategoryProductsList = $singleCategoryProducts->readOneCategoryProducts((int)$_POST['categoryId']);
+    $singleCategoryProductsList = $singleCategoryProducts->readOnebyForeignKey('id_cat', (int)$_POST['categoryId']);
     
     echo json_encode($singleCategoryProductsList);
 
@@ -56,7 +56,7 @@ if(isset($_POST['displaySingleSubCategory'])) {
 
     $singleSubCategoryProducts = new ProductModel();
     
-    $singleSubCategoryProductsList = $singleSubCategoryProducts->readOneSubCategoryProducts((int)$_POST['subCategoryId']);
+    $singleSubCategoryProductsList = $singleSubCategoryProducts->readOnebyForeignKey('id_sub_cat', (int)$_POST['subCategoryId']);
     
     echo json_encode($singleSubCategoryProductsList);
 
