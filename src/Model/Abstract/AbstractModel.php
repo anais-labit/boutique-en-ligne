@@ -10,7 +10,7 @@ abstract class AbstractModel {
 
     public function __construct()
     {
-        $this->password = $_SERVER['HTTP_SEC_CH_UA_PLATFORM'] == '"Linux"'? '' : 'root';
+        $this->password = PHP_OS == 'Linux'? '' : 'root';
         // $this->password = strpos('Linux', $_SERVER['HTTP_SEC_CH_UA_PLATFORM']) ? '' : 'root';
 
         // $this->password = '';     
@@ -81,6 +81,24 @@ abstract class AbstractModel {
 
     
     public function createOne(array $params) {
+
+        $fieldsName = implode(', ', array_keys($params));
+        $fieldsName = str_replace(':', '', $fieldsName);
+
+        $fieldsSqlValue = implode(', ', array_keys($params));
+
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
+
+        //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
+
+        $requestCreateOne = "INSERT INTO $this->tableName ($fieldsName) VALUES ($fieldsSqlValue)";
+
+        $queryCreateOne = $SQL->prepare($requestCreateOne);
+
+        $queryCreateOne->execute($params);
+    }
+
+    public function updateOne(array $params) {
 
         $fieldsName = implode(', ', array_keys($params));
         $fieldsName = str_replace(':', '', $fieldsName);
