@@ -32,21 +32,23 @@ class UpdateController
             header('Content-Type: application/json');
             echo json_encode(['error' => $error]);
             $isValid = false;
-        }
-
-        if ($password !== $confpassword) {
+        } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'L\'adresse email est invalide.']);
+            $isValid = false;
+        } else if ($password !== $confpassword) {
             header('Content-Type: application/json');
             echo json_encode(['error' => 'Les mots de passe ne correspondent pas.']);
             $isValid = false;
         }
+        
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            header('Content-Type: application/json');
-            echo json_encode(['error' => 'L\'adresse email est invalide.']);
-            $isValid = false;
-        }
 
-        if ($isValid) { 
+
+
+
+
+        if ($isValid) {
             $update = new UserModel();
             $update->updateUser(
                 $id,
