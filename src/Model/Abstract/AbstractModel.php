@@ -98,6 +98,24 @@ abstract class AbstractModel {
         $queryCreateOne->execute($params);
     }
 
+    public function updateOne(array $params) {
+
+        $fieldsName = implode(', ', array_keys($params));
+        $fieldsName = str_replace(':', '', $fieldsName);
+
+        $fieldsSqlValue = implode(', ', array_keys($params));
+
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
+
+        //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
+
+        $requestCreateOne = "INSERT INTO $this->tableName ($fieldsName) VALUES ($fieldsSqlValue)";
+
+        $queryCreateOne = $SQL->prepare($requestCreateOne);
+
+        $queryCreateOne->execute($params);
+    }
+
     public function deleteOneById(int $id) {
 
         $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
