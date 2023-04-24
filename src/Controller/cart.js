@@ -15,6 +15,7 @@ async function displayCart() {
    const searchCart = await fetch("../src/Routes/cart_management.php", requestDisplayCart);
 
    const result = await searchCart.json();
+   
 }
 
 displayCart();
