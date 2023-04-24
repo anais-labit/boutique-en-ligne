@@ -155,7 +155,7 @@ class ProductModel extends AbstractModel
 
     public function deleteFromCart(int $idProduct, int $idCart)
     {        
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
         $requestDeleteOne = "DELETE FROM cart_products
         WHERE  id_product = :id_product
         AND id_cart = :id_cart
@@ -175,7 +175,7 @@ class ProductModel extends AbstractModel
 
     public function catchProductInfos($word)
     {
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
         $req = "SELECT * FROM products WHERE product LIKE '$word%'";
 
         $catchProduct = $SQL->prepare($req);
@@ -189,7 +189,7 @@ class ProductModel extends AbstractModel
 
     public function setObject(int $id):object {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $requestSetProductObject = "SELECT * FROM products WHERE id = :id";
 

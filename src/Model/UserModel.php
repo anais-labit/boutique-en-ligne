@@ -188,7 +188,7 @@ class UserModel extends AbstractModel
         string $password
     ) {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
@@ -221,7 +221,7 @@ class UserModel extends AbstractModel
         string $password
     ) {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
@@ -260,7 +260,7 @@ class UserModel extends AbstractModel
         string $password
     ) {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $request_update_user = "UPDATE users SET 
         firstname = :firstname, lastname = :lastname, email = :email, address = :address, zip_code = :zip_code, city = :city, password = :password
@@ -291,7 +291,7 @@ class UserModel extends AbstractModel
     public function setSession(string $email): object
     {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $requestUserInfo = "SELECT * FROM users WHERE email = :email";
 

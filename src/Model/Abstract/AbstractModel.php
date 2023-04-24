@@ -6,14 +6,17 @@ abstract class AbstractModel {
 
     protected string $tableName;
 
+    protected ?string $password = null;
+
     public function __construct()
     {
-        
+        $this->password = $_SERVER['HTTP_SEC_CH_UA_PLATFORM'] == '"Linux"'? '' : 'root';
     }
 
     public function readAll():array {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $requestReadAll = "SELECT * FROM $this->tableName";
 
@@ -29,7 +32,7 @@ abstract class AbstractModel {
 
     public function readOnebyId(int $id):array {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $requestReadOne = "SELECT * FROM $this->tableName WHERE id = :id";
 
@@ -45,8 +48,8 @@ abstract class AbstractModel {
 
     public function readOnebyString(string $input, string $fieldName):array {
         
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-        
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
+   
         $requestReadOne = "SELECT * FROM $this->tableName WHERE $fieldName = :$fieldName";
         
         $queryReadOne = $SQL->prepare($requestReadOne);
@@ -60,7 +63,7 @@ abstract class AbstractModel {
     
     public function readOnebyForeignKey(string $foreignKey, int $keyValue):array {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $requestReadOne = "SELECT * FROM $this->tableName WHERE $foreignKey = :$foreignKey";
 
@@ -81,7 +84,7 @@ abstract class AbstractModel {
 
         $fieldsSqlValue = implode(', ', array_keys($params));
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
@@ -94,7 +97,7 @@ abstract class AbstractModel {
 
     public function deleteOneById(int $id) {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $requestDeleteOne = "DELETE FROM $this->tableName WHERE id = :id";
 
@@ -103,29 +106,6 @@ abstract class AbstractModel {
         $queryDeleteOne->execute(['id:' => $id]);
 
     }
-
-    // public function deleteOneInForeignTable(array $params) {
-    //     var_dump($params);
-
-    //     $test = implode(', ', array_keys($params));
-
-    //     $primaryKey = $test[0];
-    //     $foreignKey = $test[1];
-    //     $primaryName = str_replace(':', '', $primaryKey);
-    //     $foreignName = str_replace(':', '', $foreignKey);
-
-    //     $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-
-    //     $requestDeleteOne = "DELETE FROM $this->tableName 
-    //     WHERE  id_product = :id_product
-    //     AND id_cart = :id_cart
-    //     ";
-
-    //     $queryDeleteOne = $SQL->prepare($requestDeleteOne);
-
-    //     $queryDeleteOne->execute($params);
-
-    // }
 }
 
 ?>

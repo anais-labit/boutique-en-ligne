@@ -1,5 +1,6 @@
 <?php
 
+
 is_file("../config.php") == true ?
     require_once '../config.php' :
     require_once '../../config.php';
@@ -22,6 +23,9 @@ if (isset($_POST['disconnect'])) {
 var_dump($_SESSION['cart']);
 // var_dump($_SESSION);
 // var_dump($_SESSION['cartId']);
+
+var_dump($_SERVER['HTTP_SEC_CH_UA_PLATFORM']);
+
 ?>
 
 <nav>
