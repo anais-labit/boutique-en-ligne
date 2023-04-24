@@ -11,6 +11,8 @@ headerCartDiv.style.display = "none";
 cartContainer.addEventListener("mouseover", showHeaderCart);
 cartContainer.addEventListener("mouseout", hideHeaderCart);
 
+
+//                    Fonction de display des produits (tous les produits, une catégorie, une sous-catégorie)
 async function displayAllProducts() {
     const allProductsForm = new FormData();
 
@@ -27,39 +29,98 @@ async function displayAllProducts() {
 
     const productList = await allProducts.json()
 
-    for(let i in productList) {
+    rawDisplay(productList);
+    
+}
+
+async function displaySingleCategory() {
+
+    productsDiv.innerHTML = "";
+
+    const singleCategoryForm = new FormData();
+
+    singleCategoryForm.append("displaySingleCategory", "displaySingleCategory");
+    singleCategoryForm.append("categoryId", this.value);
+
+    const requestsingleCategoryOptions = {
+
+        method: "POST",
+        body:singleCategoryForm
+
+    }
+
+    const fetchSingleCategory = await fetch("../src/Routes/product_display.php", requestsingleCategoryOptions)
+
+    const singleCategory = await fetchSingleCategory.json()
+
+    rawDisplay(singleCategory)
+
+    displaySingleSubCategoriesButtons(this.value);
+
+}
+
+
+
+async function displaySingleSubCategoryProducts() {
+
+    productsDiv.innerHTML = "";
+
+    const singleSubCategoryForm = new FormData();
+
+    singleSubCategoryForm.append("displaySingleSubCategory", "displaySingleSubCategory");
+    singleSubCategoryForm.append("subCategoryId", this.value);
+
+    const requestsingleSubCategoryOptions = {
+
+        method: "POST",
+        body:singleSubCategoryForm
+
+    }
+
+    const fetchSingleSubCategory = await fetch("../src/Routes/product_display.php", requestsingleSubCategoryOptions)
+
+    const singleSubCategory = await fetchSingleSubCategory.json()
+    
+    rawDisplay(singleSubCategory)
+}
+
+
+
+function rawDisplay(results) {
+        
+    for(let i in results) {
 
         const card = document.createElement("div");
         card.setAttribute("class", "productCards");
-        card.setAttribute("id", `card${productList[i].id}`);
+        card.setAttribute("id", `card${results[i].id}`);
 
         const cardImage = document.createElement("img");
-        cardImage.setAttribute("src", productList[i].image);
+        cardImage.setAttribute("src", results[i].image);
         cardImage.setAttribute("width", "300px");
         cardImage.setAttribute("height", "300px");
         card.appendChild(cardImage);
 
         const cardTitle = document.createElement("p");
-        cardTitle.innerHTML = productList[i].product;
+        cardTitle.innerHTML = results[i].product;
         card.appendChild(cardTitle);
 
         const cardDescription = document.createElement("p");
-        cardDescription.innerHTML = productList[i].description;
+        cardDescription.innerHTML = results[i].description;
         card.appendChild(cardDescription);
 
         const cardPrice =  document.createElement("p");
-        productList[i].price_kg !== null ?
-            cardPrice.innerHTML = (productList[i].price_kg/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + "/kg":
-            cardPrice.innerHTML = (productList[i].price_unit/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + "/unité";
+        results[i].price_kg !== null ?
+            cardPrice.innerHTML = (results[i].price_kg/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + "/kg":
+            cardPrice.innerHTML = (results[i].price_unit/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + "/unité";
         card.appendChild(cardPrice)
 
         const addQuantityButton = document.createElement("input");
         addQuantityButton.setAttribute("type", "number");
-        addQuantityButton.setAttribute("id", `quantity${productList[i].id}`)
+        addQuantityButton.setAttribute("id", `quantity${results[i].id}`)
         card.appendChild(addQuantityButton);
 
         const addCartButton =  document.createElement("button");
-        addCartButton.setAttribute("value", productList[i].id);
+        addCartButton.setAttribute("value", results[i].id);
         addCartButton.innerHTML = "Ajouter";
         addCartButton.addEventListener("click", addCart)
         card.appendChild(addCartButton);
@@ -67,8 +128,12 @@ async function displayAllProducts() {
         productsDiv.appendChild(card);
       
     }
-    
 }
+
+// --------------------------------------------------------------------------------------------------------------------------------------
+
+//                    Fonction de display des filtres de catégories et sous-catégories
+
 
 async function displayCategoriesFilters() {
 
@@ -98,74 +163,6 @@ async function displayCategoriesFilters() {
         categoriesFiltersDiv.appendChild(filterButton);
 
     }
-
-
-}
-
-async function displaySingleCategory() {
-
-    // ev.preventDefault();
-    productsDiv.innerHTML = "";
-
-    const singleCategoryForm = new FormData();
-
-    singleCategoryForm.append("displaySingleCategory", "displaySingleCategory");
-    singleCategoryForm.append("categoryId", this.value);
-
-    const requestsingleCategoryOptions = {
-
-        method: "POST",
-        body:singleCategoryForm
-
-    }
-
-    const fetchSingleCategory = await fetch("../src/Routes/product_display.php", requestsingleCategoryOptions)
-
-    const singleCategory = await fetchSingleCategory.json()
-    
-    for(let x in singleCategory) {
-
-        const card = document.createElement("div");
-        card.setAttribute("class", "productCards");
-        card.setAttribute("id", `card${singleCategory[x].id}`);
-
-        const cardImage = document.createElement("img");
-        cardImage.setAttribute("src", singleCategory[x].image);
-        cardImage.setAttribute("width", "300px");
-        cardImage.setAttribute("height", "300px");
-        card.appendChild(cardImage);
-
-        const cardTitle = document.createElement("p");
-        cardTitle.innerHTML = singleCategory[x].product;
-        card.appendChild(cardTitle);
-
-        const cardDescription = document.createElement("p");
-        cardDescription.innerHTML = singleCategory[x].description;
-        card.appendChild(cardDescription);
-
-        const cardPrice =  document.createElement("p");
-        singleCategory[x].price_kg !== null ?
-            cardPrice.innerHTML = (singleCategory[x].price_kg/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + "/kg":
-            cardPrice.innerHTML = (singleCategory[x].price_unit/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + "/unité";
-        card.appendChild(cardPrice)
-
-        const addQuantityButton = document.createElement("input");
-        addQuantityButton.setAttribute("type", "number");
-        addQuantityButton.setAttribute("id", `quantity${singleCategory[x].id}`)
-        card.appendChild(addQuantityButton);
-
-        const addCartButton =  document.createElement("button");
-        addCartButton.setAttribute("value", singleCategory[x].id);
-        addCartButton.innerHTML = "Ajouter";
-        addCartButton.addEventListener("click", addCart)
-        card.appendChild(addCartButton);
-
-        productsDiv.appendChild(card);
-      
-    }
-
-    displaySingleSubCategoriesButtons(this.value);
-
 }
 
 
@@ -203,71 +200,9 @@ async function displaySingleSubCategoriesButtons(id_cat) {
 
 }
 
+// --------------------------------------------------------------------------------------------------------------------------------------
 
-
-async function displaySingleSubCategoryProducts() {
-
-    // ev.preventDefault();
-    productsDiv.innerHTML = "";
-
-    const singleSubCategoryForm = new FormData();
-
-    singleSubCategoryForm.append("displaySingleSubCategory", "displaySingleSubCategory");
-    singleSubCategoryForm.append("subCategoryId", this.value);
-
-    const requestsingleSubCategoryOptions = {
-
-        method: "POST",
-        body:singleSubCategoryForm
-
-    }
-
-    const fetchSingleSubCategory = await fetch("../src/Routes/product_display.php", requestsingleSubCategoryOptions)
-
-    const singleSubCategory = await fetchSingleSubCategory.json()
-    
-    for(let x in singleSubCategory) {
-
-        const card = document.createElement("div");
-        card.setAttribute("class", "productCards");
-        card.setAttribute("id", `card${singleSubCategory[x].id}`);
-
-        const cardImage = document.createElement("img");
-        cardImage.setAttribute("src", singleSubCategory[x].image);
-        cardImage.setAttribute("width", "300px");
-        cardImage.setAttribute("height", "300px");
-        card.appendChild(cardImage);
-
-        const cardTitle = document.createElement("p");
-        cardTitle.innerHTML = singleSubCategory[x].product;
-        card.appendChild(cardTitle);
-
-        const cardDescription = document.createElement("p");
-        cardDescription.innerHTML = singleSubCategory[x].description;
-        card.appendChild(cardDescription);
-
-        const cardPrice =  document.createElement("p");
-        singleSubCategory[x].price_kg !== null ?
-            cardPrice.innerHTML = (singleSubCategory[x].price_kg/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + "/kg":
-            cardPrice.innerHTML = (singleSubCategory[x].price_unit/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + "/unité";
-        card.appendChild(cardPrice)
-
-        const addQuantityButton = document.createElement("input");
-        addQuantityButton.setAttribute("type", "number");
-        addQuantityButton.setAttribute("id", `quantity${singleSubCategory[x].id}`)
-        card.appendChild(addQuantityButton);
-
-        const addCartButton =  document.createElement("button");
-        addCartButton.setAttribute("value", singleSubCategory[x].id);
-        addCartButton.innerHTML = "Ajouter";
-        addCartButton.addEventListener("click", addCart)
-        card.appendChild(addCartButton);
-
-        productsDiv.appendChild(card);
-      
-    }
-
-}
+//                    Fonction de gestion/affichage du panier
 
 async function addCart() {
 
@@ -312,11 +247,10 @@ async function fetchHeaderCart() {
 
    const result = await searchHeaderCart.json();
 
-//    console.log(result);
-
    return result
 
 }
+
 
 async function displayHeaderCart() {
 
@@ -366,8 +300,7 @@ async function deleteFromCart(productId) {
    const refreshCart = await fetch("../src/Routes/cart_management.php", requestDeleteFromCart);
 
    const result = await refreshCart.json();
-
-//    console.log(result);
+   console.log(result);
 
    displayHeaderCart();
 
@@ -395,8 +328,9 @@ async function showCartNumber() {
 
 }
 
+// --------------------------------------------------------------------------------------------------------------------------------------
+
 
 if(location.pathname == "/boutique-en-ligne/View/products.php") displayAllProducts() && displayCategoriesFilters();
-showCartNumber();
-displayHeaderCart();
+if(location.pathname !== "/boutique-en-ligne/View/login.php") displayHeaderCart() && showCartNumber();
 

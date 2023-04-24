@@ -109,6 +109,7 @@ if(isset($_POST['deleteFromCart'])) {
             unset($_SESSION['cart'][$key]);
         }
     }
+    echo json_encode(["success" => "true", "message" => "Produit supprimé avec succès"]);
 
 
 }
