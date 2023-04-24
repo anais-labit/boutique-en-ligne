@@ -8,6 +8,7 @@ class CartModel extends AbstractModel {
 
     public function __construct()
     {
+        parent::__construct();
         $this->tableName = 'carts';
         
     }

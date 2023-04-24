@@ -1,11 +1,12 @@
 <?php
 
+use App\Model\ProductModel;
 
 is_file("../config.php") == true ?
     require_once '../config.php' :
     require_once '../../config.php';
 // require_once ROOT_DIR .'/src/Routes/product_display.php';
-require_once ROOT_DIR .'/vendor/autoload.php';
+require_once ROOT_DIR . '/vendor/autoload.php';
 // require_once '../src/Model/ProductModel.php';
 // require_once '../src/Model/UserModel.php';
 
@@ -20,12 +21,12 @@ if (isset($_POST['disconnect'])) {
     header('Location: ../View/login.php');
 }
 
-var_dump($_SESSION['cart']);
+// var_dump($_SESSION['cart']);
 // var_dump($_SESSION);
 // var_dump($_SESSION['cartId']);
-
-var_dump($_SERVER['HTTP_SEC_CH_UA_PLATFORM']);
-
+// echo '<pre>';
+// var_dump($_SERVER);
+// echo '</pre>';
 ?>
 
 <nav>

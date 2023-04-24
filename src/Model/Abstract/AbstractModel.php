@@ -2,22 +2,21 @@
 
 namespace App\Model\Abstract;
 
-abstract class AbstractModel {
+abstract class AbstractModel
+{
 
     protected string $tableName;
-
     protected ?string $password = null;
 
     public function __construct()
     {
-        $this->password = $_SERVER['HTTP_SEC_CH_UA_PLATFORM'] == '"Linux"'? '' : 'root';
+        $this->password = strpos('Linux', $_SERVER['HTTP_SEC_CH_UA_PLATFORM']) ? '' : 'root';
     }
 
-    public function readAll():array {
-
-
+    public function readAll(): array
+    {
         $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
-
+        
         $requestReadAll = "SELECT * FROM $this->tableName";
 
         $queryReadAll = $SQL->prepare($requestReadAll);
@@ -30,7 +29,8 @@ abstract class AbstractModel {
     }
 
 
-    public function readOnebyId(int $id):array {
+    public function readOnebyId(int $id): array
+    {
 
         $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
@@ -46,22 +46,24 @@ abstract class AbstractModel {
     }
 
 
-    public function readOnebyString(string $input, string $fieldName):array {
-        
+    public function readOnebyString(string $input, string $fieldName): array
+    {
+
         $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
-   
+
         $requestReadOne = "SELECT * FROM $this->tableName WHERE $fieldName = :$fieldName";
-        
+
         $queryReadOne = $SQL->prepare($requestReadOne);
-        
+
         $queryReadOne->execute([$fieldName => $input]);
-        
+
         $resultReadOne = $queryReadOne->fetchAll();
-        
+
         return $resultReadOne;
     }
-    
-    public function readOnebyForeignKey(string $foreignKey, int $keyValue):array {
+
+    public function readOnebyForeignKey(string $foreignKey, int $keyValue): array
+    {
 
         $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
@@ -76,8 +78,9 @@ abstract class AbstractModel {
         return $resultReadOne;
     }
 
-    
-    public function createOne(array $params) {
+
+    public function createOne(array $params)
+    {
 
         $fieldsName = implode(', ', array_keys($params));
         $fieldsName = str_replace(':', '', $fieldsName);
@@ -95,7 +98,8 @@ abstract class AbstractModel {
         $queryCreateOne->execute($params);
     }
 
-    public function deleteOneById(int $id) {
+    public function deleteOneById(int $id)
+    {
 
         $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
@@ -104,8 +108,5 @@ abstract class AbstractModel {
         $queryDeleteOne = $SQL->prepare($requestDeleteOne);
 
         $queryDeleteOne->execute(['id:' => $id]);
-
     }
 }
-
-?>
