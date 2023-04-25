@@ -22,11 +22,15 @@ class UpdateController
         int $CP,
         string $city,
         string $password,
-        string $confpassword
+        string $confpassword,
+        string $oldpassword,
     ) {
+
+        $userModel = new UserModel();
 
         $error = 'Certains champs sont vides';
         $isValid = true; // variable de contrôle
+        $savedPassword = $userModel->getPassword($email);
 
         if (empty(trim($firstName)) || empty(trim($lastName)) || empty(trim($email)) || empty(trim($address)) || empty(trim($CP)) || empty(trim($city)) || empty(trim($password))) {
             header('Content-Type: application/json');
@@ -40,17 +44,13 @@ class UpdateController
             header('Content-Type: application/json');
             echo json_encode(['error' => 'Les mots de passe ne correspondent pas.']);
             $isValid = false;
-        }
-        
+        } else if (!password_verify($oldpassword, $savedPassword)) {
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'Les modifications n\'ont pas été prises en compte']);
+            $isValid = false;
+        } else if ($isValid) {
 
-
-
-
-
-
-        if ($isValid) {
-            $update = new UserModel();
-            $update->updateUser(
+            $userModel->updateUser(
                 $id,
                 $firstName,
                 $lastName,
@@ -62,11 +62,11 @@ class UpdateController
             );
 
             $_SESSION['user']->setFirstName($_POST['updateFirstName']);
-            $_SESSION['user']->setFirstName($_POST['updateLastName']);
-            $_SESSION['user']->setFirstName($_POST['updateEmail']);
-            $_SESSION['user']->setFirstName($_POST['updateAddress']);
-            $_SESSION['user']->setFirstName($_POST['updateZipCode']);
-            $_SESSION['user']->setFirstName($_POST['updateCity']);
+            $_SESSION['user']->setLastName($_POST['updateLastName']);
+            $_SESSION['user']->setEmail($_POST['updateEmail']);
+            $_SESSION['user']->setAddress($_POST['updateAddress']);
+            $_SESSION['user']->setZipCode($_POST['updateZipCode']);
+            $_SESSION['user']->setCity($_POST['updateCity']);
 
             header('Content-Type: application/json');
             echo (json_encode(['success' => 'Les mises à jour ont bien été prises en compte.']));
@@ -74,7 +74,4 @@ class UpdateController
     }
 }
 
-
-// TODO : redemander l'ancien password si maj du password
-// TODO : rehacher le mdp si changement
-// TODO : display les message côté client 
+// TODO : display les messages côté client 
