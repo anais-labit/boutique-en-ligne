@@ -19,6 +19,7 @@ class ProductModel extends AbstractModel
     private int $priceKg;
     private int $priceUnit;
     private int $quantity;
+    private string $priceType;
     // private string $tableName = 'products';
 
 
@@ -68,6 +69,11 @@ class ProductModel extends AbstractModel
     public function getImage():string {
 
         return $this->image;
+    }
+
+    public function getPriceType():string {
+
+        return $this->priceType;
     }
 
     public function getWeight():int {
@@ -147,10 +153,21 @@ class ProductModel extends AbstractModel
     }
 
 
-
-
-    public function updateProduct()
+    public function updateCartQuantity(int $idProduct, int $idCart, int $quantity)
     {
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
+        $requestDeleteOne = "UPDATE cart_products SET quantity = :quantity
+        WHERE  id_product = :id_product
+        AND id_cart = :id_cart
+        ";
+
+        $queryDeleteOne = $SQL->prepare($requestDeleteOne);
+
+        $queryDeleteOne->execute([
+            ":quantity" => $quantity,
+            ":id_product" => $idProduct,
+            ":id_cart" => $idCart
+        ]);
     }
 
 
@@ -219,8 +236,8 @@ class ProductModel extends AbstractModel
         $this->producer = $resultSetProductObject[0][8];
 
         $resultSetProductObject[0][9] !== null?
-            $this->priceKg = $resultSetProductObject[0][9]: 
-            $this->priceUnit = $resultSetProductObject[0][10];
+            $this->priceKg = $resultSetProductObject[0][9] && $this->priceType = "kg": 
+            $this->priceUnit = $resultSetProductObject[0][10] && $this->priceType = "pièces";
 
         return $this;
     }

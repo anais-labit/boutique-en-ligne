@@ -303,6 +303,7 @@ async function deleteFromCart(productId) {
    console.log(result);
 
    displayHeaderCart();
+   showCartNumber();
 
    return result
 }
