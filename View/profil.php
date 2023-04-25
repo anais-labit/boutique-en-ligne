@@ -9,7 +9,7 @@ require_once ROOT_DIR . '/vendor/autoload.php';
 if (session_id() == "") session_start();
 
 var_dump($_SESSION['user']);
-var_dump($_SESSION['registerPassword']);
+// var_dump($_SESSION['registerPassword']);
 
 
 ?>

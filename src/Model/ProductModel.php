@@ -81,6 +81,16 @@ class ProductModel extends AbstractModel
         return $this->weight;
     }
 
+    public function getPriceKg():int {
+
+        return $this->priceKg;
+    }
+
+    public function getPriceUnit():int {
+
+        return $this->priceUnit;
+    }
+
 
     public function createCategory(array $params) {
 
@@ -235,9 +245,16 @@ class ProductModel extends AbstractModel
 
         $this->producer = $resultSetProductObject[0][8];
 
-        $resultSetProductObject[0][9] !== null?
-            $this->priceKg = $resultSetProductObject[0][9] && $this->priceType = "kg": 
-            $this->priceUnit = $resultSetProductObject[0][10] && $this->priceType = "pièces";
+       if($resultSetProductObject[0][9] !== null) {
+
+           $this->priceKg = $resultSetProductObject[0][9];
+           $this->priceType = "kg";
+       }
+       elseif($resultSetProductObject[0][10] !== null) {
+
+           $this->priceUnit = $resultSetProductObject[0][10];
+           $this->priceType = "pièces";
+       }
 
         return $this;
     }
