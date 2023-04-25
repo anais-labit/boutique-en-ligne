@@ -17,18 +17,6 @@ require_once ROOT_DIR . '/vendor/autoload.php';
 if (session_id() == "") session_start();
 
 
-if(isset($_POST['displayCart']) 
-// && $_SERVER['REQUEST_URI'] == 'cart.php')
-)
- {
-
-
- 
-    
-}
-
-
-
 if (isset($_POST['displayHeaderCart']) || isset($_POST['displayCart'])) {
 
     $productListForJs = [];
@@ -40,7 +28,8 @@ if (isset($_POST['displayHeaderCart']) || isset($_POST['displayCart'])) {
         $product = [
             "name" => $product->getName(),
             "quantity" => $product->getQuantity(),
-            "productId" => $product->getId()
+            "productId" => $product->getId(),
+            "priceType" => $product->getPriceType()
         ];
         
         array_push($productListForJs, $product);
@@ -111,5 +100,34 @@ if(isset($_POST['deleteFromCart'])) {
     }
     echo json_encode(["success" => "true", "message" => "Produit supprimé avec succès"]);
 
+}
 
+if(isset($_POST['addQuantity'])) {
+
+    foreach($_SESSION['cart'] as $key => $product) {
+
+        if($product->getId() == $_POST['addQuantity']) {
+
+            $newQuantity = (int)($product->getQuantity() + 1);
+
+            $product->updateCartQuantity((int)$product->getId(), (int)$_SESSION['cartId'][0], $newQuantity);
+
+            $product->setQuantity($newQuantity);
+        }
+    }
+}
+
+if(isset($_POST['removeQuantity'])) {
+
+    foreach($_SESSION['cart'] as $key => $product) {
+
+        if($product->getId() == $_POST['removeQuantity']) {
+
+            $newQuantity = (int)($product->getQuantity() - 1);
+
+            $product->updateCartQuantity((int)$product->getId(), (int)$_SESSION['cartId'][0], $newQuantity);
+
+            $product->setQuantity($newQuantity);
+        }
+    }
 }
