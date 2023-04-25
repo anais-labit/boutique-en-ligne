@@ -16,6 +16,24 @@ abstract class AbstractModel {
         // $this->password = '';     
     }
 
+    public function createOne(array $params) {
+
+        $fieldsName = implode(', ', array_keys($params));
+        $fieldsName = str_replace(':', '', $fieldsName);
+
+        $fieldsSqlValue = implode(', ', array_keys($params));
+
+        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
+
+        //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
+
+        $requestCreateOne = "INSERT INTO $this->tableName ($fieldsName) VALUES ($fieldsSqlValue)";
+
+        $queryCreateOne = $SQL->prepare($requestCreateOne);
+
+        $queryCreateOne->execute($params);
+    }
+
     public function readAll():array {
 
 
@@ -79,41 +97,36 @@ abstract class AbstractModel {
         return $resultReadOne;
     }
 
-    
-    public function createOne(array $params) {
-
-        $fieldsName = implode(', ', array_keys($params));
-        $fieldsName = str_replace(':', '', $fieldsName);
-
-        $fieldsSqlValue = implode(', ', array_keys($params));
-
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
-
-        //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
-
-        $requestCreateOne = "INSERT INTO $this->tableName ($fieldsName) VALUES ($fieldsSqlValue)";
-
-        $queryCreateOne = $SQL->prepare($requestCreateOne);
-
-        $queryCreateOne->execute($params);
-    }
 
     public function updateOne(array $params) {
 
-        $fieldsName = implode(', ', array_keys($params));
-        $fieldsName = str_replace(':', '', $fieldsName);
+        //Récupération des params puis suppression du dernier élément du tableau, à savoir l'id, qu'on ne veut pas update
+        $fieldsToUpdate = $params;
+        array_pop($fieldsToUpdate);
 
-        $fieldsSqlValue = implode(', ', array_keys($params));
+        //Création du tableau dans lequel stocker notre string de requête d'update
+        $requestString = [];
+
+        //Boucle pour alimenter notre tableau
+        foreach($fieldsToUpdate as $key => $value) {
+
+            $fieldName = str_replace(':', '', $key);
+            $requestString[] = $fieldName . ' = ' . $key;
+        }
+
+        //Conversion du tableau en string
+        $requestString = implode(', ', $requestString);
+
 
         $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
-        $requestCreateOne = "INSERT INTO $this->tableName ($fieldsName) VALUES ($fieldsSqlValue)";
+        $requestUpdateOne = "UPDATE $this->tableName SET ($requestString) WHERE id = :id";
 
-        $queryCreateOne = $SQL->prepare($requestCreateOne);
+        $queryUpdateOne = $SQL->prepare($requestUpdateOne);
 
-        $queryCreateOne->execute($params);
+        $queryUpdateOne->execute($params);
     }
 
     public function deleteOneById(int $id) {
