@@ -29,8 +29,6 @@ class UserModel extends AbstractModel
 
     private ?string $email;
 
-    // private ?string $password;
-
     public function __construct()
     {
         parent::__construct();
@@ -177,13 +175,6 @@ class UserModel extends AbstractModel
         return $this->verified;
     }
 
-    // public function setPassword(string $password)
-    // {
-
-    //     $this->password = $password;
-    // }
-
-
     public function createUser(
         int $type,
         string $firstName,
@@ -259,10 +250,6 @@ class UserModel extends AbstractModel
         if ($queryUserPassword) return $userPassword['password'];
     }
 
-
-    public function deleteUser()
-    {
-    }
 
     public function setSession(string $email): object
     {
