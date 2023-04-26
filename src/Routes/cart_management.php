@@ -25,14 +25,15 @@ if (isset($_POST['displayHeaderCart']) || isset($_POST['displayCart'])) {
     foreach ($_SESSION['cart'] as $index => $product) {
 
         // array_push($productListForJs, $product->getName());
-        $product = [
+        $infos = [
             "name" => $product->getName(),
             "quantity" => $product->getQuantity(),
             "productId" => $product->getId(),
-            "priceType" => $product->getPriceType()
+            "priceType" => $product->getPriceType(),
+            "price" => $product->getPriceType() == "kg" ? $product->getPriceKg() : $product->getPriceUnit(),
         ];
         
-        array_push($productListForJs, $product);
+        array_push($productListForJs, $infos);
         $count++;
     }
 
