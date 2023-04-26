@@ -45,13 +45,11 @@ class UpdateController
             $valuesToSend[':password'] = htmlspecialchars(trim(password_hash($values['updatePassword'], PASSWORD_DEFAULT)));
         }
 
-        $error = 'Certains champs sont vides';
         $isValid = true; // variable de contrôle
         $savedPassword = $userModel->getPassword($_SESSION['user']->getEmail());
 
         // Vérification des champs obligatoires
         $error = 'Certains champs sont vides';
-        $isValid = true; // variable de contrôle
 
         if (empty(trim($_POST['updateFirstName'])) || empty(trim($_POST['updateLastName'])) || empty(trim($_POST['updateEmail'])) || empty(trim($_POST['updateAddress'])) || empty(trim($_POST['updateZipCode'])) || empty(trim($_POST['updateCity']))) {
             header('Content-Type: application/json');
@@ -82,6 +80,27 @@ class UpdateController
 
             header('Content-Type: application/json');
             echo (json_encode(['success' => 'Les mises à jour ont bien été prises en compte.']));
+        }
+    }
+
+    public function deleteUserProfile(int $id)
+    {
+
+        $userModel = new UserModel();
+
+        $savedPassword = $userModel->getPassword($_SESSION['user']->getEmail());
+
+        if ($_POST['confirmOldPassword'] === '') {
+            header('Content-Type: application/json');
+            echo (json_encode(['error' => 'Saisissez votre mot de passe pour valider']));
+        } else if (password_verify($_POST['confirmOldPassword'], $savedPassword)) {
+
+            $userModel->deleteOneById($id);
+
+            header('Content-Type: application/json');
+            echo (json_encode(['success' => 'Votre compte a bien été supprimé.']));
+            session_unset();
+            session_destroy();
         }
     }
 }

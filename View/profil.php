@@ -83,6 +83,8 @@ if (session_id() == "") session_start();
         <input type="password" name="confirmOldPassword" class="loginInputs" id="confirmOldPassword">
 
         <button type="submit" id="updateButton">Mettre à jour</button>
+        <button type="submit" id="deleteButton">Supprimer votre compte</button>
+
 
     </form>
 

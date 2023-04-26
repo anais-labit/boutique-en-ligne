@@ -145,6 +145,6 @@ abstract class AbstractModel
 
         $queryDeleteOne = $SQL->prepare($requestDeleteOne);
 
-        $queryDeleteOne->execute(['id:' => $id]);
+        $queryDeleteOne->execute([':id' => $id]);
     }
 }
