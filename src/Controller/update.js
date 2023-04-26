@@ -28,8 +28,7 @@ async function update() {
   };
 
   const update = await fetch("../src/Routes/user_management.php", options);
-  const results = await update.json();
-  // console.log(results.message);
+  // const results = await update.json();
 }
 
 console.log(updateForm);
@@ -37,5 +36,4 @@ console.log(updateForm);
 updateButton.addEventListener("click", async (event) => {
   event.preventDefault();
   update();
-  console.log("yo");
 });

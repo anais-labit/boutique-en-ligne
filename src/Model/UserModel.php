@@ -250,7 +250,7 @@ class UserModel extends AbstractModel
         ]);
     }
 
-    public function getPassword(string $email): ?string
+    public function getPassword(string $email): string
     {
         $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
         $queryUserPassword = $SQL->prepare('SELECT password FROM users WHERE email = :email');
@@ -259,44 +259,10 @@ class UserModel extends AbstractModel
         if ($queryUserPassword) return $userPassword['password'];
     }
 
-    public function updateUser(
-        int $id,
-        string $firstName,
-        string $lastName,
-        string $email,
-        string $address,
-        int $CP,
-        string $city,
-        string $password
-    ) {
-
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
-
-        $request_update_user = "UPDATE users SET 
-        firstname = :firstname, lastname = :lastname, email = :email, address = :address, zip_code = :zip_code, city = :city, password = :password
-        WHERE id = :id";
-
-        $query_update_user = $SQL->prepare($request_update_user);
-
-        $query_update_user->execute(array(
-            ':firstname' => $firstName,
-            ':lastname' => $lastName,
-            ':email' => $email,
-            ':address' => $address,
-            ':zip_code' => $CP,
-            ':city' => $city,
-            ':password' => password_hash($password, PASSWORD_DEFAULT),
-            'id' => $id
-        ));
-
-        if ($query_update_user) return 'Les mises à jour ont bien été prises en compte';
-    }
-
 
     public function deleteUser()
     {
     }
-
 
     public function setSession(string $email): object
     {

@@ -59,5 +59,5 @@ if(isset($_POST['loginEmail']) && isset($_POST['loginPassword'])) {
 // MAJ DU PROFIL 
 if (isset($_POST['updateProfile'])) {
     $update = new UpdateController();
-    $reqUpdate = $update->updateUserProfile((int)$_SESSION['user']->getId(), $_POST['updateFirstName'], $_POST['updateLastName'], $_POST['updateEmail'], $_POST['updateAddress'], (int)$_POST['updateZipCode'], $_POST['updateCity'], $_POST['updatePassword'], $_POST['updateConfirmPassword'], $_POST['confirmOldPassword']);
+    $reqUpdate = $update->updateUserProfile((int)$_SESSION['user']->getId(), $_POST);
 } 
