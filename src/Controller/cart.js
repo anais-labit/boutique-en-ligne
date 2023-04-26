@@ -22,6 +22,11 @@ async function displayCart() {
 
           productLine = document.createElement('p');
           productLine.innerHTML = result.list[i].name + " " + result.list[i].quantity + result.list[i].priceType;
+          console.log(result.list[i].price);
+          let productPrice = parseInt((result.list[i].price / 100) * result.list[i].quantity);
+          linePrice = document.createElement("p");
+          linePrice.innerHTML = productPrice + "€";
+          productLine.appendChild(linePrice);
 
           minusButton = document.createElement("i");
           minusButton.setAttribute("class", "fa-solid fa-minus");
@@ -32,6 +37,10 @@ async function displayCart() {
           plusButton.setAttribute("class", "fa-solid fa-plus");
           plusButton.addEventListener("click", () => {addQuantity(result.list[i].productId)});
           productLine.appendChild(plusButton);
+
+          productLine.style.width = "100%";
+          productLine.style.display = "flex";
+          productLine.style.justifyContent = "space-around";
 
           cartDisplay.appendChild(productLine);
      }

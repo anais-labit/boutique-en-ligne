@@ -8,7 +8,6 @@ require_once ROOT_DIR . '/vendor/autoload.php';
 
 if (session_id() == "") session_start();
 
-
 ?>
 
 <!DOCTYPE html>
