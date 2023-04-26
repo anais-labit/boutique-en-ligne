@@ -8,6 +8,12 @@ require_once ROOT_DIR . '/vendor/autoload.php';
 
 if (session_id() == "") session_start();
 
+<<<<<<<<< Temporary merge branch 1
+var_dump($_SESSION['user']);
+// var_dump($_SESSION['registerPassword']);
+
+=========
+>>>>>>>>> Temporary merge branch 2
 
 ?>
 
