@@ -8,10 +8,6 @@ require_once ROOT_DIR . '/vendor/autoload.php';
 
 if (session_id() == "") session_start();
 
-var_dump($_SESSION['user']);
-// var_dump($_SESSION['registerPassword']);
-
-
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +27,7 @@ var_dump($_SESSION['user']);
 
 <body>
     <?php require_once 'header.php';
-    $actualAvatar = $_SESSION['user']->getAvatar(); ?>
+    $currentAvatar = $_SESSION['user']->getAvatar(); ?>
 
     <form action="profil.php" method="POST" id="updateForm" enctype="multipart/form-data">
 
@@ -41,7 +37,7 @@ var_dump($_SESSION['user']);
         </select>
 
         <!-- <label class="updateLabels" id="updateLabelAvatar" for="updateLabelAvatar">Avatar</label> -->
-        <div class="avatar" id="avatarContainer"><img src="<?= './images/avatars/avatar' . $actualAvatar . '.png' ?>" width="60" height="60" alt="avatar"></div>
+        <div class="avatar" id="avatarContainer"><img src="<?= './images/avatars/avatar' . $currentAvatar . '.png' ?>" width="60" height="60" alt="avatar"></div>
 
         <!-- <input type=" radio" class="updateLabels" name="avatar" id="avatar1" value="1">
             <img class="avatar" alt="avatar" src="./images/avatar1.png" width="60" height="60" />

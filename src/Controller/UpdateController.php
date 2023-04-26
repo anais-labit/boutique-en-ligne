@@ -15,52 +15,64 @@ class UpdateController
 
     public function updateUserProfile(
         int $id,
-        string $firstName,
-        string $lastName,
-        string $email,
-        string $address,
-        int $CP,
-        string $city,
-        string $password,
-        string $confpassword,
-        string $oldpassword,
+        array $values
     ) {
 
         $userModel = new UserModel();
 
+        if ($_SESSION['user']->getType() === 2 && $_SESSION['user']->getCompany() !== $_POST['updateCompany']) {
+            $valuesToSend[':company'] = htmlspecialchars(trim($values['updateCompany']));
+        }
+        if ($_SESSION['user']->getFirstName() !== $_POST['updateFirstName']) {
+            $valuesToSend[':firstname'] = htmlspecialchars(trim($values['updateFirstName']));
+        }
+        if ($_SESSION['user']->getLastName() !== $_POST['updateLastName']) {
+            $valuesToSend[':lastname'] = htmlspecialchars(trim($values['updateLastName']));
+        }
+        if ($_SESSION['user']->getEmail() !== $_POST['updateEmail']) {
+            $valuesToSend[':email'] = htmlspecialchars(trim($values['updateEmail']));
+        }
+        if ($_SESSION['user']->getAddress() !== $_POST['updateAddress']) {
+            $valuesToSend[':address'] = htmlspecialchars(trim($values['updateAddress']));
+        }
+        if ($_SESSION['user']->getZipCode() !== $_POST['updateZipCode']) {
+            $valuesToSend[':zip_code'] = (int)($values['updateZipCode']);
+        }
+        if ($_SESSION['user']->getCity() !== $_POST['updateCity']) {
+            $valuesToSend[':city'] = htmlspecialchars(trim($values['updateCity']));
+        }
+        if (($values['updatePassword']) !== '' && ($values['updateConfirmPassword']) !== '') {
+            $valuesToSend[':password'] = htmlspecialchars(trim(password_hash($values['updatePassword'], PASSWORD_DEFAULT)));
+        }
+
         $error = 'Certains champs sont vides';
         $isValid = true; // variable de contrôle
-        $savedPassword = $userModel->getPassword($email);
+        $savedPassword = $userModel->getPassword($_SESSION['user']->getEmail());
 
-        if (empty(trim($firstName)) || empty(trim($lastName)) || empty(trim($email)) || empty(trim($address)) || empty(trim($CP)) || empty(trim($city)) || empty(trim($password))) {
+        // Vérification des champs obligatoires
+        $error = 'Certains champs sont vides';
+        $isValid = true; // variable de contrôle
+
+        if (empty(trim($_POST['updateFirstName'])) || empty(trim($_POST['updateLastName'])) || empty(trim($_POST['updateEmail'])) || empty(trim($_POST['updateAddress'])) || empty(trim($_POST['updateZipCode'])) || empty(trim($_POST['updateCity']))) {
             header('Content-Type: application/json');
             echo json_encode(['error' => $error]);
             $isValid = false;
-        } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        } else if (!filter_var($_POST['updateEmail'], FILTER_VALIDATE_EMAIL)) {
             header('Content-Type: application/json');
             echo json_encode(['error' => 'L\'adresse email est invalide.']);
             $isValid = false;
-        } else if ($password !== $confpassword) {
-            header('Content-Type: application/json');
-            echo json_encode(['error' => 'Les mots de passe ne correspondent pas.']);
-            $isValid = false;
-        } else if (!password_verify($oldpassword, $savedPassword)) {
+        } else if (!password_verify($_POST['confirmOldPassword'], $savedPassword)) {
             header('Content-Type: application/json');
             echo json_encode(['error' => 'Les modifications n\'ont pas été prises en compte']);
             $isValid = false;
         } else if ($isValid) {
+            // Ajout de l'id à envoyer à la base de données
+            $valuesToSend[':id'] = $id;
 
-            $userModel->updateUser(
-                $id,
-                $firstName,
-                $lastName,
-                $email,
-                $address,
-                $CP,
-                $city,
-                $password
-            );
+            // Envoi des valeurs modifiées à la base de données
+            $userModel->updateOne($valuesToSend);
 
+            // Mise à jour de la session utilisateur avec les nouvelles valeurs
             $_SESSION['user']->setFirstName($_POST['updateFirstName']);
             $_SESSION['user']->setLastName($_POST['updateLastName']);
             $_SESSION['user']->setEmail($_POST['updateEmail']);
@@ -73,5 +85,6 @@ class UpdateController
         }
     }
 }
+
 
 // TODO : display les messages côté client 
