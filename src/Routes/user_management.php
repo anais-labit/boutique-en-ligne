@@ -37,6 +37,7 @@ if (isset($_POST['loginEmail']) && isset($_POST['loginPassword'])) {
 
     $newAuth = new AuthController();
 
+    // $connect = $newAuth->login($_POST['loginEmail'], $_POST['loginPassword']);
     $connect = $newAuth->login($_POST['loginEmail'], $_POST['loginPassword']);
 
     if ($connect == false) {
@@ -51,6 +52,7 @@ if (isset($_POST['loginEmail']) && isset($_POST['loginPassword'])) {
         $_SESSION['user'] = $connect;
 
         echo json_encode(["success" => true, "message" => "Connexion réussie"]);
+        // header('location:../../View/index.php');
     }
 }
 
