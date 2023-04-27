@@ -30,50 +30,24 @@ class AuthController {
 
         elseif(empty($checkExistingEmail)) {
 
-            if($type == 1) {
+            $cryptedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-                // $applicant->createUser($type, $firstName, $lastName, $email, $adress, $CP, $city, $password);
-                $cryptedPassword = password_hash($password, PASSWORD_DEFAULT);
-                // $params = [
-                //     ':type' => $type,
-                //     ':firstname' => $firstName,
-                //     ':lastname' => $lastName,
-                //     ':email' => $email,
-                //     ':address' => $address,
-                //     ':zip_code' => $zipCode,
-                //     ':city' => $city,
-                //     ':password' => $cryptedPassword,
-                //     'verified' => "NON"
-                // ];
-                // $applicant->createOne($params);
-                $applicant->createOne([
-                    ':type' => $type,
-                    ':firstname' => $firstName,
-                    ':lastname' => $lastName,
-                    ':email' => $email,
-                    ':address' => $address,
-                    ':zip_code' => $zipCode,
-                    ':city' => $city,
-                    ':password' => $cryptedPassword,
-                    ':verified' => "NON"
-                ]);
-                
-                return json_encode(["success" => true, "message" => "Compte créé avec succès"]);
-            }
-
-            elseif($type == 2) {
-
-                $applicant->createCompany($type, $company, $email, $address, $zipCode, $city, $password);
-        
-                return json_encode(["success" => true, "message" => "Compte créé avec succès"]);
-            } 
-
-
-      
-
+            $applicant->createOne([
+                ':type' => $type,
+                ':firstname' => $firstName,
+                ':lastname' => $lastName,
+                ':email' => $email,
+                ':address' => $address,
+                ':zip_code' => $zipCode,
+                ':city' => $city,
+                ':password' => $cryptedPassword,
+                ':verified' => "NON"
+            ]);
+            
+            return json_encode(["success" => true, "message" => "Compte créé avec succès"]);
 
         }
-}
+    }
 
 
     public function login(string $email, string $password) {
@@ -92,20 +66,12 @@ class AuthController {
 
             if(password_verify($password, $checkExistingUser[0][9])) {
 
-                // return $checkExistingUser;
-                // if(session_id() == "") session_start();
-                // if(session_id() == "") session_start();
-
                 $connectedUser = $user->setSession($email);
 
                 return $connectedUser;
 
             }
-
         }
-
     }
-
-
 }
 ?>

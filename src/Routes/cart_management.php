@@ -24,7 +24,6 @@ if (isset($_POST['displayHeaderCart']) || isset($_POST['displayCart'])) {
 
     foreach ($_SESSION['cart'] as $index => $product) {
 
-        // array_push($productListForJs, $product->getName());
         $infos = [
             "name" => $product->getName(),
             "quantity" => $product->getQuantity(),
@@ -39,7 +38,6 @@ if (isset($_POST['displayHeaderCart']) || isset($_POST['displayCart'])) {
 
     echo json_encode(["list" => $productListForJs, "count" => $count]);
 
-    // echo json_encode($_SESSION['cart']);
 }
 
 
