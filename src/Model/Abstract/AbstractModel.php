@@ -9,13 +9,30 @@ abstract class AbstractModel
 
     protected ?string $password = null;
 
+    protected static $pdo;
+
     public function __construct()
     {
-        $this->password = PHP_OS == 'Linux' ? '' : 'root';
-        // $this->password = strpos('Linux', $_SERVER['HTTP_SEC_CH_UA_PLATFORM']) ? '' : 'root';
-
-        // $this->password = '';     
+        
     }
+
+    public static function connect()
+    {
+        $password = (PHP_OS == 'Linux') ? '' : 'root';
+        $dsn = 'mysql:host=localhost;dbname=eShop;charset=utf8';
+        self::$pdo = new \PDO($dsn, 'root', $password);
+    }
+
+    protected static function getPdo()
+    {
+        if (!self::$pdo){
+            self::connect();
+
+        } 
+        return self::$pdo;
+    }
+
+
 
     public function createOne(array $params)
     {
@@ -25,13 +42,11 @@ abstract class AbstractModel
 
         $fieldsSqlValue = implode(', ', array_keys($params));
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
-        //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
         $requestCreateOne = "INSERT INTO $this->tableName ($fieldsName) VALUES ($fieldsSqlValue)";
 
-        $queryCreateOne = $SQL->prepare($requestCreateOne);
+        $queryCreateOne = self::getPdo()->prepare($requestCreateOne);
 
         $queryCreateOne->execute($params);
     }
@@ -40,11 +55,10 @@ abstract class AbstractModel
     {
 
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $requestReadAll = "SELECT * FROM $this->tableName";
 
-        $queryReadAll = $SQL->prepare($requestReadAll);
+        $queryReadAll = self::getPdo()->prepare($requestReadAll);
 
         $queryReadAll->execute();
 
@@ -57,11 +71,10 @@ abstract class AbstractModel
     public function readOnebyId(int $id): array
     {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $requestReadOne = "SELECT * FROM $this->tableName WHERE id = :id";
 
-        $queryReadOne = $SQL->prepare($requestReadOne);
+        $queryReadOne = self::getPdo()->prepare($requestReadOne);
 
         $queryReadOne->execute(['id' => $id]);
 
@@ -74,11 +87,10 @@ abstract class AbstractModel
     public function readOnebyString(string $input, string $fieldName): array
     {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $requestReadOne = "SELECT * FROM $this->tableName WHERE $fieldName = :$fieldName";
 
-        $queryReadOne = $SQL->prepare($requestReadOne);
+        $queryReadOne = self::getPdo()->prepare($requestReadOne);
 
         $queryReadOne->execute([$fieldName => $input]);
 
@@ -90,17 +102,31 @@ abstract class AbstractModel
     public function readOnebyForeignKey(string $foreignKey, int $keyValue): array
     {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $requestReadOne = "SELECT * FROM $this->tableName WHERE $foreignKey = :$foreignKey";
 
-        $queryReadOne = $SQL->prepare($requestReadOne);
+        $queryReadOne = self::getPdo()->prepare($requestReadOne);
 
         $queryReadOne->execute([':' . $foreignKey => $keyValue]);
 
         $resultReadOne = $queryReadOne->fetchAll();
 
         return $resultReadOne;
+    }
+
+    public function readLast(): int
+    {
+
+
+        $requestReadLast = "SELECT id FROM $this->tableName ORDER BY id DESC LIMIT 1";
+
+        $queryReadLast = self::getPdo()->prepare($requestReadLast);
+
+        $queryReadLast->execute();
+
+        $resultReadLast = $queryReadLast->fetchAll();
+
+        return $resultReadLast[0][0];
     }
 
 
@@ -125,26 +151,40 @@ abstract class AbstractModel
         $requestString = implode(', ', $requestString);
 
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
-        //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
         $requestUpdateOne = "UPDATE $this->tableName SET $requestString WHERE id = :id";
 
-        $queryUpdateOne = $SQL->prepare($requestUpdateOne);
+        $queryUpdateOne = self::getPdo()->prepare($requestUpdateOne);
 
         $queryUpdateOne->execute($params);
     }
 
-    public function deleteOneById(int $id)
-    {
+    public function deleteOne(array $params) {
+        $fieldsArray = [];
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
+        foreach($params as $key=>$value) {
+            $fieldsArray[] = $key;
+        }
 
-        $requestDeleteOne = "DELETE FROM $this->tableName WHERE id = :id";
+        $input1 = $fieldsArray[0];
+        $fieldName1 = str_replace(':', '', $input1);
 
-        $queryDeleteOne = $SQL->prepare($requestDeleteOne);
+        if(count($fieldsArray) > 1) {
 
-        $queryDeleteOne->execute([':id' => $id]);
+            $input2 = $fieldsArray[1];
+            $fieldName2 = str_replace(':', '', $input2);
+            $requestDeleteOne = "DELETE FROM $this->tableName WHERE $fieldName1 = $input1 AND $fieldName2 = $input2";
+        }
+
+        else {
+        
+            $requestDeleteOne = "DELETE FROM $this->tableName WHERE $fieldName1 = $input1";
+        }
+
+        $queryDeleteOne = self::getPdo()->prepare($requestDeleteOne);
+
+        $queryDeleteOne->execute($params);
     }
+
 }

@@ -2,6 +2,7 @@
 
 use App\Controller\AuthController;
 use App\Controller\UpdateController;
+use App\Model\UserModel;
 
 is_file("../config.php") == true ?
     require_once '../config.php' :
@@ -37,6 +38,7 @@ if (isset($_POST['loginEmail']) && isset($_POST['loginPassword'])) {
 
     $newAuth = new AuthController();
 
+    // $connect = $newAuth->login($_POST['loginEmail'], $_POST['loginPassword']);
     $connect = $newAuth->login($_POST['loginEmail'], $_POST['loginPassword']);
 
     if ($connect == false) {
@@ -51,6 +53,7 @@ if (isset($_POST['loginEmail']) && isset($_POST['loginPassword'])) {
         $_SESSION['user'] = $connect;
 
         echo json_encode(["success" => true, "message" => "Connexion réussie"]);
+        // header('location:../../View/index.php');
     }
 }
 
@@ -64,5 +67,6 @@ if (isset($_POST['updateProfile'])) {
 // SUPPRESSION DU PROFIL 
 if (isset($_POST['deleteButton'])) {
     $deleteUser = new UpdateController();
-    $reqDelete = $deleteUser->deleteUserProfile((int)$_SESSION['user']->getId());
+    $reqDelete = $deleteUser->deleteUserProfile([':id' => $_SESSION['user']->getId()]);
 }
+

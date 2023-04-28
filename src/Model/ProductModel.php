@@ -26,7 +26,7 @@ class ProductModel extends AbstractModel
 
     public function __construct()
     {
-        parent::__construct();
+        parent::connect();
         $this->tableName = 'products';
     }
     
@@ -150,28 +150,24 @@ class ProductModel extends AbstractModel
         return $this->readAll();
     }
 
-    public function addToCart(?int $idUser, ?int $idProduct, ?int $idCart, ?int $quantity) {
+    public function addToCart(array $params) {
 
         $this->tableName = 'cart_products';
 
-        $this->createOne([
-            ':id_user' => $idUser,
-            ':id_product' => $idProduct,
-            ':id_cart' => $idCart,
-            ':quantity' => $quantity
-        ]);
+        $this->createOne($params);
     }
 
 
     public function updateCartQuantity(int $idProduct, int $idCart, int $quantity)
     {
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
+        $this->tableName = 'cart_products';
+        
         $requestDeleteOne = "UPDATE cart_products SET quantity = :quantity
         WHERE  id_product = :id_product
         AND id_cart = :id_cart
         ";
 
-        $queryDeleteOne = $SQL->prepare($requestDeleteOne);
+        $queryDeleteOne = self::getPdo()->prepare($requestDeleteOne);
 
         $queryDeleteOne->execute([
             ":quantity" => $quantity,
@@ -181,32 +177,19 @@ class ProductModel extends AbstractModel
     }
 
 
-    public function deleteFromCart(int $idProduct, int $idCart)
+    public function deleteFromCart(array $params)
     {        
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
-        $requestDeleteOne = "DELETE FROM cart_products
-        WHERE  id_product = :id_product
-        AND id_cart = :id_cart
-        ";
+        $this->tableName = 'cart_products';
 
-        $queryDeleteOne = $SQL->prepare($requestDeleteOne);
-
-        $queryDeleteOne->execute([
-            ":id_product" => $idProduct,
-            ":id_cart" => $idCart
-        ]);
-        // $this->tableName = 'cart_products';
-
-        // $this->deleteOneInForeignTable($params);
+        $this->deleteOne($params);
 
     }
 
     public function catchProductInfos($word)
     {
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
         $req = "SELECT * FROM products WHERE product LIKE '$word%'";
 
-        $catchProduct = $SQL->prepare($req);
+        $catchProduct = self::getPdo()->prepare($req);
         $catchProduct->execute();
         $results = $catchProduct->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -217,11 +200,10 @@ class ProductModel extends AbstractModel
 
     public function setObject(int $id):object {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $requestSetProductObject = "SELECT * FROM products WHERE id = :id";
 
-        $querySetProductObject = $SQL->prepare($requestSetProductObject);
+        $querySetProductObject = self::getPdo()->prepare($requestSetProductObject);
 
         $querySetProductObject->execute([":id" => $id]);
 

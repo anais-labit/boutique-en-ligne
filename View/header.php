@@ -21,7 +21,7 @@ if (isset($_POST['disconnect'])) {
 
 // var_dump($_SESSION['cart']);
 // var_dump($_SESSION);
-// var_dump($_SESSION['cartId']);
+// var_dump($_SESSION['cartId']);  
 
 // var_dump($_SERVER['HTTP_SEC_CH_UA_PLATFORM']);
 // var_dump(PHP_OS);
@@ -64,9 +64,8 @@ if (isset($_POST['disconnect'])) {
 
 
 
-
-
-
-<script defer src="../src/Controller/products.js"></script>
-
+<?php if($_SERVER['REQUEST_URI'] !== 'cart.php'):?>
+     <script defer src="../src/Controller/products.js"></script>
+<?php endif ?>
 <script src="../src/Controller/auto_complete.js" defer></script>
+
