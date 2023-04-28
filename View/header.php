@@ -4,7 +4,7 @@ is_file("../config.php") == true ?
     require_once '../config.php' :
     require_once '../../config.php';
 // require_once ROOT_DIR .'/src/Routes/product_display.php';
-require_once ROOT_DIR .'/vendor/autoload.php';
+require_once ROOT_DIR . '/vendor/autoload.php';
 // require_once '../src/Model/ProductModel.php';
 // require_once '../src/Model/UserModel.php';
 
@@ -27,70 +27,45 @@ if (isset($_POST['disconnect'])) {
 // var_dump(PHP_OS);
 ?>
 
-<nav>
-    <ul>
-
-        <li>
-            <a href="index.php">Accueil</a>
-        </li>
-
-        <li>
-            <a href="index.php">A propos</a>
-        </li>
-
-        <li>
-            <a href="products.php">Nos produits</a>
-        </li>
-
-        <li>
-            <a href="index.php">Nos producteurs</a>
-        </li>
-
-        <li>
-            <a href="index.php">Actualités</a>
-        </li>
-
-        <?php if (isset($_SESSION['user'])) : ?>
-
-            <?= $_SESSION['user']->getType() == 3 || $_SESSION['user']->getType() == 4  ?
-                "<li><a href='admin.php'>Admin</a></li>" : "<li><a href='profil.php'>Profil</a></li>" ?>
-            <form method="POST" id="decoForm">
-                <button type="submit" name="disconnect" id="decoButton">Déconnexion</button>
-            </form>
-
-        <?php else : ?>
-
-            <li>
-                <a href="login.php">Connexion</a>
-            </li>
-
-            <li>
-                <a href="register.php">Inscription</a>
-            </li>
-
-        <?php endif ?>
-
-        <li id="cartContainer">
-            <a href="cart.php">
-                <i id="cartIcon" class="fa-solid fa-cart-shopping"></i>
-            </a>
-            <div id="headerCartDiv">
-
-            </div>
-        </li>
-    </ul>
-
-    <div class=search id=search>
-        <form id=searchForm action=header.php>
-            <input type=text id="field" name="field" autocomplete=off>
-            <input type=submit name="search" value="Rechercher">
-        </form>
+<header>
+    <div class="top-bar">
+        <a href="#" class="logo"><img src="./assets/images/logos/FreshMarket-Logo.png" alt="logo fresh market"></a>
+        <div class="search-bar">
+            <span class="icon">
+                <i class="fa-solid fa-search"></i>
+                <i class="fa-solid fa-close"></i>
+            </span>
+        <!-- <form action="../src/Routes/product_display.php" method="POST" class="search-bar">
+            <input type="text" name="search" id="search" placeholder="Rechercher un produit">
+            <button type="submit" name="submit-search"><i class="fa-solid fa-search"></i></button> -->
+        </div>
+        <div class="search-box"><input type="text" name="search" placeholder="Rechercher un produit" id="search">
     </div>
-</nav>
+        
+        <ul>
+            <li><a href="#"><i class="fa-regular fa-user"></i></a></li>
+            <li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+        </ul>
+    </div>
+    <nav>
+        <div class="toggle">
+            <a href="#"><i class="fa-solid fa-bars"></i></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">Accueil</a></li>
+            <li><a href="#">À Propos</a></li>
+            <li><a href="#">Nos Produits</a></li>
+            <li><a href="#">Nos Producteurs</a></li>
+            <li><a href="#">Actualités</a></li>
+        </ul>
+    </nav>
+</header>
 
 
 
-</body>
+
+
+
 
 <script defer src="../src/Controller/products.js"></script>
 
