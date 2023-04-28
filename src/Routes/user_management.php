@@ -66,5 +66,5 @@ if (isset($_POST['updateProfile'])) {
 // SUPPRESSION DU PROFIL 
 if (isset($_POST['deleteButton'])) {
     $deleteUser = new UpdateController();
-    $reqDelete = $deleteUser->deleteUserProfile((int)$_SESSION['user']->getId());
+    $reqDelete = $deleteUser->deleteUserProfile([':id' => $_SESSION['user']->getId()]);
 }

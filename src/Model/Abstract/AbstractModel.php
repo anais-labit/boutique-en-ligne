@@ -29,7 +29,6 @@ abstract class AbstractModel
             self::connect();
 
         } 
-        // self::$pdo = new \PDO($dsn, 'root', $password);
         return self::$pdo;
     }
 
@@ -43,9 +42,7 @@ abstract class AbstractModel
 
         $fieldsSqlValue = implode(', ', array_keys($params));
 
-        // self::getPdo() = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
-        //self::getPdo() = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
         $requestCreateOne = "INSERT INTO $this->tableName ($fieldsName) VALUES ($fieldsSqlValue)";
 
@@ -58,7 +55,6 @@ abstract class AbstractModel
     {
 
 
-        // self::getPdo() = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $requestReadAll = "SELECT * FROM $this->tableName";
 
@@ -75,7 +71,6 @@ abstract class AbstractModel
     public function readOnebyId(int $id): array
     {
 
-        // self::getPdo() = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $requestReadOne = "SELECT * FROM $this->tableName WHERE id = :id";
 
@@ -92,7 +87,6 @@ abstract class AbstractModel
     public function readOnebyString(string $input, string $fieldName): array
     {
 
-        // self::getPdo() = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $requestReadOne = "SELECT * FROM $this->tableName WHERE $fieldName = :$fieldName";
 
@@ -108,7 +102,6 @@ abstract class AbstractModel
     public function readOnebyForeignKey(string $foreignKey, int $keyValue): array
     {
 
-        // self::getPdo() = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $requestReadOne = "SELECT * FROM $this->tableName WHERE $foreignKey = :$foreignKey";
 
@@ -124,7 +117,6 @@ abstract class AbstractModel
     public function readLast(): int
     {
 
-        // self::getPdo() = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
         $requestReadLast = "SELECT id FROM $this->tableName ORDER BY id DESC LIMIT 1";
 
@@ -159,9 +151,7 @@ abstract class AbstractModel
         $requestString = implode(', ', $requestString);
 
 
-        // self::getPdo() = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
 
-        //self::getPdo() = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
         $requestUpdateOne = "UPDATE $this->tableName SET $requestString WHERE id = :id";
 

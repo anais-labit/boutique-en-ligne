@@ -83,7 +83,7 @@ class UpdateController
         }
     }
 
-    public function deleteUserProfile(int $id)
+    public function deleteUserProfile(array $id)
     {
 
         $userModel = new UserModel();
@@ -95,8 +95,7 @@ class UpdateController
             echo (json_encode(['error' => 'Saisissez votre mot de passe pour valider']));
         } else if (password_verify($_POST['confirmOldPassword'], $savedPassword)) {
 
-            $userModel->deleteOneById($id);
-
+            $userModel->deleteOne($id);
             header('Content-Type: application/json');
             echo (json_encode(['success' => 'Votre compte a bien été supprimé.']));
             session_unset();
