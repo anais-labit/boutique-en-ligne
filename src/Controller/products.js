@@ -223,7 +223,9 @@ async function addCart() {
 
     const cartUpdate = await productToAdd.json();
 
-    if(cartUpdate.success == "true") {
+    console.log(cartUpdate);
+
+    if(cartUpdate.success == true) {
 
         displayHeaderCart();
         showCartNumber();
@@ -300,7 +302,6 @@ async function deleteFromCart(productId) {
    const refreshCart = await fetch("../src/Routes/cart_management.php", requestDeleteFromCart);
 
    const result = await refreshCart.json();
-   console.log(result);
 
    displayHeaderCart();
    showCartNumber();
