@@ -29,6 +29,7 @@ if (isset($_POST['displayHeaderCart']) || isset($_POST['displayCart'])) {
             "quantity" => $product->getQuantity(),
             "productId" => $product->getId(),
             "priceType" => $product->getPriceType(),
+            "image" => $product->getImage(),
             "price" => $product->getPriceType() == "kg" ? $product->getPriceKg() : $product->getPriceUnit(),
         ];
         

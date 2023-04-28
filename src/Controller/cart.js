@@ -2,7 +2,6 @@ const cartDisplay = document.querySelector('#cartDisplay');
 
 async function displayCart() {
 
-     cartDisplay.innerHTML = "";
 
      const displayCartForm = new FormData();
 
@@ -20,13 +19,24 @@ async function displayCart() {
 
      for(let i in result.list) {
 
-          productLine = document.createElement('p');
-          productLine.innerHTML = result.list[i].name + " " + result.list[i].quantity + result.list[i].priceType;
-          console.log(result.list[i].price);
-          let productPrice = parseInt((result.list[i].price / 100) * result.list[i].quantity);
-          linePrice = document.createElement("p");
-          linePrice.innerHTML = productPrice + "€";
-          productLine.appendChild(linePrice);
+          const productLine = document.createElement("div");
+
+          const productImg = document.createElement("img");
+          productImg.setAttribute("src", result.list[i].image);
+          productImg.style.width = "80px";
+          productLine.appendChild(productImg);
+
+          const productName = document.createElement("p");
+          productName.innerHTML = result.list[i].name;
+          productLine.appendChild(productName);
+
+          const productQuantity = document.createElement("p");
+          productQuantity.innerHTML = result.list[i].quantity;
+          productLine.appendChild(productQuantity);
+
+          const productPrice = document.createElement("p");
+          productPrice.innerHTML = parseInt((result.list[i].price / 100) * result.list[i].quantity) + "€";
+          productLine.appendChild(productPrice)
 
           minusButton = document.createElement("i");
           minusButton.setAttribute("class", "fa-solid fa-minus");
@@ -38,13 +48,18 @@ async function displayCart() {
           plusButton.addEventListener("click", () => {addQuantity(result.list[i].productId)});
           productLine.appendChild(plusButton);
 
+          const trashCan = document.createElement("i");
+          trashCan.setAttribute("class","fa-regular fa-trash-can");
+          trashCan.addEventListener("click", () => {deleteFromCart(result.list[i].productId)})
+          productLine.appendChild(trashCan);
+
           productLine.style.width = "100%";
           productLine.style.display = "flex";
           productLine.style.justifyContent = "space-around";
 
           cartDisplay.appendChild(productLine);
      }
-   
+
 }
 
 async function addQuantity(id) {
@@ -80,5 +95,29 @@ async function removeQuantity(id) {
 
      displayCart();
 }
+
+
+async function deleteFromCart(productId) {
+
+     const deleteFromCartForm = new FormData();
+
+     deleteFromCartForm.append("deleteFromCart", productId);
+
+     const requestDeleteFromCart = {
+
+         method:"POST",
+         body: deleteFromCartForm
+     }
+
+    const refreshCart = await fetch("../src/Routes/cart_management.php", requestDeleteFromCart);
+
+    const result = await refreshCart.json();
+    console.log(result);
+    cartDisplay.removeChild(all);
+
+     displayCart()
+
+//     return result
+ }
 
 displayCart();
