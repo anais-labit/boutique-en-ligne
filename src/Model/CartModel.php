@@ -36,12 +36,14 @@ class CartModel extends AbstractModel
     {
 
         // $requestGetCartId = "SELECT LAST(id) FROM carts";
-        $requestGetCartId = "SELECT id FROM carts ORDER BY id DESC";
+        $this->tableName = 'carts';
+        return $this->readLast();
+        // $requestGetCartId = "SELECT id FROM carts ORDER BY id DESC";
 
 
-        $queryGetCartId = self::getPdo()->prepare($requestGetCartId);
-        $queryGetCartId->execute();
-        $resultGetCartId = $queryGetCartId->fetchAll();
-        return $resultGetCartId[0][0];
+        // $queryGetCartId = self::getPdo()->prepare($requestGetCartId);
+        // $queryGetCartId->execute();
+        // $resultGetCartId = $queryGetCartId->fetchAll();
+        // return $resultGetCartId[0][0];
     }
 }

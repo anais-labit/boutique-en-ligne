@@ -93,7 +93,10 @@ if(isset($_POST['deleteFromCart'])) {
 
         if($product->getId() == $_POST['deleteFromCart']) {
 
-            $product->deleteFromCart((int)$_POST['deleteFromCart'], (int)$_SESSION['cartId'][0]);
+            $product->deleteFromCart([
+                ":id_product" => (int)$_POST['deleteFromCart'], 
+                ":id_cart" => (int)$_SESSION['cartId'][0]
+            ]);
 
             unset($_SESSION['cart'][$key]);
         }

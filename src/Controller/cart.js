@@ -2,7 +2,7 @@ const cartDisplay = document.querySelector('#cartDisplay');
 
 async function displayCart() {
 
-
+     cartDisplay.innerHTML = "";
      const displayCartForm = new FormData();
 
      displayCartForm.append("displayCart", "displayCart");
