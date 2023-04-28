@@ -103,7 +103,7 @@ if (isset($_POST['addProducerButton'])) {
 
     $newproducer = new ProductModel();
 
-    $targetDir = "../View/images/producers/";
+    $targetDir = "../View/assets/images/producers/";
     $targetFile = $targetDir . basename($_FILES['producerPhoto']['name']);
     move_uploaded_file($_FILES['producerPhoto']['tmp_name'], $targetFile);
     $path = $targetDir . ($_FILES['producerPhoto']['name']);

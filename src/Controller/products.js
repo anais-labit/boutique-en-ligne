@@ -1,15 +1,17 @@
 const productsDiv =  document.querySelector("#productsDiv");
 const cartIcon = document.querySelector("#cartIcon");
 const headerCartDiv = document.querySelector("#headerCartDiv");
-const cartContainer = document.querySelector("#cartContainer");
+// const cartContainer = document.querySelector("#cartContainer");
 const filterDiv = document.querySelector("#filterDiv");
 const categoriesFiltersDiv = document.querySelector("#categoriesFiltersDiv")
 const subCategoriesFiltersDiv = document.querySelector("#subCategoriesFiltersDiv")
 
-headerCartDiv.style.display = "none";
+// headerCartDiv.style.display = "none";
 
-cartContainer.addEventListener("mouseover", showHeaderCart);
-cartContainer.addEventListener("mouseout", hideHeaderCart);
+// cartContainer.addEventListener("mouseover", showHeaderCart);
+// cartContainer.addEventListener("mouseout", hideHeaderCart);
+// headerCartDiv.addEventListener("mouseover", showHeaderCart);
+// headerCartDiv.addEventListener("mouseout", hideHeaderCart);
 
 
 //                    Fonction de display des produits (tous les produits, une catégorie, une sous-catégorie)
