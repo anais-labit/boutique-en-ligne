@@ -42,7 +42,7 @@ if(session_id() =="") session_start();
     </div>
     <div id="productsDiv">
 
-        <?php //displayProducts() ?> 
+        <?php /* //displayProducts()  */?> 
 
     </div>
  

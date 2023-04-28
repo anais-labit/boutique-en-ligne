@@ -52,10 +52,10 @@ if (isset($_POST['disconnect'])) {
             <a href="#"><i class="fa-solid fa-bars"></i></a>
         </div>
         <ul class="nav-links">
-            <li><a href="#">Accueil</a></li>
+            <li><a href="index.php">Accueil</a></li>
             <li><a href="#">À Propos</a></li>
-            <li><a href="#">Nos Produits</a></li>
-            <li><a href="#">Nos Producteurs</a></li>
+            <li><a href="products.php">Nos Produits</a></li>
+            <li><a href="">Nos Producteurs</a></li>
             <li><a href="#">Actualités</a></li>
         </ul>
     </nav>
