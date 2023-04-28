@@ -125,8 +125,25 @@ function displayAllUsers()
 
     $displayUsers = $users->readAllUsers();
 
-    foreach ($displayUsers as $key => $value) {
 
-        echo "<li class='userlisting' id=" . $value['id'] . "> id :" . $value['id'] . " firstname :" . $value['firstname'] . $value['type'] . "<button class='deleteBtn' id=" . $value['id'] . ">Supprimer</button></li>";
+
+    foreach ($displayUsers as $key => $value) {
+        if ($value['type'] === 1) {
+            $type = "particulier";
+        } else if ($value['type'] === 2) {
+            $type = "entreprise";
+        } else if ($value['type'] === 3) {
+            $type = "collaborateur";
+        } else if ($value['type'] === 4) {
+            $type = "administrateur";
+        }
+
+        echo "<li class='userslist' id=" . $value['id'] . "> id :" . $value['id'] . " Utilisateur :" . $value['email'] . 
+        
+        
+        "rôle : " . $type . "<button class='deleteBtn' id=" . $value['id'] . ">Supprimer</button></li>";
+    
+        
+    
     }
 };

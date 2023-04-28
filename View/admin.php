@@ -30,7 +30,6 @@ if (session_id() == "") session_start();
     <!-- Dashboard Modal -->
     <div id="dashboard-modal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
             <h2>Dashboard</h2>
             <p>Contenu du dashboard...</p>
         </div>
@@ -38,7 +37,6 @@ if (session_id() == "") session_start();
     <!-- Gestion Modal -->
     <div id="gestion-modal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
             <h2>Gestion</h2>
             <form method="POST" id="addProductForm" enctype="multipart/form-data">
 
@@ -85,76 +83,74 @@ if (session_id() == "") session_start();
 
                 <button type="submit" name="addProdButton">Ajouter</button>
 
+
+                <form method="POST" id="addCategoryForm">
+
+                    <h3>Ajout de catégorie</h3>
+
+                    <label class="addProdLabel">Nom</label>
+                    <input type="text" name="categoryName">
+
+                    <button type="submit" name="addCategoryButton">Ajouter</button>
+
+                </form>
+
+                <form method="POST" id="addSubCategoryForm">
+
+                    <h3>Ajout de sous-catégorie</h3>
+
+                    <label class="addProdLabel">Nom</label>
+                    <input type="text" name="subCategoryName">
+
+                    <label class="addProdLabel">Catégorie</label>
+                    <select name="subcatCat">
+                        <?php displayCategoriesinSelect() ?>
+                    </select>
+
+                    <button type="submit" name="addSubCategoryButton">Ajouter</button>
+
+                </form>
+
+                <form method="POST" id="addProducerForm" enctype="multipart/form-data">
+
+                    <h3>Ajout de producteur</h3>
+
+                    <label class="addProdLabel">Nom</label>
+                    <input type="text" name="producerName">
+
+                    <label class="addProdLabel">Description</label>
+                    <textarea name="producerDesc"></textarea>
+
+                    <label class="addProdLabel">Image</label>
+                    <input type="file" class="addProdInput" name="producerPhoto">
+
+                    <button type="submit" name="addProducerButton">Ajouter</button>
+
+                </form>
+
+
             </form>
 
-            <!-- Administration Modal -->
-            <div id="administration-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h2>Administration</h2>
-
-                    <h3>Gestion des utilisateurs</h3>
-
-                    <ul>
-                        <?php displayAllUsers()?>
-                    </ul>
-
-
-
-                    <button type="submit">Enregistrer</button>
-                </div>
-            </div>
-
         </div>
+
+    </div>
     </div>
 
 
 
+    <!-- Administration Modal -->
+    <div id="administration-modal" class="modal">
+        <div class="modal-content">
+            <h2>Administration</h2>
 
-    <form method="POST" id="addCategoryForm">
+            <h3>Gestion des utilisateurs</h3>
 
-        <h3>Ajout de catégorie</h3>
+            <ul>
+                <?php displayAllUsers() ?>
+            </ul>
 
-        <label class="addProdLabel">Nom</label>
-        <input type="text" name="categoryName">
 
-        <button type="submit" name="addCategoryButton">Ajouter</button>
-
-    </form>
-
-    <form method="POST" id="addSubCategoryForm">
-
-        <h3>Ajout de sous-catégorie</h3>
-
-        <label class="addProdLabel">Nom</label>
-        <input type="text" name="subCategoryName">
-
-        <label class="addProdLabel">Catégorie</label>
-        <select name="subcatCat">
-            <?php displayCategoriesinSelect() ?>
-        </select>
-
-        <button type="submit" name="addSubCategoryButton">Ajouter</button>
-
-    </form>
-
-    <form method="POST" id="addProducerForm" enctype="multipart/form-data">
-
-        <h3>Ajout de producteur</h3>
-
-        <label class="addProdLabel">Nom</label>
-        <input type="text" name="producerName">
-
-        <label class="addProdLabel">Description</label>
-        <textarea name="producerDesc"></textarea>
-
-        <label class="addProdLabel">Image</label>
-        <input type="file" class="addProdInput" name="producerPhoto">
-
-        <button type="submit" name="addProducerButton">Ajouter</button>
-
-    </form>
-
+        </div>
 </body>
 
 </html>
