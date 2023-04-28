@@ -19,9 +19,9 @@ if (isset($_POST['disconnect'])) {
     header('Location: ../View/login.php');
 }
 
-// var_dump($_SESSION['cart']);
+var_dump($_SESSION['cart']);
 // var_dump($_SESSION);
-// var_dump($_SESSION['cartId']);
+var_dump($_SESSION['cartId']);  
 
 // var_dump($_SERVER['HTTP_SEC_CH_UA_PLATFORM']);
 // var_dump(PHP_OS);

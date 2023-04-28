@@ -11,6 +11,11 @@ abstract class AbstractModel
 
     protected static $pdo;
 
+    public function __construct()
+    {
+        
+    }
+
     public static function connect()
     {
         $password = (PHP_OS == 'Linux') ? '' : 'root';
@@ -20,6 +25,11 @@ abstract class AbstractModel
 
     protected static function getPdo()
     {
+        if (!self::$pdo){
+            self::connect();
+
+        } 
+        // self::$pdo = new \PDO($dsn, 'root', $password);
         return self::$pdo;
     }
 
@@ -111,6 +121,22 @@ abstract class AbstractModel
         return $resultReadOne;
     }
 
+    public function readLast(): int
+    {
+
+        // self::getPdo() = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
+
+        $requestReadLast = "SELECT id FROM $this->tableName ORDER BY id DESC LIMIT 1";
+
+        $queryReadLast = self::getPdo()->prepare($requestReadLast);
+
+        $queryReadLast->execute();
+
+        $resultReadLast = $queryReadLast->fetchAll();
+
+        return $resultReadLast[0][0];
+    }
+
 
     public function updateOne(array $params)
     {
@@ -144,15 +170,31 @@ abstract class AbstractModel
         $queryUpdateOne->execute($params);
     }
 
-    public function deleteOneById(int $id)
-    {
+    public function deleteOne(array $params) {
+        $fieldsArray = [];
 
-        // self::getPdo() = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', $this->password);
+        foreach($params as $key=>$value) {
+            $fieldsArray[] = $key;
+        }
 
-        $requestDeleteOne = "DELETE FROM $this->tableName WHERE id = :id";
+        $input1 = $fieldsArray[0];
+        $fieldName1 = str_replace(':', '', $input1);
+
+        if(count($fieldsArray) > 1) {
+
+            $input2 = $fieldsArray[1];
+            $fieldName2 = str_replace(':', '', $input2);
+            $requestDeleteOne = "DELETE FROM $this->tableName WHERE $fieldName1 = $input1 AND $fieldName2 = $input2";
+        }
+
+        else {
+        
+            $requestDeleteOne = "DELETE FROM $this->tableName WHERE $fieldName1 = $input1";
+        }
 
         $queryDeleteOne = self::getPdo()->prepare($requestDeleteOne);
 
-        $queryDeleteOne->execute([':id' => $id]);
+        $queryDeleteOne->execute($params);
     }
+
 }

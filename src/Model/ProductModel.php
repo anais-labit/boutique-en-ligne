@@ -180,22 +180,22 @@ class ProductModel extends AbstractModel
     }
 
 
-    public function deleteFromCart(int $idProduct, int $idCart)
+    public function deleteFromCart(array $params)
     {        
-        $requestDeleteOne = "DELETE FROM cart_products
-        WHERE  id_product = :id_product
-        AND id_cart = :id_cart
-        ";
+        // $requestDeleteOne = "DELETE FROM cart_products
+        // WHERE  id_product = :id_product
+        // AND id_cart = :id_cart
+        // ";
 
-        $queryDeleteOne = self::getPdo()->prepare($requestDeleteOne);
+        // $queryDeleteOne = self::getPdo()->prepare($requestDeleteOne);
 
-        $queryDeleteOne->execute([
-            ":id_product" => $idProduct,
-            ":id_cart" => $idCart
-        ]);
-        // $this->tableName = 'cart_products';
+        // $queryDeleteOne->execute([
+        //     ":id_product" => $idProduct,
+        //     ":id_cart" => $idCart
+        // ]);
+        $this->tableName = 'cart_products';
 
-        // $this->deleteOneInForeignTable($params);
+        $this->deleteOne($params);
 
     }
 
