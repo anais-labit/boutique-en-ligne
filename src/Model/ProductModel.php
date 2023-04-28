@@ -150,21 +150,18 @@ class ProductModel extends AbstractModel
         return $this->readAll();
     }
 
-    public function addToCart(?int $idUser, ?int $idProduct, ?int $idCart, ?int $quantity) {
+    public function addToCart(array $params) {
 
         $this->tableName = 'cart_products';
 
-        $this->createOne([
-            ':id_user' => $idUser,
-            ':id_product' => $idProduct,
-            ':id_cart' => $idCart,
-            ':quantity' => $quantity
-        ]);
+        $this->createOne($params);
     }
 
 
     public function updateCartQuantity(int $idProduct, int $idCart, int $quantity)
     {
+        $this->tableName = 'cart_products';
+        
         $requestDeleteOne = "UPDATE cart_products SET quantity = :quantity
         WHERE  id_product = :id_product
         AND id_cart = :id_cart
@@ -182,17 +179,6 @@ class ProductModel extends AbstractModel
 
     public function deleteFromCart(array $params)
     {        
-        // $requestDeleteOne = "DELETE FROM cart_products
-        // WHERE  id_product = :id_product
-        // AND id_cart = :id_cart
-        // ";
-
-        // $queryDeleteOne = self::getPdo()->prepare($requestDeleteOne);
-
-        // $queryDeleteOne->execute([
-        //     ":id_product" => $idProduct,
-        //     ":id_cart" => $idCart
-        // ]);
         $this->tableName = 'cart_products';
 
         $this->deleteOne($params);

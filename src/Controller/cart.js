@@ -1,4 +1,4 @@
-const cartDisplay = document.querySelector('#cartDisplay');
+const cartDisplay = document.querySelector("#cartDisplay");
 
 async function displayCart() {
 
@@ -112,11 +112,12 @@ async function deleteFromCart(productId) {
     const refreshCart = await fetch("../src/Routes/cart_management.php", requestDeleteFromCart);
 
     const result = await refreshCart.json();
-    console.log(result);
-    cartDisplay.removeChild(all);
 
-     displayCart()
-
+//     if(result.success == true) {
+     // cartDisplay.removeChild(all);
+          console.log("ok");
+          displayCart()
+//     }
 //     return result
  }
 
