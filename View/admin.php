@@ -4,7 +4,7 @@ is_file("../config.php") == true ?
     require_once '../config.php' :
     require_once '../../config.php';
 
-require_once ROOT_DIR .'/vendor/autoload.php';
+require_once ROOT_DIR . '/vendor/autoload.php';
 require_once '../src/Routes/admin_products.php';
 
 if (session_id() == "") session_start();
@@ -27,56 +27,93 @@ if (session_id() == "") session_start();
 
     <?php include 'header.php' ?>
 
-    <form method="POST" id="addProductForm" enctype="multipart/form-data">
+    <!-- Dashboard Modal -->
+    <div id="dashboard-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Dashboard</h2>
+            <p>Contenu du dashboard...</p>
+        </div>
+    </div>
+    <!-- Gestion Modal -->
+    <div id="gestion-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Gestion</h2>
+            <form method="POST" id="addProductForm" enctype="multipart/form-data">
 
-        <h1>Ajout de produit</h1>
+                <h3>Ajout de produit</h3>
 
-        <label class="addProdLabel">Nom du produit</label>
-        <input type="text" class="addProdInput" name="productName">
+                <label class="addProdLabel">Nom du produit</label>
+                <input type="text" class="addProdInput" name="productName">
 
-        <label class="addProdLabel">Description</label>
-        <textarea name="productDesc"></textarea>
+                <label class="addProdLabel">Description</label>
+                <textarea name="productDesc"></textarea>
 
-        <label class="addProdLabel">Catégorie</label>
-        <select name="productCat">
-            <?php displayCategoriesInSelect() ?>
-        </select>
+                <label class="addProdLabel">Catégorie</label>
+                <select name="productCat">
+                    <?php displayCategoriesInSelect() ?>
+                </select>
 
-        <label class="addProdLabel">Sous-catégorie</label>
-        <select name="productSubCat">
-            <?php displaySubCategoriesInSelect() ?>
-        </select>
+                <label class="addProdLabel">Sous-catégorie</label>
+                <select name="productSubCat">
+                    <?php displaySubCategoriesInSelect() ?>
+                </select>
 
-        <label class="addProdLabel">Producteur</label>
-        <select name="productProducer">
-            <?php displayProducersInSelect() ?>
-        </select>
+                <label class="addProdLabel">Producteur</label>
+                <select name="productProducer">
+                    <?php displayProducersInSelect() ?>
+                </select>
 
-        <label class="addProdLabel">Image</label>
-        <input type="file" class="addProdInput" name="photo">
+                <label class="addProdLabel">Image</label>
+                <input type="file" class="addProdInput" name="photo">
 
-        <label class="addProdLabel">Origine</label>
-        <input type="text" class="addProdInput" name="productOrigin">
+                <label class="addProdLabel">Origine</label>
+                <input type="text" class="addProdInput" name="productOrigin">
 
-        <label class="addProdLabel">Poids</label>
-        <input type="number" class="addProdInput" name="productWeight">
+                <label class="addProdLabel">Poids</label>
+                <input type="number" class="addProdInput" name="productWeight">
 
-        <label class="addProdLabel">Type de prix</label>
-        <select name="productPriceType">
-            <option value="price_kg">kg</option>
-            <option value="price_unit">unitaire</option>
-        </select>
+                <label class="addProdLabel">Type de prix</label>
+                <select name="productPriceType">
+                    <option value="price_kg">kg</option>
+                    <option value="price_unit">unitaire</option>
+                </select>
 
-        <label class="addProdLabel">Prix</label>
-        <input type="number" class="addProdPrice" name="productPrice">
+                <label class="addProdLabel">Prix</label>
+                <input type="number" class="addProdPrice" name="productPrice">
 
-        <button type="submit" name="addProdButton">Ajouter</button>
+                <button type="submit" name="addProdButton">Ajouter</button>
 
-    </form>
+            </form>
+
+            <!-- Administration Modal -->
+            <div id="administration-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Administration</h2>
+
+                    <h3>Gestion des utilisateurs</h3>
+
+                    <ul>
+                        <?php displayAllUsers()?>
+                    </ul>
+
+
+
+                    <button type="submit">Enregistrer</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
 
     <form method="POST" id="addCategoryForm">
 
-        <h1>Ajout de catégorie</h1>
+        <h3>Ajout de catégorie</h3>
 
         <label class="addProdLabel">Nom</label>
         <input type="text" name="categoryName">
@@ -87,7 +124,7 @@ if (session_id() == "") session_start();
 
     <form method="POST" id="addSubCategoryForm">
 
-        <h1>Ajout de sous-catégorie</h1>
+        <h3>Ajout de sous-catégorie</h3>
 
         <label class="addProdLabel">Nom</label>
         <input type="text" name="subCategoryName">
@@ -103,7 +140,7 @@ if (session_id() == "") session_start();
 
     <form method="POST" id="addProducerForm" enctype="multipart/form-data">
 
-        <h1>Ajout de producteur</h1>
+        <h3>Ajout de producteur</h3>
 
         <label class="addProdLabel">Nom</label>
         <input type="text" name="producerName">

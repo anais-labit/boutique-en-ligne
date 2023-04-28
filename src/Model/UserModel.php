@@ -282,4 +282,16 @@ class UserModel extends AbstractModel
 
         return $this;
     }
+
+    public function readAllUsers(): array
+    {
+
+        $this->tableName = "users";
+
+        return $this->readAll();
+    }
+
+
+
+
 }

@@ -2,6 +2,7 @@
 
 use App\Controller\AuthController;
 use App\Controller\UpdateController;
+use App\Model\UserModel;
 
 is_file("../config.php") == true ?
     require_once '../config.php' :
@@ -68,3 +69,4 @@ if (isset($_POST['deleteButton'])) {
     $deleteUser = new UpdateController();
     $reqDelete = $deleteUser->deleteUserProfile([':id' => $_SESSION['user']->getId()]);
 }
+

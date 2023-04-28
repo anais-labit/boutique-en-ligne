@@ -1,6 +1,8 @@
 <?php
 
 use App\Model\ProductModel;
+use App\Model\UserModel;
+
 
 is_file("../config.php") == true ?
     require_once '../config.php' :
@@ -95,7 +97,6 @@ if (isset($_POST['addSubCategoryButton'])) {
         ':sub_category' => $_POST['subCategoryName'],
         ':id_category' => $_POST['subcatCat']
     ]);
-            
 }
 
 if (isset($_POST['addProducerButton'])) {
@@ -112,6 +113,20 @@ if (isset($_POST['addProducerButton'])) {
         ':description' => $_POST['producerDesc'],
         ':image' => $path
     ]);
-            
+
     // var_dump($_FILES);
 }
+
+
+function displayAllUsers()
+{
+
+    $users = new UserModel();
+
+    $displayUsers = $users->readAllUsers();
+
+    foreach ($displayUsers as $key => $value) {
+
+        echo "<li class='userlisting' id=" . $value['id'] . "> id :" . $value['id'] . " firstname :" . $value['firstname'] . $value['type'] . "<button class='deleteBtn' id=" . $value['id'] . ">Supprimer</button></li>";
+    }
+};
