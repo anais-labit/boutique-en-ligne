@@ -46,7 +46,10 @@ if (isset($_POST['disconnect'])) {
 
         <ul>
             <li><a href="#"><i class="fa-regular fa-user"></i></a></li>
-            <li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            <!-- <div id="headerCartDiv"> -->
+
+                <li id="headerCartDiv"><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            <!-- </div> -->
         </ul>
     </div>
     <nav>
@@ -59,6 +62,25 @@ if (isset($_POST['disconnect'])) {
             <li><a href="products.php">Nos Produits</a></li>
             <li><a href="">Nos Producteurs</a></li>
             <li><a href="#">Actualités</a></li>
+            <?php if (isset($_SESSION['user'])) : ?>
+
+<?= $_SESSION['user']->getType() == 3 || $_SESSION['user']->getType() == 4  ?
+    "<li><a href='admin.php'>Admin</a></li>" : "<li><a href='profil.php'>Profil</a></li>" ?>
+<form method="POST" id="decoForm">
+    <button type="submit" name="disconnect" id="decoButton">Déconnexion</button>
+</form>
+
+<?php else : ?>
+
+<li>
+    <a href="login.php">Connexion</a>
+</li>
+
+<li>
+    <a href="register.php">Inscription</a>
+</li>
+
+<?php endif ?>
         </ul>
     </nav>
 </header>
