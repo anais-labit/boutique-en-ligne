@@ -125,8 +125,6 @@ function displayAllUsers()
 
     $displayUsers = $users->readAllUsers();
 
-
-
     foreach ($displayUsers as $key => $value) {
         if ($value['type'] === 1) {
             $type = "particulier";
