@@ -62,19 +62,42 @@ if(isset($_POST['displaySingleSubCategory'])) {
 
 }
 
-// function displayCategoryButtons() {
+// Single Card Page
 
-//     $categories = new ProductModel();
+if(isset($_GET['productId'])) {
 
-//     $categoriesList = $categories->readAllCategories();
+    $singleProduct = new ProductModel();
 
-//     foreach($categoriesList as $cat) {
+    $fetchProduct = $singleProduct->readOnebyId((int)$_GET['productId']);
 
-//         echo '
-//             <button value="' . $cat['id']. '">' . $cat['category']. '</button>
-//         ';
-//     }
-// }
+    if($fetchProduct[0][9] !== null) {
+
+        $price = $fetchProduct[0][9];
+        $priceType = "kg";
+    }
+
+    elseif($fetchProduct[0][10] !== null) {
+
+        $price = $fetchProduct[0][10];
+        $priceType = "pièces";
+    }
+
+    $productInfos = [
+        "name" => $fetchProduct[0][1],
+        "description" => $fetchProduct[0][4],
+        "image" => $fetchProduct[0][5],
+        "origin" => $fetchProduct[0][6],
+        // "producer" => $product->getProducer(),
+        "weight" => $fetchProduct[0][7],
+        "price" => $price,
+        "priceType" => $priceType      
+    ];
+        
+    echo json_encode($productInfos);
+    }
+
+   
+
 
 ?>
 

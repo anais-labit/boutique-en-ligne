@@ -53,7 +53,7 @@
 body {
   background-color: var(--ecru);
   min-height: 100vh;
-  overflow: hidden;
+  overflow: auto;
 }
 
 /* ======= HEADER PROPERTIES */
