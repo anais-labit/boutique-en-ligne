@@ -86,7 +86,7 @@ if (isset($_POST['disconnect'])) {
 
 
 
-<?php if($_SERVER['REQUEST_URI'] !== 'cart.php'):?>
+<?php if($_SERVER['REQUEST_URI'] !== 'cart.php' || $_SERVER['REQUEST_URI'] !== 'singleCard.php'):?>
      <script defer src="../src/Controller/products.js"></script>
 <?php endif ?>
 <script src="../src/Controller/auto_complete.js" defer></script>
