@@ -28,6 +28,8 @@ if(session_id() =="") session_start();
 <body>
 
     <?php require_once '../View/header.php'; ?>
+
+    <main>
     <div id="filterDiv">
 
         <div id="categoriesFiltersDiv">
@@ -46,7 +48,7 @@ if(session_id() =="") session_start();
 
     </div>
  
-
+    </main>
 </body>
 
 </html>

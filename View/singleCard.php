@@ -24,9 +24,9 @@ if(session_id() =="") session_start();
 <body>
 
     <?php include 'header.php' ?>
-
+<main>
     <div id="singleCardDiv">
         
     </div>
-
+    </main>
 </body>

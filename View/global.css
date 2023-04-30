@@ -60,7 +60,7 @@ body {
 header {
   display: flex;
   flex-direction: column;
-  height: 85px;
+  height: 150px;
   font-family: var(--title-font);
 }
 
