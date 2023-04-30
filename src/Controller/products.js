@@ -92,22 +92,22 @@ function rawDisplay(results) {
         
     for(let i in results) {
 
-        const singlePageLink = document.createElement("a");
-        singlePageLink.setAttribute("href", `singleCard.php?productId=${results[i].id}`);
-
         const card = document.createElement("div");
         card.setAttribute("class", "productCards");
         card.setAttribute("id", `card${results[i].id}`);
+
+        const singlePageLink = document.createElement("a");
+        singlePageLink.setAttribute("href", `singleCard.php?productId=${results[i].id}`);
+
+        const cardTitle = document.createElement("p");
+        cardTitle.innerHTML = results[i].product;
+        singlePageLink.appendChild(cardTitle);
 
         const cardImage = document.createElement("img");
         cardImage.setAttribute("src", results[i].image);
         cardImage.setAttribute("width", "300px");
         cardImage.setAttribute("height", "300px");
-        singlePageLink.appendChild(cardImage);
-
-        const cardTitle = document.createElement("p");
-        cardTitle.innerHTML = results[i].product;
-        singlePageLink.appendChild(cardTitle);
+        singlePageLink.appendChild(cardImage);       
 
         const cardDescription = document.createElement("p");
         cardDescription.innerHTML = results[i].description;
