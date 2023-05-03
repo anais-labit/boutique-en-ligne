@@ -5,7 +5,7 @@ is_file("../config.php") == true ?
     require_once '../../config.php';
 
 require_once ROOT_DIR . '/vendor/autoload.php';
-require_once '../src/Routes/admin_products.php';
+require_once '../src/Routes/admin_management.php';
 
 if (session_id() == "") session_start();
 // session_destroy();
@@ -19,6 +19,7 @@ if (session_id() == "") session_start();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="global.css">
     <title>Admin Page</title>
 </head>
@@ -137,20 +138,20 @@ if (session_id() == "") session_start();
     </div>
 
 
-
     <!-- Administration Modal -->
     <div id="administration-modal" class="modal">
         <div class="modal-content">
             <h2>Administration</h2>
 
             <h3>Gestion des utilisateurs</h3>
+            <form action="admin.php" method="POST" id="deleteForm">
 
-            <ul>
                 <?php displayAllUsers() ?>
-            </ul>
 
-
+            </form>
         </div>
+        <script defer src="../src/Controller/update.js"></script>
+
 </body>
 
 </html>

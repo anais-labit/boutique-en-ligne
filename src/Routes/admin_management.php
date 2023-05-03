@@ -1,5 +1,6 @@
 <?php
 
+use App\Controller\UpdateController;
 use App\Model\ProductModel;
 use App\Model\UserModel;
 
@@ -11,6 +12,9 @@ is_file("../config.php") == true ?
 // require_once '../../vendor/autoload.php';
 require_once ROOT_DIR . '/vendor/autoload.php';
 
+
+
+// GESTION DES PRODUITS // 
 
 function displayCategoriesInSelect()
 {
@@ -118,6 +122,9 @@ if (isset($_POST['addProducerButton'])) {
 }
 
 
+// GESTION DES UTILISATEURS // 
+
+
 function displayAllUsers()
 {
 
@@ -135,13 +142,13 @@ function displayAllUsers()
         } else if ($value['type'] === 4) {
             $type = "administrateur";
         }
-
-        echo "<li class='userslist' id=" . $value['id'] . "> id :" . $value['id'] . " Utilisateur :" . $value['email'] . 
-        
-        
-        "rôle : " . $type . "<button class='deleteBtn' id=" . $value['id'] . ">Supprimer</button></li>";
-    
-        
-    
+        echo "<p> id :" . $value['id'] . " Utilisateur :" . $value['email'] . " rôle : " . $type ."</p>" .
+            "<button type='submit' name='delete-user-button' class='delete-user-button' value='" . $value['id'] . "'>Supprimer</button>";
     }
 };
+
+if (isset($_POST['delete-user-button'])) {
+    $userModel = new UserModel();
+    $userModel->deleteOne([':id' => $_POST['delete-user-button']]);
+
+}
