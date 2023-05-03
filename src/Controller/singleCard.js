@@ -23,8 +23,6 @@ commentBtn.addEventListener("click", sendComment);
 
 async function displayOneProduct() {
     
-    
-
     // const singleProductForm = new FormData();
 
     // singleProductForm.append("displaySingleCard", "displaySingleCard");
@@ -110,7 +108,7 @@ async function displayComments() {
     commentsDiv.innerHTML = "";
     // while (commentsDiv.firstChild) {
     //     // commentsDiv.removeChild(commentsDiv.lastChild);
-    //     commentsDiv.firstChild.remove()
+    //     comcommentInputmentsDiv.firstChild.remove()
     //   }
 
     const displayCommentsForm = new FormData();
