@@ -1,3 +1,5 @@
+<!-- <script src="global.css"></script> -->
+
 <?php
 
 is_file("../config.php") == true ?
@@ -92,4 +94,5 @@ if (isset($_POST['disconnect'])) {
     <script defer src="../src/Controller/products.js"></script>
 <?php endif ?>
 <script src="../src/Controller/nav.js" defer></script>
+
 <script src="../src/Controller/auto_complete.js" defer></script>

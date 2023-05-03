@@ -96,26 +96,30 @@ function rawDisplay(results) {
         card.setAttribute("class", "productCards");
         card.setAttribute("id", `card${results[i].id}`);
 
+        const singlePageLink = document.createElement("a");
+        singlePageLink.setAttribute("href", `singleCard.php?productId=${results[i].id}`);
+
+        const cardTitle = document.createElement("p");
+        cardTitle.innerHTML = results[i].product;
+        singlePageLink.appendChild(cardTitle);
+
         const cardImage = document.createElement("img");
         cardImage.setAttribute("src", results[i].image);
         cardImage.setAttribute("width", "300px");
         cardImage.setAttribute("height", "300px");
-        card.appendChild(cardImage);
-
-        const cardTitle = document.createElement("p");
-        cardTitle.innerHTML = results[i].product;
-        card.appendChild(cardTitle);
+        singlePageLink.appendChild(cardImage);       
 
         const cardDescription = document.createElement("p");
         cardDescription.innerHTML = results[i].description;
-        card.appendChild(cardDescription);
+        singlePageLink.appendChild(cardDescription);
 
         const cardPrice =  document.createElement("p");
         results[i].price_kg !== null ?
             cardPrice.innerHTML = (results[i].price_kg/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + "/kg":
             cardPrice.innerHTML = (results[i].price_unit/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + "/unité";
-        card.appendChild(cardPrice)
+        singlePageLink.appendChild(cardPrice)
 
+        card.appendChild(singlePageLink);
         const addQuantityButton = document.createElement("input");
         addQuantityButton.setAttribute("type", "number");
         addQuantityButton.setAttribute("id", `quantity${results[i].id}`)
@@ -126,7 +130,7 @@ function rawDisplay(results) {
         addCartButton.innerHTML = "Ajouter";
         addCartButton.addEventListener("click", addCart)
         card.appendChild(addCartButton);
-
+ 
         productsDiv.appendChild(card);
       
     }

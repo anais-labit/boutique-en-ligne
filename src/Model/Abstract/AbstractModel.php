@@ -13,7 +13,6 @@ abstract class AbstractModel
 
     public function __construct()
     {
-        
     }
 
     public static function connect()
@@ -25,7 +24,7 @@ abstract class AbstractModel
 
     protected static function getPdo()
     {
-        if (!self::$pdo){
+        if (!self::$pdo) {
             self::connect();
 
         } 
@@ -42,8 +41,6 @@ abstract class AbstractModel
 
         $fieldsSqlValue = implode(', ', array_keys($params));
 
-
-
         $requestCreateOne = "INSERT INTO $this->tableName ($fieldsName) VALUES ($fieldsSqlValue)";
 
         $queryCreateOne = self::getPdo()->prepare($requestCreateOne);
@@ -53,8 +50,6 @@ abstract class AbstractModel
 
     public function readAll(): array
     {
-
-
 
         $requestReadAll = "SELECT * FROM $this->tableName";
 
@@ -70,8 +65,6 @@ abstract class AbstractModel
 
     public function readOnebyId(int $id): array
     {
-
-
         $requestReadOne = "SELECT * FROM $this->tableName WHERE id = :id";
 
         $queryReadOne = self::getPdo()->prepare($requestReadOne);
@@ -86,8 +79,6 @@ abstract class AbstractModel
 
     public function readOnebyString(string $input, string $fieldName): array
     {
-
-
         $requestReadOne = "SELECT * FROM $this->tableName WHERE $fieldName = :$fieldName";
 
         $queryReadOne = self::getPdo()->prepare($requestReadOne);
@@ -101,8 +92,6 @@ abstract class AbstractModel
 
     public function readOnebyForeignKey(string $foreignKey, int $keyValue): array
     {
-
-
         $requestReadOne = "SELECT * FROM $this->tableName WHERE $foreignKey = :$foreignKey";
 
         $queryReadOne = self::getPdo()->prepare($requestReadOne);
@@ -116,8 +105,6 @@ abstract class AbstractModel
 
     public function readLast(): int
     {
-
-
         $requestReadLast = "SELECT id FROM $this->tableName ORDER BY id DESC LIMIT 1";
 
         $queryReadLast = self::getPdo()->prepare($requestReadLast);
@@ -128,6 +115,23 @@ abstract class AbstractModel
 
         return $resultReadLast[0][0];
     }
+
+    public function readOneSingleInfo(string $field, string $key, int $id){
+
+        $sql = "SELECT $field FROM $this->tableName WHERE $key = :$key";
+    
+        $query = self::getPdo()->prepare($sql);
+    
+        $query->execute([
+            ':' . $key => $id
+        ]);
+    
+        $result = $query->fetchAll();
+
+        return $result[0][0];
+    }
+
+    
 
 
     public function updateOne(array $params)
@@ -160,31 +164,35 @@ abstract class AbstractModel
         $queryUpdateOne->execute($params);
     }
 
-    public function deleteOne(array $params) {
+    public function deleteOne(array $params)
+    {
         $fieldsArray = [];
 
-        foreach($params as $key=>$value) {
+        foreach ($params as $key => $value) {
             $fieldsArray[] = $key;
         }
 
         $input1 = $fieldsArray[0];
         $fieldName1 = str_replace(':', '', $input1);
 
-        if(count($fieldsArray) > 1) {
+        if (count($fieldsArray) > 1) {
 
             $input2 = $fieldsArray[1];
             $fieldName2 = str_replace(':', '', $input2);
             $requestDeleteOne = "DELETE FROM $this->tableName WHERE $fieldName1 = $input1 AND $fieldName2 = $input2";
-        }
+        } else {
 
-        else {
-        
             $requestDeleteOne = "DELETE FROM $this->tableName WHERE $fieldName1 = $input1";
         }
 
         $queryDeleteOne = self::getPdo()->prepare($requestDeleteOne);
 
         $queryDeleteOne->execute($params);
-    }
 
+        if ($queryDeleteOne) {
+            echo "ok";
+            echo json_encode(['test' => 'reussi']);
+            var_dump($queryDeleteOne);
+        }
+    }
 }

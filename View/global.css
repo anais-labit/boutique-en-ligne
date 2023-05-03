@@ -80,6 +80,7 @@ html::-webkit-scrollbar-track {
 html::-webkit-scrollbar-thumb {
   background: var(--venitien);
   border-radius: 1rem;
+
 }
 
 /* ========== HEADER STYLE PROPERTIES */
@@ -185,11 +186,6 @@ html::-webkit-scrollbar-thumb {
   transform-origin: right;
 }
 
-.header .header-bot .navbar a:hover::before {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
 .header .header-bot.active {
   position: fixed;
   top: 0;
@@ -208,6 +204,7 @@ html::-webkit-scrollbar-thumb {
   left: 0;
   right: 0;
   z-index: 1000;
+
   display: none;
 }
 
@@ -220,6 +217,7 @@ html::-webkit-scrollbar-thumb {
 .mobile-navbar a:hover {
   background: var(--navajowhite);
 }
+
 
 /* ================== Nav LOGIN FORM */
 
