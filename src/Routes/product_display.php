@@ -1,5 +1,6 @@
 <?php
 use App\Model\ProductModel;
+use App\Model\CommentModel;
 
 is_file("../config.php") == true ?
     require_once '../config.php':
@@ -70,6 +71,9 @@ if(isset($_GET['productId'])) {
 
     $fetchProduct = $singleProduct->readOnebyId((int)$_GET['productId']);
 
+    $rating = new CommentModel();
+    $productRating = $rating->getAverageRating((int)$_GET['productId']);
+
     if($fetchProduct[0][9] !== null) {
 
         $price = $fetchProduct[0][9];
@@ -90,7 +94,8 @@ if(isset($_GET['productId'])) {
         // "producer" => $product->getProducer(),
         "weight" => $fetchProduct[0][7],
         "price" => $price,
-        "priceType" => $priceType      
+        "priceType" => $priceType,
+        "rating" => $productRating
     ];
         
     echo json_encode($productInfos);

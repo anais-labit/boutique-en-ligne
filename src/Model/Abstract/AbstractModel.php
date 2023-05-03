@@ -27,7 +27,6 @@ abstract class AbstractModel
     {
         if (!self::$pdo){
             self::connect();
-
         } 
         return self::$pdo;
     }
@@ -42,8 +41,6 @@ abstract class AbstractModel
 
         $fieldsSqlValue = implode(', ', array_keys($params));
 
-
-
         $requestCreateOne = "INSERT INTO $this->tableName ($fieldsName) VALUES ($fieldsSqlValue)";
 
         $queryCreateOne = self::getPdo()->prepare($requestCreateOne);
@@ -53,8 +50,6 @@ abstract class AbstractModel
 
     public function readAll(): array
     {
-
-
 
         $requestReadAll = "SELECT * FROM $this->tableName";
 
@@ -70,8 +65,6 @@ abstract class AbstractModel
 
     public function readOnebyId(int $id): array
     {
-
-
         $requestReadOne = "SELECT * FROM $this->tableName WHERE id = :id";
 
         $queryReadOne = self::getPdo()->prepare($requestReadOne);
@@ -86,8 +79,6 @@ abstract class AbstractModel
 
     public function readOnebyString(string $input, string $fieldName): array
     {
-
-
         $requestReadOne = "SELECT * FROM $this->tableName WHERE $fieldName = :$fieldName";
 
         $queryReadOne = self::getPdo()->prepare($requestReadOne);
@@ -101,8 +92,6 @@ abstract class AbstractModel
 
     public function readOnebyForeignKey(string $foreignKey, int $keyValue): array
     {
-
-
         $requestReadOne = "SELECT * FROM $this->tableName WHERE $foreignKey = :$foreignKey";
 
         $queryReadOne = self::getPdo()->prepare($requestReadOne);
@@ -116,8 +105,6 @@ abstract class AbstractModel
 
     public function readLast(): int
     {
-
-
         $requestReadLast = "SELECT id FROM $this->tableName ORDER BY id DESC LIMIT 1";
 
         $queryReadLast = self::getPdo()->prepare($requestReadLast);
@@ -128,6 +115,23 @@ abstract class AbstractModel
 
         return $resultReadLast[0][0];
     }
+
+    public function readOneSingleInfo(string $field, string $key, int $id){
+
+        $sql = "SELECT $field FROM $this->tableName WHERE $key = :$key";
+    
+        $query = self::getPdo()->prepare($sql);
+    
+        $query->execute([
+            ':' . $key => $id
+        ]);
+    
+        $result = $query->fetchAll();
+
+        return $result[0][0];
+    }
+
+    
 
 
     public function updateOne(array $params)
