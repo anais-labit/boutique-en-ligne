@@ -27,67 +27,69 @@ if (isset($_POST['disconnect'])) {
 // var_dump(PHP_OS);
 ?>
 
-<header>
-    <div class="top-bar">
-        <a href="#" class="logo"><img src="./assets/images/logos/FreshMarket-Logo.png" alt="logo fresh market"></a>
-        <div class="search-bar">
-            <span class="icon">
-                <i class="fa-solid fa-search"></i>
-                <i class="fa-solid fa-close"></i>
-            </span>
-        <!-- <form action="../src/Routes/product_display.php" method="POST" class="search-bar">
-            <input type="text" name="search" id="search" placeholder="Rechercher un produit">
-            <button type="submit" name="submit-search"><i class="fa-solid fa-search"></i></button> -->
+<!-- Debut du Header -->
+<header class="header">
+    <div class="header-top">
+        <a href="#" class="logo"><img src="./assets/images/logos/FreshMarket-Logo.png" alt=""></a>
+
+        <form action="" class="search-form">
+            <input type="search" name="search" placeholder="Rechercher un produit" id="search-box">
+            <label for="search-box" class="fas fa-search"></label>
+        </form>
+
+        <div class="icons">
+            <div id="search-button" class="fas fa-search"></div>
+            <a href="" class="fas fa-shopping-cart"></a>
+            <div id="login-btn" class="fas fa-user"></div>
         </div>
-        <div class="search-box"><input type="text" name="search" placeholder="Rechercher un produit" id="search">
     </div>
-        
-        <ul>
-            <li><a href="#"><i class="fa-regular fa-user"></i></a></li>
-            <!-- <div id="headerCartDiv"> -->
-
-                <li id="headerCartDiv"><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
-            <!-- </div> -->
-        </ul>
+    <div class="header-bot">
+        <nav class="navbar">
+            <a href="index.php">Accueil</a>
+            <a href="#">À Propos</a>
+            <a href="products.php">Nos produits</a>
+            <a href="#">Nos Producteurs</a>
+            <a href="#">Actualités</a>
+        </nav>
     </div>
-    <nav>
-        <div class="toggle">
-            <a href="#"><i class="fa-solid fa-bars"></i></a>
-        </div>
-        <ul class="nav-links">
-            <li><a href="index.php">Accueil</a></li>
-            <li><a href="#">À Propos</a></li>
-            <li><a href="products.php">Nos Produits</a></li>
-            <li><a href="">Nos Producteurs</a></li>
-            <li><a href="#">Actualités</a></li>
-            <?php if (isset($_SESSION['user'])) : ?>
-
-<?= $_SESSION['user']->getType() == 3 || $_SESSION['user']->getType() == 4  ?
-    "<li><a href='admin.php'>Admin</a></li>" : "<li><a href='profil.php'>Profil</a></li>" ?>
-<form method="POST" id="decoForm">
-    <button type="submit" name="disconnect" id="decoButton">Déconnexion</button>
-</form>
-
-<?php else : ?>
-
-<li>
-    <a href="login.php">Connexion</a>
-</li>
-
-<li>
-    <a href="register.php">Inscription</a>
-</li>
-
-<?php endif ?>
-        </ul>
-    </nav>
 </header>
+<!-- Fin du Header -->
+
+<!-- Mobile Navbar -->
+<nav class="mobile-navbar">
+    <a href="index.php" class="fas fa-home"></a>
+    <a href="#" class="fas fa-list"></a>
+    <a href="products.php" class="fas fa-tags"></a>
+    <a href="#" class="fas fa-comments"></a>
+    <a href="#" class="fas fa-blogs"></a>
+</nav>
+<!-- Fin Mobile Navbar -->
+
+<!-- Login Form -->
+<div class="login-form-container">
+    <div id="close-login-btn" class="fas fa-times"></div>
+    <form action="" method="post" id="loginForm">
+        <h3>Se connecter</h3>
+        <span>email</span>
+        <input type="email" name="loginEmail" id="loginEmail" class="box" placeholder="Email">
+        <span>mot de passe</span>
+        <input type="password" name="loginPassword" class="box loginInputs" id="loginPassword" placeholder="Mot de passe">
+        <div class="checkbox">
+            <input type="checkbox" name="" id="remember-me">
+            <label for="remember-me">Se souvenir de moi</label>
+        </div>
+        <button type="submit" id="loginButton" class="btn">Connexion</button>
+        <p>Mot de passe oublié ? <a href="#"> Cliquez-ici</a></p>
+        <p>Pas encore de compte? <a href="#"> S'inscrire</a></p>
+
+    </form>
+</div>
 
 
 
 
-<?php if($_SERVER['REQUEST_URI'] !== 'cart.php'):?>
-     <script defer src="../src/Controller/products.js"></script>
+<?php if ($_SERVER['REQUEST_URI'] !== 'cart.php') : ?>
+    <script defer src="../src/Controller/products.js"></script>
 <?php endif ?>
+<script src="../src/Controller/nav.js" defer></script>
 <script src="../src/Controller/auto_complete.js" defer></script>
-

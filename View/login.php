@@ -1,12 +1,11 @@
-
-<?php 
-    // require_once '../src/Controller/AuthController.php';
-    // require_once '../src/Model/UserModel.php';
-    is_file("../config.php") == true ?
+<?php
+// require_once '../src/Controller/AuthController.php';
+// require_once '../src/Model/UserModel.php';
+is_file("../config.php") == true ?
     require_once '../config.php' :
     require_once '../../config.php';
 // require_once ROOT_DIR .'/src/Routes/product_display.php';
-require_once ROOT_DIR .'/vendor/autoload.php';
+require_once ROOT_DIR . '/vendor/autoload.php';
 
 if (session_id() == "") session_start();
 // session_destroy();
@@ -24,7 +23,6 @@ if (session_id() == "") session_start();
     <title>Page de connexion</title>
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script defer src="../src/Controller/login.js"></script>
 
 </head>
 
@@ -43,5 +41,7 @@ if (session_id() == "") session_start();
     </form>
 
 </body>
+
+<script defer src="../src/Controller/login.js"></script>
 
 </html>
