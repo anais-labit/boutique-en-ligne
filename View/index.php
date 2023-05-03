@@ -25,21 +25,8 @@ require_once ROOT_DIR .'/vendor/autoload.php';
 
 <body>
     <?php require_once '../View/header.php'; ?>
-    <!-- <form method="post" class="loginForms" id="registerForm">
-
-        <input type="text" name="registerLastName" class="loginInputs" id="registerLastName" placeholder="Nom">
-        <input type="text" name="registerFirstName" class="loginInputs" id="registerFirstName" placeholder="Nom">
-
-        <input type="email" name="registerEmail" class="loginInputs" id="registerEmail" placeholder="Email">
-
-        <input type="password" name="registerPassword" class="loginInputs" id="registerPassword" placeholder="Mot de passe">
-
-
-        <input type="password" name="registerConfirmPassword" class="loginInputs" id="registerConfirmPassword" placeholder="Confirmez votre mot de passe">
-
-        <button type="submit" id="registerButton">S'inscrire</button> -->
-
-    <!-- </form> -->
+  
+    
 
 </body>
 

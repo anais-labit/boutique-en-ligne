@@ -2,7 +2,9 @@
 
 namespace App\Model;
 
-class UserModel
+use App\Model\Abstract\AbstractModel;
+
+class UserModel extends AbstractModel
 {
 
     private ?int $id;
@@ -27,11 +29,11 @@ class UserModel
 
     private ?string $email;
 
-
     public function __construct()
     {
+        parent::connect();
+        $this->tableName = 'users';
     }
-
 
     public function setId(int $id)
     {
@@ -72,7 +74,6 @@ class UserModel
     }
 
 
-
     public function setLastName(string $lastName)
     {
 
@@ -97,7 +98,6 @@ class UserModel
 
         return $this->company;
     }
-
 
 
     public function setEmail(string $email)
@@ -172,8 +172,6 @@ class UserModel
         return $this->verified;
     }
 
-
-
     public function createUser(
         int $type,
         string $firstName,
@@ -185,15 +183,12 @@ class UserModel
         string $password
     ) {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-
-        //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
         $request_create_user = "INSERT INTO users
         (type, firstname, lastname, email, address, zip_code, city, password, verified) 
         VALUES (:type, :firstname, :lastname, :email, :address, :zip_code, :city, :password, :verified)";
 
-        $query_create_user = $SQL->prepare($request_create_user);
+        $query_create_user = self::getPdo()->prepare($request_create_user);
 
         $query_create_user->execute(array(
             'type' => $type,
@@ -218,15 +213,12 @@ class UserModel
         string $password
     ) {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-
-        //$SQL = new \PDO('mysql:host=localhost;dbname=alexandre-aloesode_todolistjs;charset=utf8', 'Namrod','azertyAZERTY123!');
 
         $request_create_company = "INSERT INTO users
         (type, company, email, address, zip_code, city, password, verified) 
         VALUES (:type, :company, :email, :address, :zip_code, :city, :password, :verified)";
 
-        $query_create_company = $SQL->prepare($request_create_company);
+        $query_create_company = self::getPdo()->prepare($request_create_company);
 
         $query_create_company->execute([
             'type' => $type,
@@ -240,124 +232,66 @@ class UserModel
         ]);
     }
 
-
-
-    public function readAllUsers(): array
+    public function getPassword(string $email): string
     {
-
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-
-        $requestUsersInfos = "SELECT * FROM users";
-
-        $queryUsersInfos = $SQL->prepare($requestUsersInfos);
-
-        $queryUsersInfos->execute();
-
-        $resultUsersInfos = $queryUsersInfos->fetchAll();
-
-        return $resultUsersInfos;
-    }
-
-
-
-    public function readOneUser(string $email): array
-    {
-
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-
-        $requestCheckEmail = "SELECT * FROM users WHERE email = :email";
-
-        $queryCheckEmail = $SQL->prepare($requestCheckEmail);
-
-        $queryCheckEmail->execute(['email' => $email]);
-
-        $resultCheckEmail = $queryCheckEmail->fetchAll();
-
-        return $resultCheckEmail;
-    }
-
-
-
-
-    public function updateUser(
-        int $id,
-        string $firstName,
-        string $lastName,
-        string $email,
-        string $address,
-        int $CP,
-        string $city,
-        string $password
-    ) {
-
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
-
-        $request_update_user = "UPDATE users SET 
-        firstname = :firstname, lastname = :lastname, email = :email, address = :address, zip_code = :zip_code, city = :city, password = :password
-        WHERE id = :id";
-
-        $query_update_user = $SQL->prepare($request_update_user);
-
-        $query_update_user->execute(array(
-            ':firstname' => $firstName,
-            ':lastname' => $lastName,
-            ':email' => $email,
-            ':address' => $address,
-            ':zip_code' => $CP,
-            ':city' => $city,
-            ':password' => password_hash($password, PASSWORD_DEFAULT),
-            'id' => $id
-        ));
-
-        if ($query_update_user) return 'Les mises à jour ont bien été prises en compte';
-    }
-
-
-    public function deleteUser()
-    {
+        $queryUserPassword = self::getPdo()->prepare('SELECT password FROM users WHERE email = :email');
+        $queryUserPassword->execute(['email' => $email]);
+        $userPassword = $queryUserPassword->fetch();
+        if ($queryUserPassword) return $userPassword['password'];
     }
 
 
     public function setSession(string $email): object
     {
 
-        $SQL = new \PDO('mysql:host=localhost;dbname=eShop;charset=utf8', 'root', '');
 
         $requestUserInfo = "SELECT * FROM users WHERE email = :email";
 
-        $queryUserInfo = $SQL->prepare($requestUserInfo);
+        $queryUserInfo = self::getPdo()->prepare($requestUserInfo);
 
         $queryUserInfo->execute(['email' => $email]);
 
         $resultUserInfo = $queryUserInfo->fetchAll();
 
-        $this->id = $resultUserInfo[0][0];
+        $this->id = $resultUserInfo[0]['id'];
 
-        $this->type = $resultUserInfo[0][1];
+        $this->type = $resultUserInfo[0]['type'];
 
-        if ($resultUserInfo[0][1] == 2) {
+        if ($resultUserInfo[0]['type'] == 2) {
 
-            $this->company = $resultUserInfo[0][4];
+            $this->company = $resultUserInfo[0]['company'];
         } else {
 
-            $this->firstName = $resultUserInfo[0][2];
+            $this->firstName = $resultUserInfo[0]['firstname'];
 
-            $this->lastName = $resultUserInfo[0][3];
+            $this->lastName = $resultUserInfo[0]['lastname'];
         }
 
-        $this->email = $resultUserInfo[0][5];
+        $this->email = $resultUserInfo[0]['email'];
 
-        $this->address = $resultUserInfo[0][6];
+        $this->address = $resultUserInfo[0]['address'];
 
-        $this->zipCode = $resultUserInfo[0][7];
+        $this->zipCode = $resultUserInfo[0]['zip_code'];
 
-        $this->city = $resultUserInfo[0][8];
+        $this->city = $resultUserInfo[0]['city'];
 
-        $this->avatar = $resultUserInfo[0][10];
+        $this->avatar = $resultUserInfo[0]['avatar'];
 
-        $this->verified = $resultUserInfo[0][11];
+        $this->verified = $resultUserInfo[0]['verified'];
 
 
         return $this;
     }
+
+    public function readAllUsers(): array
+    {
+
+        $this->tableName = "users";
+
+        return $this->readAll();
+    }
+
+
+
+
 }

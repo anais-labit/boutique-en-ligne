@@ -1,16 +1,10 @@
 <?php
 
-// require_once '../src/Routes/product_management.php';
 is_file("../config.php") == true ?
     require_once '../config.php' :
     require_once '../../config.php';
-// require_once ROOT_DIR .'/src/Routes/product_display.php';
+
 require_once ROOT_DIR .'/vendor/autoload.php';
-// require_once '../src/Model/UserModel.php';
-// require_once '../src/Model/ProductModel.php';
-
-
-
 
 if(session_id() =="") session_start();
 
@@ -34,6 +28,8 @@ if(session_id() =="") session_start();
 <body>
 
     <?php require_once '../View/header.php'; ?>
+
+    <main>
     <div id="filterDiv">
 
         <div id="categoriesFiltersDiv">
@@ -48,11 +44,9 @@ if(session_id() =="") session_start();
     </div>
     <div id="productsDiv">
 
-        <?php //displayProducts() ?> 
-
     </div>
  
-
+    </main>
 </body>
 
 </html>

@@ -8,7 +8,6 @@ require_once ROOT_DIR . '/vendor/autoload.php';
 
 if (session_id() == "") session_start();
 
-var_dump($_SESSION['user']);
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +17,7 @@ var_dump($_SESSION['user']);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script defer src="../src/Controller/update.js"></script>
     <link rel="stylesheet" href="global.css">
 
@@ -27,7 +27,7 @@ var_dump($_SESSION['user']);
 
 <body>
     <?php require_once 'header.php';
-    $actualAvatar = $_SESSION['user']->getAvatar(); ?>
+    $currentAvatar = $_SESSION['user']->getAvatar(); ?>
 
     <form action="profil.php" method="POST" id="updateForm" enctype="multipart/form-data">
 
@@ -37,7 +37,7 @@ var_dump($_SESSION['user']);
         </select>
 
         <!-- <label class="updateLabels" id="updateLabelAvatar" for="updateLabelAvatar">Avatar</label> -->
-        <div class="avatar" id="avatarContainer"><img src="<?= './images/avatars/avatar' . $actualAvatar . '.png' ?>" width="60" height="60" alt="avatar"></div>
+        <div class="avatar" id="avatarContainer"><img src="<?= './images/avatars/avatar' . $currentAvatar . '.png' ?>" width="60" height="60" alt="avatar"></div>
 
         <!-- <input type=" radio" class="updateLabels" name="avatar" id="avatar1" value="1">
             <img class="avatar" alt="avatar" src="./images/avatar1.png" width="60" height="60" />
@@ -78,7 +78,12 @@ var_dump($_SESSION['user']);
         <label class="updateLabels" for="updateConfirmPassword">Confirmez votre mot de passe</label>
         <input type="password" name="updateConfirmPassword" class="loginInputs" id="updateConfirmPassword">
 
+        <label for="confirmOldPassword">Saisissez votre ancien ancien mot de passe</label>
+        <input type="password" name="confirmOldPassword" class="loginInputs" id="confirmOldPassword">
+
         <button type="submit" id="updateButton">Mettre à jour</button>
+        <button type="submit" id="deleteButton">Supprimer votre compte</button>
+
 
     </form>
 
