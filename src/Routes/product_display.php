@@ -20,6 +20,8 @@ if(isset($_POST['displayAllProducts'])) {
     
     echo json_encode($productList);
 
+    
+
 }
 
 

@@ -1,3 +1,5 @@
+<!-- <script src="global.css"></script> -->
+
 <?php
 
 is_file("../config.php") == true ?
@@ -35,13 +37,13 @@ if (isset($_POST['disconnect'])) {
                 <i class="fa-solid fa-search"></i>
                 <i class="fa-solid fa-close"></i>
             </span>
-        <!-- <form action="../src/Routes/product_display.php" method="POST" class="search-bar">
+            <!-- <form action="../src/Routes/product_display.php" method="POST" class="search-bar">
             <input type="text" name="search" id="search" placeholder="Rechercher un produit">
             <button type="submit" name="submit-search"><i class="fa-solid fa-search"></i></button> -->
         </div>
         <div class="search-box"><input type="text" name="search" placeholder="Rechercher un produit" id="search">
-    </div>
-        
+        </div>
+
         <ul>
             <li><a href="#"><i class="fa-regular fa-user"></i></a></li>
             <!-- <div id="headerCartDiv"> -->
@@ -86,8 +88,7 @@ if (isset($_POST['disconnect'])) {
 
 
 
-<?php if($_SERVER['REQUEST_URI'] !== 'cart.php' || $_SERVER['REQUEST_URI'] !== 'singleCard.php'):?>
-     <script defer src="../src/Controller/products.js"></script>
+<?php if ($_SERVER['REQUEST_URI'] !== 'cart.php') : ?>
+    <script defer src="../src/Controller/products.js"></script>
 <?php endif ?>
 <script src="../src/Controller/auto_complete.js" defer></script>
-

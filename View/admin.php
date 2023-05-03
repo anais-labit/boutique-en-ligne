@@ -5,7 +5,7 @@ is_file("../config.php") == true ?
     require_once '../../config.php';
 
 require_once ROOT_DIR . '/vendor/autoload.php';
-require_once '../src/Routes/admin_products.php';
+require_once '../src/Routes/admin_management.php';
 
 if (session_id() == "") session_start();
 // session_destroy();
@@ -19,6 +19,7 @@ if (session_id() == "") session_start();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="global.css">
     <title>Admin Page</title>
 </head>
@@ -30,7 +31,6 @@ if (session_id() == "") session_start();
     <!-- Dashboard Modal -->
     <div id="dashboard-modal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
             <h2>Dashboard</h2>
             <p>Contenu du dashboard...</p>
         </div>
@@ -38,7 +38,6 @@ if (session_id() == "") session_start();
     <!-- Gestion Modal -->
     <div id="gestion-modal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
             <h2>Gestion</h2>
             <form method="POST" id="addProductForm" enctype="multipart/form-data">
 
@@ -85,75 +84,73 @@ if (session_id() == "") session_start();
 
                 <button type="submit" name="addProdButton">Ajouter</button>
 
+
+                <form method="POST" id="addCategoryForm">
+
+                    <h3>Ajout de catégorie</h3>
+
+                    <label class="addProdLabel">Nom</label>
+                    <input type="text" name="categoryName">
+
+                    <button type="submit" name="addCategoryButton">Ajouter</button>
+
+                </form>
+
+                <form method="POST" id="addSubCategoryForm">
+
+                    <h3>Ajout de sous-catégorie</h3>
+
+                    <label class="addProdLabel">Nom</label>
+                    <input type="text" name="subCategoryName">
+
+                    <label class="addProdLabel">Catégorie</label>
+                    <select name="subcatCat">
+                        <?php displayCategoriesinSelect() ?>
+                    </select>
+
+                    <button type="submit" name="addSubCategoryButton">Ajouter</button>
+
+                </form>
+
+                <form method="POST" id="addProducerForm" enctype="multipart/form-data">
+
+                    <h3>Ajout de producteur</h3>
+
+                    <label class="addProdLabel">Nom</label>
+                    <input type="text" name="producerName">
+
+                    <label class="addProdLabel">Description</label>
+                    <textarea name="producerDesc"></textarea>
+
+                    <label class="addProdLabel">Image</label>
+                    <input type="file" class="addProdInput" name="producerPhoto">
+
+                    <button type="submit" name="addProducerButton">Ajouter</button>
+
+                </form>
+
+
             </form>
 
-            <!-- Administration Modal -->
-            <div id="administration-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h2>Administration</h2>
-
-                    <h3>Gestion des utilisateurs</h3>
-
-                    <ul>
-                        <?php displayAllUsers()?>
-                    </ul>
-
-
-
-                    <button type="submit">Enregistrer</button>
-                </div>
-            </div>
-
         </div>
+
+    </div>
     </div>
 
 
+    <!-- Administration Modal -->
+    <div id="administration-modal" class="modal">
+        <div class="modal-content">
+            <h2>Administration</h2>
 
+            <h3>Gestion des utilisateurs</h3>
+            <form action="admin.php" method="POST" id="deleteForm">
 
-    <form method="POST" id="addCategoryForm">
+                <?php displayAllUsers() ?>
 
-        <h3>Ajout de catégorie</h3>
-
-        <label class="addProdLabel">Nom</label>
-        <input type="text" name="categoryName">
-
-        <button type="submit" name="addCategoryButton">Ajouter</button>
-
-    </form>
-
-    <form method="POST" id="addSubCategoryForm">
-
-        <h3>Ajout de sous-catégorie</h3>
-
-        <label class="addProdLabel">Nom</label>
-        <input type="text" name="subCategoryName">
-
-        <label class="addProdLabel">Catégorie</label>
-        <select name="subcatCat">
-            <?php displayCategoriesinSelect() ?>
-        </select>
-
-        <button type="submit" name="addSubCategoryButton">Ajouter</button>
-
-    </form>
-
-    <form method="POST" id="addProducerForm" enctype="multipart/form-data">
-
-        <h3>Ajout de producteur</h3>
-
-        <label class="addProdLabel">Nom</label>
-        <input type="text" name="producerName">
-
-        <label class="addProdLabel">Description</label>
-        <textarea name="producerDesc"></textarea>
-
-        <label class="addProdLabel">Image</label>
-        <input type="file" class="addProdInput" name="producerPhoto">
-
-        <button type="submit" name="addProducerButton">Ajouter</button>
-
-    </form>
+            </form>
+        </div>
+        <script defer src="../src/Controller/update.js"></script>
 
 </body>
 

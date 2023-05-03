@@ -13,7 +13,6 @@ abstract class AbstractModel
 
     public function __construct()
     {
-        
     }
 
     public static function connect()
@@ -25,8 +24,9 @@ abstract class AbstractModel
 
     protected static function getPdo()
     {
-        if (!self::$pdo){
+        if (!self::$pdo) {
             self::connect();
+
         } 
         return self::$pdo;
     }
@@ -164,31 +164,35 @@ abstract class AbstractModel
         $queryUpdateOne->execute($params);
     }
 
-    public function deleteOne(array $params) {
+    public function deleteOne(array $params)
+    {
         $fieldsArray = [];
 
-        foreach($params as $key=>$value) {
+        foreach ($params as $key => $value) {
             $fieldsArray[] = $key;
         }
 
         $input1 = $fieldsArray[0];
         $fieldName1 = str_replace(':', '', $input1);
 
-        if(count($fieldsArray) > 1) {
+        if (count($fieldsArray) > 1) {
 
             $input2 = $fieldsArray[1];
             $fieldName2 = str_replace(':', '', $input2);
             $requestDeleteOne = "DELETE FROM $this->tableName WHERE $fieldName1 = $input1 AND $fieldName2 = $input2";
-        }
+        } else {
 
-        else {
-        
             $requestDeleteOne = "DELETE FROM $this->tableName WHERE $fieldName1 = $input1";
         }
 
         $queryDeleteOne = self::getPdo()->prepare($requestDeleteOne);
 
         $queryDeleteOne->execute($params);
-    }
 
+        if ($queryDeleteOne) {
+            echo "ok";
+            echo json_encode(['test' => 'reussi']);
+            var_dump($queryDeleteOne);
+        }
+    }
 }
