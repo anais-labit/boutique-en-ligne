@@ -129,6 +129,23 @@ abstract class AbstractModel
         return $resultReadLast[0][0];
     }
 
+    public function readOneSingleInfo(string $field, string $key, int $id){
+
+        $sql = "SELECT $field FROM $this->tableName WHERE $key = :$key";
+    
+        $query = self::getPdo()->prepare($sql);
+    
+        $query->execute([
+            ':' . $key => $id
+        ]);
+    
+        $result = $query->fetchAll();
+
+        return $result[0][0];
+    }
+
+    
+
 
     public function updateOne(array $params)
     {

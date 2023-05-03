@@ -2,6 +2,16 @@ const singleCardDiv =  document.querySelector("#singleCardDiv");
 const commentBtn = document.querySelector("#commentButton");
 const commentForm = document.querySelector("#commentForm");
 const commentsDiv = document.querySelector("#comments");
+const ratingDiv = document.querySelector("#rating");
+
+
+const fullStar = document.createElement("i");
+fullStar.setAttribute("class", "fa-solid fa-star");
+const emptyStar = document.createElement("i");
+emptyStar.setAttribute("class", "fa-regular fa-star");
+const halfStar = document.createElement("i");
+halfStar.setAttribute("class", "fa-solid fa-star-half-stroke");
+let ratingValue = null;
 
 const urlParams = new URLSearchParams(window.location.search);
 const productId = urlParams.get('productId');
@@ -21,6 +31,7 @@ async function displayOneProduct() {
     const singleProduct = await fetch("../src/Routes/product_display.php?productId=" + productId);
 
     const productInfos = await singleProduct.json()
+    // console.log(productInfos);
 
         const singleCard = document.createElement("div");
         singleCard.setAttribute("class", "SingleProductCard");
@@ -35,6 +46,27 @@ async function displayOneProduct() {
         singleCardTitle.innerHTML = productInfos.name;
         singleCardDiv.appendChild(singleCardTitle);
 
+        // const singleCardRate = document.createElement("i");
+        const singleCardRate = document.createElement("p");
+        for(let i = 1; i <= 5; i++) {    
+            const ratingStar = document.createElement("i");
+            if(i <= productInfos.rating) {
+                ratingStar.setAttribute("class", "fa-solid fa-star");
+            }
+            else if(i > productInfos.rating) {
+                if(i - productInfos.rating <= 0.5) {          
+                    ratingStar.setAttribute("class", "fa-solid fa-star-half-stroke");
+                    console.log(i - productInfos.rating)
+                }
+                else {
+                    ratingStar.setAttribute("class", "fa-regular fa-star");
+                }
+            }
+            singleCardDiv.appendChild(ratingStar);
+        }
+        singleCardDiv.appendChild(singleCardRate);
+        // console.log(parseInt(productInfos.ratings));
+
         const singleCardDescription = document.createElement("p");
         singleCardDescription.innerHTML = productInfos.description;
         singleCardDiv.appendChild(singleCardDescription);
@@ -42,6 +74,16 @@ async function displayOneProduct() {
         const singleCardPrice =  document.createElement("p");
         singleCardPrice.innerHTML = (productInfos.price/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + productInfos.priceType;
         singleCardDiv.appendChild(singleCardPrice)
+
+        for(let i = 1; i <= 5; i++) {
+
+            const fullStar = document.createElement("i");
+            fullStar.setAttribute("class", "fa-solid fa-star");
+            fullStar.setAttribute("id", `star${i}`)
+            fullStar.addEventListener("click", () => {addRating(i)});
+            ratingDiv.appendChild(fullStar);
+        }
+        
 
         // const addQuantityButton = document.createElement("input");
         // addQuantityButton.setAttribute("type", "number");
@@ -55,6 +97,8 @@ async function displayOneProduct() {
         // singleCardDiv.appendChild(addCartButton);
 
         // singleCardDiv.appendChild(singleCard);
+
+
     
         // displayComments();
 }
@@ -85,10 +129,10 @@ async function displayComments() {
 
     for(let i  in result) {
 
-        const comment =  document.createElement("div");
-        comment.innerHTML = result[i].comment;
+        const commentText =  document.createElement("p");
+        commentText.innerHTML = result[i].comment;
 
-        commentsDiv.appendChild(comment);
+        commentsDiv.appendChild(commentText);
     }
 
 }
@@ -101,6 +145,7 @@ async function sendComment(e) {
     const sendCommentForm = new FormData(commentForm);
     sendCommentForm.append("sendComment", "sendComment");
     sendCommentForm.append("productId", e.target.value);
+    sendCommentForm.append("addRating", ratingValue);
 
     const requestsendCommentOptions = {
 
@@ -115,6 +160,25 @@ async function sendComment(e) {
 
     displayComments();
 
+}
+
+async function addRating(rating) {
+
+    ratingValue = rating;
+
+    if(document.querySelector(`#star${rating}`).getAttribute("class") == "fa-regular fa-star") {
+        for(let x = (rating); x >= 1; x--) {
+                        
+            document.querySelector(`#star${x}`).setAttribute("class", "fa-solid fa-star");
+        }
+    }
+
+    for(let i = (rating + 1); i <= 5; i++) {
+            
+            // document.querySelector(`#star${i}`).replaceWith(emptyStar.cloneNode(true));
+            
+            document.querySelector(`#star${i}`).setAttribute("class", "fa-regular fa-star");
+        }
 }
 
 displayOneProduct();
