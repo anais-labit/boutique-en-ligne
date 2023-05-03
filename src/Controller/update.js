@@ -20,7 +20,7 @@ const deleteButton = document.querySelector("#deleteButton");
 //   updateUser();
 // });
 
-// async function deleteUser() {
+// async function deleteUser() {test
 //   const reqDelete = new FormData(updateForm);
 //   reqDelete.append("deleteButton", "deleteButton");
 
@@ -44,8 +44,8 @@ deleteButtons.forEach((button) => {
     event.preventDefault();
 
     const formData = new FormData(); // récupère les données du formulaire
-    FormData.append("delete-user-button", userId);
     let userId = button.value;
+    formData.append("delete-user-button", userId);
     console.log(userId);
     const test = await fetch(
       `../src/Routes/admin_management.php`,
