@@ -23,7 +23,7 @@ if(isset($_POST["sendComment"])) {
         ':rate' => (int)$_POST['addRating']
     ]);
 
-// echo json_encode($_POST);
+echo json_encode($_POST);
 }
 
 if(isset($_POST['displayComments'])) {

@@ -13,25 +13,6 @@ class CartModel extends AbstractModel
         $this->tableName = 'carts';
     }
 
-    public function createCart(int $idUser, int $typeClient)
-    {
-
-        $requestCreateCart = "INSERT INTO carts
-        (id_user, type_client, date, paid) 
-        VALUES (:id_user, :type_client, NOW(), :paid)";
-
-        $queryCreateCart = self::getPdo()->prepare($requestCreateCart);
-
-        $queryCreateCart->execute([
-            ':id_user' => $idUser,
-            ':type_client' => $typeClient,
-            ':paid' => "NO"
-        ]);
-
-        //Check si la récup id cart peut se faire dans une autre méthode qu'on appelle ici
-
-    }
-
     public function getLastCartId(): int
     {
         $this->tableName = 'carts';

@@ -3,6 +3,7 @@ const commentBtn = document.querySelector("#commentButton");
 const commentForm = document.querySelector("#commentForm");
 const commentsDiv = document.querySelector("#comments");
 const ratingDiv = document.querySelector("#rating");
+const commentInput = document.querySelector("#commentInput");
 
 
 const fullStar = document.createElement("i");
@@ -157,6 +158,8 @@ async function sendComment(e) {
     const sendComment = await fetch("../src/Routes/comments_management.php", requestsendCommentOptions)
 
     const result = await sendComment.json()
+
+    // if(result) commentInput.value = "";
 
     displayComments();
 
