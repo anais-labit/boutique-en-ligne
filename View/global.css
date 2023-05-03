@@ -60,7 +60,7 @@ body {
 header {
   display: flex;
   flex-direction: column;
-  height: 85px;
+  height: 150px;
   font-family: var(--title-font);
 }
 
@@ -183,6 +183,33 @@ nav {
 .toggle {
   display: none;
 }
+
+
+/* ======= MAIN CONTENT */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0px;
+}
+
+  #productsDiv{
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-around; */
+    align-items: center; 
+    width: 100%;
+    margin: 20px;
+  }
+
+  .productCards {
+    width: 500px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+    height: 500px;
+  }
 
 /* ======= MEDIAQUERIES */
 
