@@ -41,7 +41,8 @@ if (isset($_POST['disconnect'])) {
 
         <div class="icons">
             <div id="search-button" class="fas fa-search"></div>
-            <a href="" class="fas fa-shopping-cart"></a>
+            <a href="" class="fas fa-shopping-cart" id="cartIcon"></a>
+            <div id="headerCartDiv"></div>
             <div id="login-btn" class="fas fa-user"></div>
         </div>
     </div>
