@@ -18,19 +18,14 @@ const urlParams = new URLSearchParams(window.location.search);
 const productId = urlParams.get('productId');
 
 
-commentBtn.addEventListener("click", sendComment);
+commentBtn?.addEventListener("click", sendComment);
 
 
 async function displayOneProduct() {
-    
-    // const singleProductForm = new FormData();
-
-    // singleProductForm.append("displaySingleCard", "displaySingleCard");
 
     const singleProduct = await fetch("../src/Routes/product_display.php?productId=" + productId);
 
     const productInfos = await singleProduct.json()
-    // console.log(productInfos);
 
         const singleCard = document.createElement("div");
         singleCard.setAttribute("class", "SingleProductCard");
@@ -45,7 +40,6 @@ async function displayOneProduct() {
         singleCardTitle.innerHTML = productInfos.name;
         singleCardDiv.appendChild(singleCardTitle);
 
-        // const singleCardRate = document.createElement("i");
         const singleCardRate = document.createElement("p");
         for(let i = 1; i <= 5; i++) {    
             const ratingStar = document.createElement("i");
@@ -64,7 +58,6 @@ async function displayOneProduct() {
             singleCardDiv.appendChild(ratingStar);
         }
         singleCardDiv.appendChild(singleCardRate);
-        // console.log(parseInt(productInfos.ratings));
 
         const singleCardDescription = document.createElement("p");
         singleCardDescription.innerHTML = productInfos.description;
@@ -96,10 +89,6 @@ async function displayOneProduct() {
         // singleCardDiv.appendChild(addCartButton);
 
         // singleCardDiv.appendChild(singleCard);
-
-
-    
-        // displayComments();
 }
 
 async function displayComments() {
@@ -175,9 +164,7 @@ async function addRating(rating) {
     }
 
     for(let i = (rating + 1); i <= 5; i++) {
-            
-            // document.querySelector(`#star${i}`).replaceWith(emptyStar.cloneNode(true));
-            
+                        
             document.querySelector(`#star${i}`).setAttribute("class", "fa-regular fa-star");
         }
 }
