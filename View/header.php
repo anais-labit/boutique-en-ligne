@@ -34,8 +34,8 @@ if (isset($_POST['disconnect'])) {
     <div class="header-top">
         <a href="#" class="logo"><img src="./assets/images/logos/FreshMarket-Logo.png" alt=""></a>
 
-        <form action="" class="search-form">
-            <input type="search" name="search" placeholder="Rechercher un produit" id="search-box">
+        <form action="" class="search-form" id ="searchForm">
+            <input type="search" name="search" placeholder="Rechercher un produit" id="field">
             <label for="search-box" class="fas fa-search"></label>
         </form>
 
