@@ -48,7 +48,6 @@ class UpdateController
             $valuesToSend[':password'] = htmlspecialchars(trim(password_hash($values['updatePassword'], PASSWORD_DEFAULT)));
         }
 
-        $isValid = true; // variable de contrôle
         $errors = []; // initialisation du tableau d'erreurs
         $savedPassword = $userModel->getPassword($_SESSION['user']->getEmail()); // récupération du mdp en db
 
@@ -106,7 +105,6 @@ class UpdateController
             header('Content-Type: application/json');
             echo (json_encode(['error' => 'Saisissez votre mot de passe pour valider']));
         } else if (password_verify($_POST['confirmOldPassword'], $savedPassword)) {
-
             $userModel->deleteOne($id);
             header('Content-Type: application/json');
             echo (json_encode(['success' => 'Votre compte a bien été supprimé.']));

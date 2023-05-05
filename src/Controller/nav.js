@@ -37,7 +37,7 @@ window.onscroll = () => {
 
 // Login Function
 
-loginButton.addEventListener("click", login);
+// loginButton.addEventListener("click", login);
 
 async function login(ev) {
   ev.preventDefault();
