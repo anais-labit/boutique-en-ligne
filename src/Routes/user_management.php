@@ -58,15 +58,14 @@ if (isset($_POST['loginEmail']) && isset($_POST['loginPassword'])) {
 }
 
 
-// MAJ DU PROFIL 
+// MAJ DE SON PROPRE PROFIL 
 if (isset($_POST['updateProfile'])) {
     $update = new UpdateController();
-    $reqUpdate = $update->updateUserProfile((int)$_SESSION['user']->getId(), $_POST);
+    $reqUpdate = $update->updateSelf((int)$_SESSION['user']->getId(), $_POST);
 }
 
-// SUPPRESSION DU PROFIL 
+// SUPPRESSION DE SON PROPRE PROFIL 
 if (isset($_POST['deleteButton'])) {
     $deleteUser = new UpdateController();
-    $reqDelete = $deleteUser->deleteUserProfile([':id' => $_SESSION['user']->getId()]);
+    $reqDelete = $deleteUser->deleteSelf([':id' => $_SESSION['user']->getId()]);
 }
-
