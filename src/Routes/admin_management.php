@@ -125,30 +125,50 @@ if (isset($_POST['addProducerButton'])) {
 // GESTION DES UTILISATEURS // 
 
 
+// function displayAllUsers()
+// {
+
+//     $users = new UserModel();
+
+//     $displayUsers = $users->readAllUsers();
+
+//     foreach ($displayUsers as $key => $value) {
+//         if ($value['type'] === 1) {
+//             $type = "particulier";
+//         } else if ($value['type'] === 2) {
+//             $type = "entreprise";
+//         } else if ($value['type'] === 3) {
+//             $type = "collaborateur";
+//         } else if ($value['type'] === 4) {
+//             $type = "administrateur";
+//         }
+//         echo "<p> id :" . $value['id'] . " Utilisateur :" . $value['email'] . " rôle : " . $type . "</p>" .
+//             "<button type='submit' name='delete-user-button' class='delete-user-button' value='" . $value['id'] . "'>Supprimer</button>";
+//     }
+// };
+
 function displayAllUsers()
 {
-
-    $users = new UserModel();
-
-    $displayUsers = $users->readAllUsers();
-
-    foreach ($displayUsers as $key => $value) {
-        if ($value['type'] === 1) {
-            $type = "particulier";
-        } else if ($value['type'] === 2) {
-            $type = "entreprise";
-        } else if ($value['type'] === 3) {
-            $type = "collaborateur";
-        } else if ($value['type'] === 4) {
-            $type = "administrateur";
-        }
-        echo "<p> id :" . $value['id'] . " Utilisateur :" . $value['email'] . " rôle : " . $type ."</p>" .
-            "<button type='submit' name='delete-user-button' class='delete-user-button' value='" . $value['id'] . "'>Supprimer</button>";
-    }
-};
-
-if (isset($_POST['delete-user-button'])) {
+    // header("Content-Type: application/json");
     $userModel = new UserModel();
-    $userModel->deleteOne([':id' => $_POST['delete-user-button']]);
 
+    $users = $userModel->readAllUsers();
+    echo json_encode($users);
+
+    // var_dump($users);
+}
+
+displayAllUsers();
+
+// supprimer un user
+function deleteOneUser()
+{
+
+    $userModel = new UserModel();
+
+    if (isset($_POST['delete-user-button'])) {
+        $userModel->deleteOne([':id' => $_POST['delete-user-button']]);
+        header('Content-Type: application/json');
+        echo (json_encode(['success' => 'Le compte a bien été supprimé.']));
+    }
 }
