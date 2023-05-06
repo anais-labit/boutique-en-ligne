@@ -137,6 +137,7 @@ if (session_id() == "") session_start();
         <div class="modal-content">
             <h2>Administration</h2>
             <h3>Gestion des utilisateurs</h3>
+            <div id="usersListDiv"></div>
             <form action="admin.php" method="POST" id="container">
             </form>
         </div>

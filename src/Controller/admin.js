@@ -102,3 +102,85 @@ fetch(url)
     container.appendChild(table);
   })
   .catch((error) => console.error(error));
+
+
+
+
+
+
+  const usersListDiv = document.querySelector("#usersListDiv");
+
+  async function displayAllUsers() {
+
+    const displayUsersForm = new FormData();
+
+     displayUsersForm.append("displayAllUsers", "displayAllUsers");
+
+     const requestDisplayAllUsers = {
+
+         method:"POST",
+         body: displayUsersForm
+     }
+
+    const getUsers = await fetch("../src/Routes/admin_management.php", requestDisplayAllUsers);
+
+    const result = await getUsers.json();
+
+    for(let i in result) {
+
+      const userDiv = document.createElement("div");
+      userDiv.setAttribute("class", "userDiv");
+      userDiv.style.display = "flex";
+      userDiv.style.justifyContent = "space-around";
+
+      const userId = document.createElement("p");
+      userId.innerHTML = 'id:' + result[i].id + ' ';
+      userDiv.appendChild(userId);
+
+      const userEmail = document.createElement("p");
+      userEmail.innerHTML = 'email:' + result[i].email;
+      userDiv.appendChild(userEmail);
+
+      const userRole = document.createElement("p");
+      userRole.innerHTML = ' role:' + result[i].type;
+      userDiv.appendChild(userRole);
+
+      const deleteUserButton = document.createElement("button");
+      deleteUserButton.setAttribute("class", "deleteUserButton");
+      deleteUserButton.setAttribute("value", result[i].id);
+      deleteUserButton.innerHTML = 'Supprimer';
+      deleteUserButton.addEventListener("click", deleteUser(result[i].id));
+      userDiv.appendChild(deleteUserButton);
+
+      usersListDiv.appendChild(userDiv);
+
+    }
+  }
+
+  function deleteUser(id) {
+      
+      return async function() {
+  
+        const deleteUserForm = new FormData();
+  
+        deleteUserForm.append("deleteUser", id);
+  
+        const requestDeleteUser = {
+  
+          method:"POST",
+          body: deleteUserForm
+        }
+  
+        const deleteUser = await fetch("../src/Routes/admin_management.php", requestDeleteUser);
+  
+        const result = await deleteUser.json();
+    
+        usersListDiv.innerHTML = "";
+  
+        displayAllUsers();
+  
+      }
+  }
+
+
+  displayAllUsers();

@@ -147,28 +147,35 @@ if (isset($_POST['addProducerButton'])) {
 //     }
 // };
 
-function displayAllUsers()
-{
-    // header("Content-Type: application/json");
+if(isset($_POST['displayAllUsers'])){
+
     $userModel = new UserModel();
 
     $users = $userModel->readAllUsers();
+    
     echo json_encode($users);
 
     // var_dump($users);
 }
 
-displayAllUsers();
+// displayAllUsers();
 
 // supprimer un user
-function deleteOneUser()
-{
+// function deleteOneUser()
+// {
 
-    $userModel = new UserModel();
+//     $userModel = new UserModel();
 
-    if (isset($_POST['delete-user-button'])) {
-        $userModel->deleteOne([':id' => $_POST['delete-user-button']]);
-        header('Content-Type: application/json');
-        echo (json_encode(['success' => 'Le compte a bien été supprimé.']));
-    }
+//     if (isset($_POST['delete-user-button'])) {
+//         $userModel->deleteOne([':id' => $_POST['delete-user-button']]);
+//         header('Content-Type: application/json');
+//         echo (json_encode(['success' => 'Le compte a bien été supprimé.']));
+//     }
+// }
+
+if (isset($_POST['deleteUser'])) {
+    $usertoDelete = new UserModel();
+    $usertoDelete->deleteOne([':id' => $_POST['deleteUser']]);
+    // header('Content-Type: application/json');
+    echo (json_encode(['success' => 'Le compte a bien été supprimé.']));
 }
