@@ -1,8 +1,9 @@
 const updateForm = document.querySelector("#updateForm");
 const updateButton = document.querySelector("#updateButton");
+const deleteForm = document.querySelector("#deleteForm");
 const deleteButton = document.querySelector("#deleteButton");
 
-async function updateSelf() {
+async function updateUser() {
   const reqUpdate = new FormData(updateForm);
   reqUpdate.append("updateProfile", "updateProfile");
 
@@ -16,10 +17,10 @@ async function updateSelf() {
 
 updateButton.addEventListener("click", async (event) => {
   event.preventDefault();
-  updateSelf();
+  updateUser();
 });
 
-async function deleteSelf() {
+async function deleteUser() {
   const reqDelete = new FormData(updateForm);
   reqDelete.append("deleteButton", "deleteButton");
 
@@ -33,5 +34,34 @@ async function deleteSelf() {
 
 deleteButton.addEventListener("click", async (event) => {
   event.preventDefault();
-  deleteSelf();
+  deleteUser();
 });
+
+// const deleteButtons = document.querySelectorAll(".delete-user-button");
+
+// deleteButtons.forEach((button) => {
+//   button.addEventListener("click", async (event) => {
+//     event.preventDefault();
+
+//     const formData = new FormData(); // récupère les données du formulaire
+//     let userId = button.value;
+//     formData.append("delete-user-button", userId);
+//     console.log(userId);
+//     const test = await fetch(
+//       `../src/Routes/admin_management.php`,
+//       {
+//         method: "POST",
+//         body: formData, // envoie les données du formulaire avec la requête
+//       }
+//     );
+//     // .then((response) => {
+//     //   if (response.ok) {
+//     //     console.log("réussi");
+//     //     console.log(response);
+//     //     // location.reload();
+//     //   }
+//     // });
+//     const test2 = await test.json();
+//     console.log(test2.test);
+//   });
+// });
