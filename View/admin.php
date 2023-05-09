@@ -138,10 +138,12 @@ if (session_id() == "") session_start();
             <h2>Administration</h2>
             <h3>Gestion des utilisateurs</h3>
             <div id="usersListDiv"></div>
-            <form action="admin.php" method="POST" id="container">
+            <form method="POST" id="container">
+                <!-- <select id="userRoleSelect" name="userRole"></select> -->
             </form>
         </div>
     </div>
+
 
     <script defer src="../src/Controller/admin.js"></script>
 </body>

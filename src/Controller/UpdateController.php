@@ -114,6 +114,8 @@ class UpdateController
             session_destroy();
         }
     }
+
+    
 }
 
 

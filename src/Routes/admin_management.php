@@ -125,57 +125,26 @@ if (isset($_POST['addProducerButton'])) {
 // GESTION DES UTILISATEURS // 
 
 
-// function displayAllUsers()
-// {
-
-//     $users = new UserModel();
-
-//     $displayUsers = $users->readAllUsers();
-
-//     foreach ($displayUsers as $key => $value) {
-//         if ($value['type'] === 1) {
-//             $type = "particulier";
-//         } else if ($value['type'] === 2) {
-//             $type = "entreprise";
-//         } else if ($value['type'] === 3) {
-//             $type = "collaborateur";
-//         } else if ($value['type'] === 4) {
-//             $type = "administrateur";
-//         }
-//         echo "<p> id :" . $value['id'] . " Utilisateur :" . $value['email'] . " rôle : " . $type . "</p>" .
-//             "<button type='submit' name='delete-user-button' class='delete-user-button' value='" . $value['id'] . "'>Supprimer</button>";
-//     }
-// };
-
 if(isset($_POST['displayAllUsers'])){
 
     $userModel = new UserModel();
-
     $users = $userModel->readAllUsers();
-    
     echo json_encode($users);
-
-    // var_dump($users);
 }
 
-// displayAllUsers();
-
-// supprimer un user
-// function deleteOneUser()
-// {
-
-//     $userModel = new UserModel();
-
-//     if (isset($_POST['delete-user-button'])) {
-//         $userModel->deleteOne([':id' => $_POST['delete-user-button']]);
-//         header('Content-Type: application/json');
-//         echo (json_encode(['success' => 'Le compte a bien été supprimé.']));
-//     }
-// }
 
 if (isset($_POST['deleteUser'])) {
     $usertoDelete = new UserModel();
     $usertoDelete->deleteOne([':id' => $_POST['deleteUser']]);
-    // header('Content-Type: application/json');
     echo (json_encode(['success' => 'Le compte a bien été supprimé.']));
+}
+
+
+if (isset($_POST['updateUser'])) {
+
+    // Effectuez la mise à jour du rôle de l'utilisateur
+    $userToUpdate = new UserModel();
+    $userToUpdate->updateOne([':id' => $userId, ':type' => $newRole]);
+
+    echo json_encode(['success' => 'Le rôle de l\'utilisateur a été mis à jour avec succès.']);
 }

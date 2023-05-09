@@ -1,186 +1,247 @@
-// const updateForm = document.querySelector("#updateForm");
-// const updateButton = document.querySelector("#updateButton");
-// const deleteForm = document.querySelector("#deleteForm");
-// const deleteButton = document.querySelector("#deleteButton");
+// const usersListDiv = document.querySelector("#usersListDiv");
 
-// const deleteButtons = document.querySelectorAll(".delete-user-button");
+// async function displayAllUsers() {
+//   const displayUsersForm = new FormData();
+//   displayUsersForm.append("displayAllUsers", "displayAllUsers");
 
-// deleteButtons.forEach((button) => {
-//   button.addEventListener("click", async (event) => {
-//     event.preventDefault();
+//   const requestDisplayAllUsers = {
+//     method: "POST",
+//     body: displayUsersForm,
+//   };
 
-//     const formData = new FormData();
-//     let userId = button.value;
-//     formData.append("delete-user-button", userId);
-//     console.log(userId);
-//     const response = await fetch(`../src/Routes/admin_management.php`, {
+//   const getUsers = await fetch(
+//     "../src/Routes/admin_management.php",
+//     requestDisplayAllUsers
+//   );
+
+//   const result = await getUsers.json();
+
+//   for (let i in result) {
+//     const userDiv = document.createElement("div");
+//     userDiv.setAttribute("class", "userDiv");
+//     userDiv.style.display = "flex";
+//     userDiv.style.justifyContent = "space-around";
+
+//     const userId = document.createElement("p");
+//     userId.innerHTML = "id:" + result[i].id + " ";
+//     userDiv.appendChild(userId);
+
+//     const userEmail = document.createElement("p");
+//     userEmail.innerHTML = "email:" + result[i].email;
+//     userDiv.appendChild(userEmail);
+
+//     // CODE D'ALEXANDRE
+//     // const userRole = document.createElement("p");
+//     // userRole.innerHTML = " role:" + result[i].type;
+//     // userDiv.appendChild(userRole);
+
+//     // Créez un élément select
+//     const userRoleSelect = document.createElement("select");
+
+//     // Définissez les correspondances entre les valeurs et les libellés des rôles
+//     const roleOptions = [
+//       { value: 1, label: "Particulier" },
+//       { value: 2, label: "Entreprise" },
+//       { value: 3, label: "Collaborateur" },
+//       { value: 4, label: "Admin" },
+//     ];
+
+//     roleOptions.forEach((option) => {
+//       const roleOption = document.createElement("option");
+//       roleOption.value = option.value;
+//       roleOption.text = option.label;
+
+//       // Vérifiez si la valeur correspond à la valeur actuelle du rôle
+//       if (option.value === result[i].type) {
+//         roleOption.selected = true; // Sélectionnez l'option
+//       }
+
+//       userRoleSelect.appendChild(roleOption);
+//     });
+
+//     // Ajoutez un événement pour mettre à jour le rôle
+//     userRoleSelect.addEventListener("change", function () {
+//       const newRole = parseInt(userRoleSelect.value);
+
+//       // Mettez à jour le rôle dans votre logique de traitement des données
+//       // ...
+
+//       console.log("hello");
+//       userRoleSelect.value = newRole;
+//       console.log(newRole);
+//       console.log(userRoleSelect.value);
+
+//       async function updateUser() {
+//         const reqUpdate = new FormData(updateForm);
+//         reqUpdate.append("updateProfile", "updateProfile");
+
+//         const options = {
+//           method: "POST",
+//           body: reqUpdate,
+//         };
+
+//         const updateUser = await fetch(
+//           "../src/Routes/user_management.php",
+//           options
+//         );
+//       }
+//         updateUser();
+//       });
+//     };
+
+//     // Ajoutez le select à userDiv
+//     userDiv.appendChild(userRoleSelect);
+
+//     const deleteUserButton = document.createElement("button");
+//     deleteUserButton.setAttribute("class", "deleteUserButton");
+//     deleteUserButton.setAttribute("value", result[i].id);
+//     deleteUserButton.innerHTML = "Supprimer";
+//     deleteUserButton.addEventListener("click", deleteUser(result[i].id));
+//     userDiv.appendChild(deleteUserButton);
+
+//     usersListDiv.appendChild(userDiv);
+//   }
+
+// function deleteUser(id) {
+//   return async function () {
+//     const deleteUserForm = new FormData();
+
+//     deleteUserForm.append("deleteUser", id);
+
+//     const requestDeleteUser = {
 //       method: "POST",
-//       body: formData,
-//     });
-//     const responseBody = await response.json();
-//   });
-// });
+//       body: deleteUserForm,
+//     };
 
-// function catchAllUsers() {
-//   fetch("../src/Routes/admin_management.php", {
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       // Traiter les données de $displayUsers ici
-//       console.log(data);
-//     });
+//     const deleteUser = await fetch(
+//       "../src/Routes/admin_management.php",
+//       requestDeleteUser
+//     );
 
+//     const result = await deleteUser.json();
+
+//     usersListDiv.innerHTML = "";
+
+//     displayAllUsers();
+//   };
 // }
 
-// catchAllUsers();
+// displayAllUsers();
 
-// Définition de l'URL de la requête
-const url = "../src/Routes/admin_management.php";
+// // Ajoutez un événement pour mettre à jour le rôle
+// userRoleSelect.addEventListener("change", function () {
+//   const newRole = parseInt(userRoleSelect.value);
 
-// Récupération de l'élément container
-const container = document.querySelector("#container");
+//   // Envoie des données mises à jour au serveur
+//   const updateUserForm = new FormData();
+//   updateUserForm.append("updateUser", result[i].id);
+//   updateUserForm.append("newRole", newRole);
 
-// Création de l'élément h1 pour afficher les données
-const user = document.createElement("h1");
+//   const requestUpdateUser = {
+//     method: "POST",
+//     body: updateUserForm,
+//   };
 
-fetch(url)
-  .then((response) => response.json())
-  .then((data) => {
-    const container = document.querySelector("#container");
-    const table = document.createElement("table");
-    const thead = document.createElement("thead");
-    const tbody = document.createElement("tbody");
+//   fetch("../src/Routes/admin_management.php", requestUpdateUser)
+//     .then((response) => response.json())
+//     .then((result) => {
+//       // Gérer la réponse du serveur
+//       console.log(result);
+//     })
+//     .catch((error) => {
+//       // Gérer les erreurs
+//       console.error(error);
+//     });
+// });
 
-    // Création de la ligne d'en-tête
-    const headerRow = document.createElement("tr");
-    const idHeader = document.createElement("th");
-    idHeader.textContent = "ID";
-    const emailHeader = document.createElement("th");
-    emailHeader.textContent = "Email";
-    const typeHeader = document.createElement("th");
-    typeHeader.textContent = "Type";
-    const buttonHeader = document.createElement("th");
-    buttonHeader.textContent = "Actions";
-    headerRow.appendChild(idHeader);
-    headerRow.appendChild(emailHeader);
-    headerRow.appendChild(typeHeader);
-    headerRow.appendChild(buttonHeader);
-    thead.appendChild(headerRow);
+const usersListDiv = document.querySelector("#usersListDiv");
 
-    // Boucle pour créer les lignes du tableau
-    for (let i = 0; i < data.length; i++) {
-      const user = data[i];
-      const row = document.createElement("tr");
-      const idCell = document.createElement("td");
-      idCell.textContent = user.id;
-      const emailCell = document.createElement("td");
-      emailCell.textContent = user.email;
-      const typeCell = document.createElement("td");
-      typeCell.textContent = user.type;
-      const buttonCell = document.createElement("td");
-      const button = document.createElement("button");
-      button.setAttribute("id", user.id);
-      button.textContent = "Supprimer";
-      button.addEventListener("click", () => {
-        // Ici, vous pouvez ajouter la logique pour supprimer l'utilisateur correspondant à l'id
-        console.log(`Supprimer l'utilisateur avec l'id ${user.id}`);
-      });
-      buttonCell.appendChild(button);
-      row.appendChild(idCell);
-      row.appendChild(emailCell);
-      row.appendChild(typeCell);
-      row.appendChild(buttonCell);
-      tbody.appendChild(row);
-    }
+async function displayAllUsers() {
+  const displayUsersForm = new FormData();
+  displayUsersForm.append("displayAllUsers", "displayAllUsers");
+  const requestDisplayAllUsers = {
+    method: "POST",
+    body: displayUsersForm,
+  };
+  const getUsers = await fetch(
+    "../src/Routes/admin_management.php",
+    requestDisplayAllUsers
+  );
+  const result = await getUsers.json();
 
-    // Ajout des éléments au DOM
-    table.appendChild(thead);
-    table.appendChild(tbody);
-    container.appendChild(table);
-  })
-  .catch((error) => console.error(error));
+  for (let i in result) {
+    const userDiv = document.createElement("div");
+    userDiv.setAttribute("class", "userDiv");
+    userDiv.style.display = "flex";
+    userDiv.style.justifyContent = "space-around";
 
+    const userId = document.createElement("p");
+    userId.innerHTML = "id:" + result[i].id + " ";
+    userDiv.appendChild(userId);
 
+    const userEmail = document.createElement("p");
+    userEmail.innerHTML = "email:" + result[i].email;
+    userDiv.appendChild(userEmail);
 
+    // Créez un élément select
+    const userRoleSelect = document.createElement("select");
 
+    // Définissez les correspondances entre les valeurs et les libellés des rôles
+    const roleOptions = [
+      { value: 1, label: "Particulier" },
+      { value: 2, label: "Entreprise" },
+      { value: 3, label: "Collaborateur" },
+      { value: 4, label: "Admin" },
+    ];
 
+    roleOptions.forEach((option) => {
+      const roleOption = document.createElement("option");
+      roleOption.value = option.value;
+      roleOption.text = option.label;
 
-  const usersListDiv = document.querySelector("#usersListDiv");
-
-  async function displayAllUsers() {
-
-    const displayUsersForm = new FormData();
-
-     displayUsersForm.append("displayAllUsers", "displayAllUsers");
-
-     const requestDisplayAllUsers = {
-
-         method:"POST",
-         body: displayUsersForm
-     }
-
-    const getUsers = await fetch("../src/Routes/admin_management.php", requestDisplayAllUsers);
-
-    const result = await getUsers.json();
-
-    for(let i in result) {
-
-      const userDiv = document.createElement("div");
-      userDiv.setAttribute("class", "userDiv");
-      userDiv.style.display = "flex";
-      userDiv.style.justifyContent = "space-around";
-
-      const userId = document.createElement("p");
-      userId.innerHTML = 'id:' + result[i].id + ' ';
-      userDiv.appendChild(userId);
-
-      const userEmail = document.createElement("p");
-      userEmail.innerHTML = 'email:' + result[i].email;
-      userDiv.appendChild(userEmail);
-
-      const userRole = document.createElement("p");
-      userRole.innerHTML = ' role:' + result[i].type;
-      userDiv.appendChild(userRole);
-
-      const deleteUserButton = document.createElement("button");
-      deleteUserButton.setAttribute("class", "deleteUserButton");
-      deleteUserButton.setAttribute("value", result[i].id);
-      deleteUserButton.innerHTML = 'Supprimer';
-      deleteUserButton.addEventListener("click", deleteUser(result[i].id));
-      userDiv.appendChild(deleteUserButton);
-
-      usersListDiv.appendChild(userDiv);
-
-    }
-  }
-
-  function deleteUser(id) {
-      
-      return async function() {
-  
-        const deleteUserForm = new FormData();
-  
-        deleteUserForm.append("deleteUser", id);
-  
-        const requestDeleteUser = {
-  
-          method:"POST",
-          body: deleteUserForm
-        }
-  
-        const deleteUser = await fetch("../src/Routes/admin_management.php", requestDeleteUser);
-  
-        const result = await deleteUser.json();
-    
-        usersListDiv.innerHTML = "";
-  
-        displayAllUsers();
-  
+     // Sélectionnez l'option actuelle
+      if (option.value === result[i].type) {
+        roleOption.selected = true;
       }
+      userRoleSelect.appendChild(roleOption);
+    });
+
+    // Ajoutez le select à userDiv
+    userDiv.appendChild(userRoleSelect);
+
+    const deleteUserButton = document.createElement("button");
+    deleteUserButton.setAttribute("class", "deleteUserButton");
+    deleteUserButton.setAttribute("value", result[i].id);
+    deleteUserButton.innerHTML = "Supprimer";
+    deleteUserButton.addEventListener("click", deleteUser(result[i].id));
+    userDiv.appendChild(deleteUserButton);
+
+    usersListDiv.appendChild(userDiv);
   }
+}
 
+function deleteUser(id) {
+  return async function () {
+    const deleteUserForm = new FormData();
 
-  displayAllUsers();
+    deleteUserForm.append("deleteUser", id);
+
+    const requestDeleteUser = {
+      method: "POST",
+      body: deleteUserForm,
+    };
+
+    const deleteUser = await fetch(
+      "../src/Routes/admin_management.php",
+      requestDeleteUser
+    );
+
+    const result = await deleteUser.json();
+
+    usersListDiv.innerHTML = "";
+
+    displayAllUsers();
+  };
+}
+
+displayAllUsers();
