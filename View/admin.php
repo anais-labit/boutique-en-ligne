@@ -28,15 +28,23 @@ if (session_id() == "") session_start();
 
     <?php include 'header.php' ?>
 
+    <div class="btnsContainer">
+
+        <button id="dashboardBtn" type="submit" name="submitDashboard" value="submitDashboard">Dashboard</button>
+        <button id="gestionBtn" type="submit" name="submitGestion" value="submitGestion">Gestion des produits</button>
+        <button id="administrationBtn" type="submit" name="submitAdmin" value="submitAdmin">Administration</button>
+
+    </div>
+
     <!-- Dashboard Modal -->
-    <div id="dashboard-modal" class="modal">
+    <div id="dashboard-modal" class="hiddenModal">
         <div class="modal-content">
             <h2>Dashboard</h2>
             <p>Contenu du dashboard...</p>
         </div>
     </div>
     <!-- Gestion Modal -->
-    <div id="gestion-modal" class="modal">
+    <div id="gestion-modal" class="hiddenModal">
         <div class="modal-content">
             <h2>Gestion</h2>
             <form method="POST" id="addProductForm" enctype="multipart/form-data">
@@ -133,7 +141,7 @@ if (session_id() == "") session_start();
 
 
     <!-- Administration Modal -->
-    <div id="administration-modal" class="modal">
+    <div id="administration-modal" class="hiddenModal">
         <div class="modal-content">
             <h2>Administration</h2>
             <h3>Gestion des utilisateurs</h3>
