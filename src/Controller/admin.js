@@ -85,7 +85,7 @@ async function displayAllUsers() {
         roleOption.value = option.value;
         roleOption.text = option.label;
 
-        // Sélectionnez l'option actuelle
+        // Sélectionner l'option actuelle
         if (option.value === result[i].type) {
           roleOption.selected = true;
         }
@@ -94,13 +94,13 @@ async function displayAllUsers() {
 
       userRoleSelect.addEventListener("change", function () {
         console.log("hello");
-        const newRole = parseInt(this.value); // Obtenez la nouvelle valeur de rôle sélectionnée (convertie en entier)
-        const userId = result[i].id; // Obtenez l'ID de l'utilisateur correspondant
+        const newRole = parseInt(this.value); // Set la nouvelle valeur de rôle sélectionnée (convertie en entier)
+        const userId = result[i].id; // Get l'ID de l'utilisateur correspondant
 
         updateUserRole(userId, newRole);
       });
 
-      // Ajoutez le select à userDiv
+      // Ajouter le select à userDiv
       userDiv.appendChild(userRoleSelect);
     }
 
@@ -161,7 +161,7 @@ function showDeleteConfirmation(userId) {
 
 function updateUserRole(userId, newRole) {
   const updateUserForm = new FormData();
-updateUserForm.append("updateUserRole", "true");
+  updateUserForm.append("updateUserRole", "true");
   updateUserForm.append("userId", userId);
   updateUserForm.append("newRole", newRole);
   const requestUpdateUserRole = {
@@ -171,13 +171,11 @@ updateUserForm.append("updateUserRole", "true");
   fetch("../src/Routes/admin_management.php", requestUpdateUserRole)
     .then((response) => response.json())
     .then((result) => {
-      // Gérez la réponse du serveur et effectuez toute autre action requise
       Swal.fire(
         "Mise à jour du rôle",
         "Le rôle de l'utilisateur a été mis à jour avec succès.",
         "success"
       );
-      // Vous pouvez également mettre à jour le tableau d'utilisateurs ici si nécessaire
     });
 }
 

@@ -137,21 +137,20 @@ if (isset($_POST['deleteUser'])) {
     echo (json_encode(['success' => 'Le compte a bien été supprimé.']));
 }
 
-// Vérifiez si la clé "updateUserRole" existe dans les données envoyées
+// Vérifier si la clé "updateUserRole" existe dans les données envoyées
 if (isset($_POST['updateUserRole'])) {
-    // Récupérez les paramètres envoyés depuis le formulaire
+    // Récupérer les paramètres envoyés depuis le formulaire
     $userId = $_POST['userId'];
     $newRole = $_POST['newRole'];
 
-
-    // Appelez la méthode updateOne pour mettre à jour le rôle de l'utilisateur
+    // Appeler la méthode updateOne pour mettre à jour le rôle de l'utilisateur
     $userModel = new UserModel();
     $userModel->updateOne(array(
         ':type' => $newRole,
         ':id' => $userId,
     ));
 
-    // Retournez une réponse JSON pour indiquer que la mise à jour a été effectuée avec succès
+    // Retourner une réponse JSON pour indiquer que la mise à jour a été effectuée avec succès
     $response = array('success' => 'Le rôle a été mis à jour avec succès.');
     echo json_encode($response);
     exit;
