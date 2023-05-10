@@ -8,6 +8,11 @@ require_once ROOT_DIR . '/vendor/autoload.php';
 require_once '../src/Routes/admin_management.php';
 
 if (session_id() == "") session_start();
+
+if ($_SESSION['user']->gettype() !== 4 || $_SESSION['user']->gettype() !== 3) {
+    header('Location: index.php');
+    exit;
+}
 // session_destroy();
 
 ?>
