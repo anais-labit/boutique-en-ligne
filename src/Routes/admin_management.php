@@ -68,7 +68,7 @@ if (isset($_POST['addProdButton'])) {
 
     // $productPriceType = $_POST['productPriceType'];
 
-    $targetDir = "../View/images/products/";
+    $targetDir = "../View/assets/images/products/";
     $targetFile = $targetDir . basename($_FILES['photo']['name']);
     move_uploaded_file($_FILES['photo']['tmp_name'], $targetFile);
     $path = $targetDir . ($_FILES['photo']['name']);
@@ -125,30 +125,28 @@ if (isset($_POST['addProducerButton'])) {
 // GESTION DES UTILISATEURS // 
 
 
-function displayAllUsers()
-{
-
-    $users = new UserModel();
-
-    $displayUsers = $users->readAllUsers();
-
-    foreach ($displayUsers as $key => $value) {
-        if ($value['type'] === 1) {
-            $type = "particulier";
-        } else if ($value['type'] === 2) {
-            $type = "entreprise";
-        } else if ($value['type'] === 3) {
-            $type = "collaborateur";
-        } else if ($value['type'] === 4) {
-            $type = "administrateur";
-        }
-        echo "<p> id :" . $value['id'] . " Utilisateur :" . $value['email'] . " rôle : " . $type ."</p>" .
-            "<button type='submit' name='delete-user-button' class='delete-user-button' value='" . $value['id'] . "'>Supprimer</button>";
-    }
-};
-
-if (isset($_POST['delete-user-button'])) {
+if (isset($_POST['displayAllUsers'])) {
     $userModel = new UserModel();
-    $userModel->deleteOne([':id' => $_POST['delete-user-button']]);
+    $users = $userModel->readAllUsers();
+    echo json_encode($users);
+}
 
+if (isset($_POST['deleteUser'])) {
+    $usertoDelete = new UserModel();
+    $usertoDelete->deleteOne([':id' => $_POST['deleteUser']]);
+    echo (json_encode(['success' => 'Le compte a bien été supprimé.']));
+}
+
+
+// NE FONCTIONNE PAS / N'EST PAS TESTÉE
+if (isset($_POST['usertype'])) {
+
+    // Effectuez la mise à jour du rôle de l'utilisateur
+    $userToUpdate = new UserModel();
+    $userToUpdate->updateOne([
+        ':id' => $userId,
+        ':type' => $_POST['userType']
+    ]);
+
+    echo json_encode(['success' => 'Le rôle de l\'utilisateur a été mis à jour avec succès.']);
 }
