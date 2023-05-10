@@ -148,7 +148,6 @@ if (session_id() == "") session_start();
             <h3>Gestion des utilisateurs</h3>
             <div id="usersListDiv"></div>
             <form method="POST" id="container">
-                <!-- <select id="userRoleSelect" name="userRole"></select> -->
             </form>
         </div>
     </div>
