@@ -171,11 +171,13 @@ function updateUserRole(userId, newRole) {
   fetch("../src/Routes/admin_management.php", requestUpdateUserRole)
     .then((response) => response.json())
     .then((result) => {
-      Swal.fire(
-        "Mise à jour du rôle",
-        "Le rôle de l'utilisateur a été mis à jour avec succès.",
-        "success"
-      );
+      Swal.fire({
+        title: "Mise à jour du rôle",
+        text: "Le rôle de l'utilisateur a été mis à jour avec succès.",
+        icon: "success",
+        // showConfirmButton: false, // Supprime le bouton "OK"
+        timer: 2000, // Affiche la pop-up pendant 3 secondes
+      });
     });
 }
 
