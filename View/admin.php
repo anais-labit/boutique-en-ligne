@@ -47,7 +47,7 @@ if (session_id() == "") session_start();
     <!-- Gestion Modal -->
     <div id="gestion-modal" class="hiddenModal">
         <div class="modal-content">
-            <h2>Gestion</h2>
+            <h2>Gestion des produits</h2>
             <form method="POST" id="addProductForm" enctype="multipart/form-data">
 
                 <h3>Ajout de produit</h3>

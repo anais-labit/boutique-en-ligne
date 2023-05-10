@@ -67,31 +67,48 @@ async function displayAllUsers() {
     userEmail.innerHTML = "email:" + result[i].email;
     userDiv.appendChild(userEmail);
 
-    const userRoleSelect = document.createElement("select");
+    let roleText;
+    if (result[i].type === 2) {
+      roleText = "Entreprise";
+    } else {
+      const userRoleSelect = document.createElement("select");
 
-    // Correspondances entre les valeurs et les libellés des rôles
-    const roleOptions = [
-      { value: 1, label: "Particulier" },
-      { value: 2, label: "Entreprise" },
-      { value: 3, label: "Collaborateur" },
-      { value: 4, label: "Admin" },
-    ];
+      // Correspondances entre les valeurs et les libellés des rôles
+      const roleOptions = [
+        { value: 1, label: "Particulier" },
+        { value: 3, label: "Collaborateur" },
+        { value: 4, label: "Admin" },
+      ];
 
-    roleOptions.forEach((option) => {
-      const roleOption = document.createElement("option");
-      roleOption.setAttribute("userType", option.value);
-      roleOption.value = option.value;
-      roleOption.text = option.label;
+      roleOptions.forEach((option) => {
+        const roleOption = document.createElement("option");
+        roleOption.value = option.value;
+        roleOption.text = option.label;
 
-      // Sélectionnez l'option actuelle
-      if (option.value === result[i].type) {
-        roleOption.selected = true;
-      }
-      userRoleSelect.appendChild(roleOption);
-    });
+        // Sélectionnez l'option actuelle
+        if (option.value === result[i].type) {
+          roleOption.selected = true;
+        }
+        userRoleSelect.appendChild(roleOption);
+      });
 
-    // Ajoutez le select à userDiv
-    userDiv.appendChild(userRoleSelect);
+      userRoleSelect.addEventListener("change", function () {
+        console.log("hello");
+        const newRole = parseInt(this.value); // Obtenez la nouvelle valeur de rôle sélectionnée (convertie en entier)
+        const userId = result[i].id; // Obtenez l'ID de l'utilisateur correspondant
+
+        updateUserRole(userId, newRole);
+      });
+
+      // Ajoutez le select à userDiv
+      userDiv.appendChild(userRoleSelect);
+    }
+
+    if (roleText) {
+      const userRole = document.createElement("p");
+      userRole.innerHTML = roleText;
+      userDiv.appendChild(userRole);
+    }
 
     const deleteUserButton = document.createElement("button");
     deleteUserButton.setAttribute("name", "deleteUser");
@@ -128,9 +145,10 @@ function showDeleteConfirmation(userId) {
     title: "Êtes-vous sûr(e) ?",
     text: "Cette action est irréversible !",
     icon: "warning",
-    showCancelButton: true,
+    showCancelButton: "true",
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
+    cancelButtonText: "Annuler",
     confirmButtonText: "Oui, supprimer !",
   }).then((result) => {
     if (result.isConfirmed) {
@@ -139,6 +157,28 @@ function showDeleteConfirmation(userId) {
       deleteUser(userId);
     }
   });
+}
+
+function updateUserRole(userId, newRole) {
+  const updateUserForm = new FormData();
+updateUserForm.append("updateUserRole", "true");
+  updateUserForm.append("userId", userId);
+  updateUserForm.append("newRole", newRole);
+  const requestUpdateUserRole = {
+    method: "POST",
+    body: updateUserForm,
+  };
+  fetch("../src/Routes/admin_management.php", requestUpdateUserRole)
+    .then((response) => response.json())
+    .then((result) => {
+      // Gérez la réponse du serveur et effectuez toute autre action requise
+      Swal.fire(
+        "Mise à jour du rôle",
+        "Le rôle de l'utilisateur a été mis à jour avec succès.",
+        "success"
+      );
+      // Vous pouvez également mettre à jour le tableau d'utilisateurs ici si nécessaire
+    });
 }
 
 displayAllUsers();
