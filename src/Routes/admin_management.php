@@ -68,7 +68,7 @@ if (isset($_POST['addProdButton'])) {
 
     // $productPriceType = $_POST['productPriceType'];
 
-    $targetDir = "../View/images/products/";
+    $targetDir = "../View/assets/images/products/";
     $targetFile = $targetDir . basename($_FILES['photo']['name']);
     move_uploaded_file($_FILES['photo']['tmp_name'], $targetFile);
     $path = $targetDir . ($_FILES['photo']['name']);
@@ -125,13 +125,11 @@ if (isset($_POST['addProducerButton'])) {
 // GESTION DES UTILISATEURS // 
 
 
-if(isset($_POST['displayAllUsers'])){
-
+if (isset($_POST['displayAllUsers'])) {
     $userModel = new UserModel();
     $users = $userModel->readAllUsers();
     echo json_encode($users);
 }
-
 
 if (isset($_POST['deleteUser'])) {
     $usertoDelete = new UserModel();
@@ -140,11 +138,15 @@ if (isset($_POST['deleteUser'])) {
 }
 
 
-if (isset($_POST['updateUser'])) {
+// NE FONCTIONNE PAS / N'EST PAS TESTÉE
+if (isset($_POST['usertype'])) {
 
     // Effectuez la mise à jour du rôle de l'utilisateur
     $userToUpdate = new UserModel();
-    $userToUpdate->updateOne([':id' => $userId, ':type' => $newRole]);
+    $userToUpdate->updateOne([
+        ':id' => $userId,
+        ':type' => $_POST['userType']
+    ]);
 
     echo json_encode(['success' => 'Le rôle de l\'utilisateur a été mis à jour avec succès.']);
 }

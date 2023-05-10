@@ -67,10 +67,9 @@ async function displayAllUsers() {
     userEmail.innerHTML = "email:" + result[i].email;
     userDiv.appendChild(userEmail);
 
-    // Créez un élément select
     const userRoleSelect = document.createElement("select");
 
-    // Définissez les correspondances entre les valeurs et les libellés des rôles
+    // Correspondances entre les valeurs et les libellés des rôles
     const roleOptions = [
       { value: 1, label: "Particulier" },
       { value: 2, label: "Entreprise" },
@@ -80,6 +79,7 @@ async function displayAllUsers() {
 
     roleOptions.forEach((option) => {
       const roleOption = document.createElement("option");
+      roleOption.setAttribute("userType", option.value);
       roleOption.value = option.value;
       roleOption.text = option.label;
 
@@ -94,38 +94,51 @@ async function displayAllUsers() {
     userDiv.appendChild(userRoleSelect);
 
     const deleteUserButton = document.createElement("button");
-    deleteUserButton.setAttribute("class", "deleteUserButton");
+    deleteUserButton.setAttribute("name", "deleteUser");
     deleteUserButton.setAttribute("value", result[i].id);
     deleteUserButton.innerHTML = "Supprimer";
-    deleteUserButton.addEventListener("click", deleteUser(result[i].id));
-    userDiv.appendChild(deleteUserButton);
 
+    deleteUserButton.addEventListener("click", function () {
+      const userId = this.getAttribute("value");
+      showDeleteConfirmation(userId);
+    });
+
+    userDiv.appendChild(deleteUserButton);
     usersListDiv.appendChild(userDiv);
   }
 }
 
 function deleteUser(id) {
-  return async function () {
-    const deleteUserForm = new FormData();
-
-    deleteUserForm.append("deleteUser", id);
-
-    const requestDeleteUser = {
-      method: "POST",
-      body: deleteUserForm,
-    };
-
-    const deleteUser = await fetch(
-      "../src/Routes/admin_management.php",
-      requestDeleteUser
-    );
-
-    const result = await deleteUser.json();
-
-    usersListDiv.innerHTML = "";
-
-    displayAllUsers();
+  const deleteUserForm = new FormData();
+  deleteUserForm.append("deleteUser", id);
+  const requestDeleteUser = {
+    method: "POST",
+    body: deleteUserForm,
   };
+  const deleteUser = fetch(
+    "../src/Routes/admin_management.php",
+    requestDeleteUser
+  );
+  usersListDiv.innerHTML = "";
+  displayAllUsers();
+}
+
+function showDeleteConfirmation(userId) {
+  Swal.fire({
+    title: "Êtes-vous sûr(e) ?",
+    text: "Cette action est irréversible !",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Oui, supprimer !",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire("Supprimé !", "Le compte a été supprimé.", "success");
+      console.log(userId);
+      deleteUser(userId);
+    }
+  });
 }
 
 displayAllUsers();
