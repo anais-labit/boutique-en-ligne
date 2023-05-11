@@ -38,12 +38,35 @@ setModal(administrationBtn, administrationForm);
 
 // DASHBOARD MODAL //
 
-function updateClock() {
+function refresh() {
+  usersListDiv.innerHTML = ""; // Supprimer les anciens éléments
+  allCartsListDiv.innerHTML = ""; // Supprimer les anciens éléments
+  document.querySelector("#paidCartsListDiv").innerHTML = "";
+  document.querySelector("#allCartsCountDiv").innerHTML = "";
+  document.querySelector("#paidCartsCountDiv").innerHTML = "";
+  document.querySelector("#clientsCountDiv").innerHTML = "";
+  document.querySelector("#revenueCountDiv").innerHTML = "";
+  fetchCartCount();
+  fetchClientCount();
+  fetchTotalRevenue();
+  displayAllCarts();
+  clock();
+  displayAllUsers();
+}
+function clock() {
   const clockElement = document.querySelector("#clock");
   let currentTime = new Date();
   const timeString = formatDateTime(currentTime);
-  clockElement.textContent =
-    "Informations relevées en direct : le " + timeString;
+  clockElement.textContent = "Informations relevées le : " + timeString;
+  const refreshBtn = document.createElement("button");
+  refreshBtn.setAttribute("id", "refreshBtn");
+  refreshBtn.innerHTML = "Actualiser";
+  clockElement.appendChild(refreshBtn);
+
+  refreshBtn.addEventListener("click", async (event) => {
+    event.preventDefault();
+    refresh();
+  });
 }
 
 async function fetchCartCount() {
@@ -99,8 +122,7 @@ async function fetchTotalRevenue() {
   const totalRevenue = await response.text();
 
   const revenueCountDiv = document.querySelector("#revenueCountDiv");
-  revenueCountDiv.innerHTML =
-    "Montant total des paniers payés : " + totalRevenue + "€";
+  revenueCountDiv.innerHTML = "Chiffre d'affaire : " + totalRevenue + "€";
 }
 
 const allCartsListDiv = document.querySelector("#allCartsListDiv");
@@ -330,10 +352,10 @@ function updateUserRole(userId, newRole) {
 // ON LOAD //
 
 window.addEventListener("DOMContentLoaded", () => {
+  clock();
   fetchCartCount();
   fetchClientCount();
   fetchTotalRevenue();
   displayAllCarts();
-  setInterval(updateClock, 1000);
   displayAllUsers();
 });
