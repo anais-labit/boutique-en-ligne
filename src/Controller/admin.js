@@ -59,14 +59,6 @@ async function displayAllUsers() {
     userDiv.style.display = "flex";
     userDiv.style.justifyContent = "space-around";
 
-    const userId = document.createElement("p");
-    userId.innerHTML = "id:" + result[i].id + " ";
-    userDiv.appendChild(userId);
-
-    const userEmail = document.createElement("p");
-    userEmail.innerHTML = "email:" + result[i].email;
-    userDiv.appendChild(userEmail);
-
     let roleText;
     if (result[i].type === 2) {
       roleText = "Entreprise";
@@ -109,6 +101,14 @@ async function displayAllUsers() {
       userRole.innerHTML = roleText;
       userDiv.appendChild(userRole);
     }
+
+    const userId = document.createElement("p");
+    userId.innerHTML = " id: " + result[i].id + " ";
+    userDiv.appendChild(userId);
+
+    const userEmail = document.createElement("p");
+    userEmail.innerHTML = "email: " + result[i].email;
+    userDiv.appendChild(userEmail);
 
     const deleteUserButton = document.createElement("button");
     deleteUserButton.setAttribute("name", "deleteUser");
