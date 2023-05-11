@@ -154,11 +154,11 @@ abstract class AbstractModel
 
     public function addAmounts(string $fieldName, string $fieldValue): int
     {
-        $requestTotalAmount = "SELECT SUM(total_amount) AS total_revenue FROM $this->tableName WHERE $fieldName = :fieldValue";
+        $requestTotalAmount = "SELECT SUM(total_amount) AS total FROM $this->tableName WHERE $fieldName = :fieldValue";
         $queryTotalAmount = self::getPdo()->prepare($requestTotalAmount);
         $queryTotalAmount->execute([':fieldValue' => $fieldValue]);
         $resultTotalAmount = $queryTotalAmount->fetch();
-        $totalAmount = $resultTotalAmount['total_revenue'];
+        $totalAmount = $resultTotalAmount['total'];
         return $totalAmount;
     }
 
