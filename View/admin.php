@@ -38,7 +38,7 @@ if ($_SESSION['user']->gettype() === 1 || $_SESSION['user']->gettype() === 2) {
 
         <button id="dashboardBtn" type="submit" name="submitDashboard" value="submitDashboard">Dashboard</button>
         <button id="gestionBtn" type="submit" name="submitGestion" value="submitGestion">Gestion des produits</button>
-        <button id="administrationBtn" type="submit" name="submitAdmin" value="submitAdmin">Administration</button>
+        <button id="administrationBtn" type="submit" name="submitAdmin" value="submitAdmin">Administration du site</button>
 
     </div>
 
@@ -46,7 +46,17 @@ if ($_SESSION['user']->gettype() === 1 || $_SESSION['user']->gettype() === 2) {
     <div id="dashboard-modal" class="hiddenModal">
         <div class="modal-content">
             <h2>Dashboard</h2>
-            <p>Contenu du dashboard...</p>
+            <span id="clock"></span>
+            <div id="kpi" class="container">
+                <h3>Chiffres clés</h3>
+                <div id="allCartsCountDiv"> </div>
+                <div id="paidCartsCountDiv"></div>
+                <h3>Tous les paniers</h3>
+                <div id="allCartsListDiv"> </div>
+                <h3>Les paniers convertis en ventes</h3>
+                <div id="paidCartsListDiv"> </div>
+                <div id="paidCartsCountDiv"></div>
+            </div>
         </div>
     </div>
     <!-- Gestion Modal -->
@@ -149,7 +159,7 @@ if ($_SESSION['user']->gettype() === 1 || $_SESSION['user']->gettype() === 2) {
     <!-- Administration Modal -->
     <div id="administration-modal" class="hiddenModal">
         <div class="modal-content">
-            <h2>Administration</h2>
+            <h2>Administration du site</h2>
             <h3>Gestion des utilisateurs</h3>
             <div id="usersListDiv"></div>
             <form method="POST" id="container">

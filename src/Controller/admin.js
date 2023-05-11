@@ -36,7 +36,123 @@ setModal(dashboardBtn, dashboardForm);
 setModal(gestionBtn, gestionForm);
 setModal(administrationBtn, administrationForm);
 
-// ADMINISTRATION MODAL
+// DASHBOARD MODAL //
+
+function updateClock() {
+  const clockElement = document.querySelector("#clock");
+  let currentTime = new Date();
+  const timeString = formatDateTime(currentTime);
+  clockElement.textContent = "Informations relevées en direct : le " + timeString;
+}
+
+async function fetchCartCount() {
+  const requestCountAllCarts = {
+    method: "GET",
+  };
+
+  const responseAllCarts = await fetch(
+    "../src/Routes/admin_management.php?countAllCarts",
+    requestCountAllCarts
+  );
+  const totalCarts = await responseAllCarts.text();
+
+  const requestCountPaidCarts = {
+    method: "GET",
+  };
+
+  const responsePaidCarts = await fetch(
+    "../src/Routes/admin_management.php?countPaidCarts",
+    requestCountPaidCarts
+  );
+  const totalPaidCarts = await responsePaidCarts.text();
+
+  document.querySelector("#allCartsCountDiv").innerText =
+    "Nombre de paniers créés : " + totalCarts;
+  document.querySelector("#paidCartsCountDiv").innerText =
+    "Nombre de paniers créés convertis en vente : " + totalPaidCarts;
+}
+
+const allCartsListDiv = document.querySelector("#allCartsListDiv");
+
+async function displayAllCarts() {
+  const displayAllCartsForm = new FormData();
+  displayAllCartsForm.append("displayAllCarts", "displayAllCarts");
+  const requestDisplayAllCarts = {
+    method: "POST",
+    body: displayAllCartsForm,
+  };
+  const getCarts = await fetch(
+    "../src/Routes/admin_management.php",
+    requestDisplayAllCarts
+  );
+  const result = await getCarts.json();
+
+  result.forEach((cart) => {
+    const allCartsDiv = document.createElement("div");
+    allCartsDiv.setAttribute("class", "allCartsDiv");
+    allCartsDiv.style.display = "flex";
+
+    const cartId = document.createElement("p");
+    cartId.innerHTML = "Id: " + cart.id;
+
+    const cartDate = document.createElement("p");
+    const formattedDate = formatDateTime(cart.date);
+    cartDate.innerHTML = "Date: " + formattedDate;
+
+    const cartAmount = document.createElement("p");
+    cartAmount.innerHTML = "Montant total : " + cart.total_amount + "€";
+
+    const cartStatus = document.createElement("p");
+    if (cart.paid === "NO") {
+      cartStatus.innerHTML = " Payé: non";
+    } else {
+      cartStatus.innerHTML = " Payé: oui";
+    }
+
+    allCartsDiv.appendChild(cartId);
+    allCartsDiv.appendChild(cartDate);
+    allCartsDiv.appendChild(cartAmount);
+    allCartsDiv.appendChild(cartStatus);
+    allCartsListDiv.appendChild(allCartsDiv);
+
+    if (cart.paid === "YES") {
+      const paidCartsDiv = document.createElement("div");
+      paidCartsDiv.setAttribute("class", "paidCartsDiv");
+      paidCartsDiv.style.display = "flex";
+
+      const cartId = document.createElement("p");
+      cartId.innerHTML = "Id: " + cart.id;
+
+      const cartDate = document.createElement("p");
+      const formattedDate = formatDateTime(cart.date);
+      cartDate.innerHTML = "Date: " + formattedDate;
+
+      const cartAmount = document.createElement("p");
+      cartAmount.innerHTML = "Montant total : " + cart.total_amount + "€";
+
+      paidCartsDiv.appendChild(cartId);
+      paidCartsDiv.appendChild(cartDate);
+      paidCartsDiv.appendChild(cartAmount);
+
+      const paidCartsListDiv = document.querySelector("#paidCartsListDiv");
+      paidCartsListDiv.appendChild(paidCartsDiv);
+    }
+  });
+}
+
+function formatDateTime(dateString) {
+  const date = new Date(dateString);
+
+  const day = date.getDate();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const year = date.getFullYear();
+  const hours = date.getHours();
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  return `${day}/${month}/${year} à ${hours}h${minutes}`;
+}
+
+// ADMINISTRATION MODAL //
 
 const usersListDiv = document.querySelector("#usersListDiv");
 
@@ -85,7 +201,6 @@ async function displayAllUsers() {
       });
 
       userRoleSelect.addEventListener("change", function () {
-        console.log("hello");
         const newRole = parseInt(this.value); // Set la nouvelle valeur de rôle sélectionnée (convertie en entier)
         const userId = result[i].id; // Get l'ID de l'utilisateur correspondant
 
@@ -181,4 +296,11 @@ function updateUserRole(userId, newRole) {
     });
 }
 
-displayAllUsers();
+// ON LOAD //
+
+window.addEventListener("DOMContentLoaded", () => {
+  displayAllCarts();
+  fetchCartCount();
+  displayAllUsers();
+  setInterval(updateClock, 1000);
+});

@@ -132,6 +132,26 @@ abstract class AbstractModel
     }
 
 
+    public function countAll(): int
+    {
+        $requestCountAll = "SELECT COUNT(*) AS total_entries FROM $this->tableName";
+        $queryCountAll = self::getPdo()->prepare($requestCountAll);
+        $queryCountAll->execute();
+        $resultCountAll = $queryCountAll->fetch();
+        $totalEntries = $resultCountAll['total_entries'];
+        return $totalEntries;
+    }
+
+    public function countByCriteria(string $fieldName, string $fieldValue): int
+    {
+        $requestCountByCriteria = "SELECT COUNT(*) AS total_entries FROM $this->tableName WHERE $fieldName = :fieldValue";
+        $queryCountByCriteria = self::getPdo()->prepare($requestCountByCriteria);
+        $queryCountByCriteria->execute(['fieldValue' => $fieldValue]);
+        $resultCountByCriteria = $queryCountByCriteria->fetch();
+        $totalEntries = $resultCountByCriteria['total_entries'];
+        return $totalEntries;
+    }
+
 
 
     public function updateOne(array $params)
