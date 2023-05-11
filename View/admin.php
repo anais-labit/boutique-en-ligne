@@ -9,7 +9,7 @@ require_once '../src/Routes/admin_management.php';
 
 if (session_id() == "") session_start();
 
-if ($_SESSION['user']->gettype() !== 4 || $_SESSION['user']->gettype() !== 3) {
+if ($_SESSION['user']->gettype() === 1 || $_SESSION['user']->gettype() === 2) {
     header('Location: index.php');
     exit;
 }

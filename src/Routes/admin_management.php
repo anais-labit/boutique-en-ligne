@@ -127,7 +127,7 @@ if (isset($_POST['addProducerButton'])) {
 
 if (isset($_POST['displayAllUsers'])) {
     $userModel = new UserModel();
-    $users = $userModel->readAllUsers();
+    $users = $userModel->readAllUsersByType();
     echo json_encode($users);
 }
 
