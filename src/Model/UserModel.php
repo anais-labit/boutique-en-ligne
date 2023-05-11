@@ -293,6 +293,7 @@ class UserModel extends AbstractModel
 
     public function readAllUsersByType(): array
     {
+        
         $requestReadAll = "SELECT * FROM users ORDER BY 
         CASE 
         WHEN type = '4' THEN 1
@@ -306,5 +307,12 @@ class UserModel extends AbstractModel
         $resultReadAll = $queryReadAll->fetchAll();
 
         return $resultReadAll;
+    }
+
+
+    public function countUsersByCriteria(string $fieldName, string $fieldValue): int
+    {
+        $this->tableName = "users";
+        return $this->countByCriteria($fieldName, $fieldValue);
     }
 }

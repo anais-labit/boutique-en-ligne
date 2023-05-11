@@ -28,6 +28,27 @@ if (isset($_GET['countPaidCarts'])) {
     echo $totalPaidCarts;
 }
 
+if (isset($_GET['countClients'])) {
+    $userModel = new UserModel();
+    $totalIndividualClients = $userModel->countUsersByCriteria('type', '1');
+    $totalBusinessClients = $userModel->countUsersByCriteria('type', '2');
+
+    $clientCounts = [
+        'totalCount' => $totalIndividualClients + $totalBusinessClients,
+        'type1Count' => $totalIndividualClients,
+        'type2Count' => $totalBusinessClients
+    ];
+
+    echo json_encode($clientCounts);
+}
+
+if (isset($_GET['countTotalRevenue'])) {
+    $cartModel = new CartModel();
+    $totalRevenue = $cartModel->addPaidCartsAmounts('paid', 'YES');
+    echo json_encode($totalRevenue);
+}
+
+
 // GESTION DES PRODUITS // 
 
 function displayCategoriesInSelect()

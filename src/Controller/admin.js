@@ -42,7 +42,8 @@ function updateClock() {
   const clockElement = document.querySelector("#clock");
   let currentTime = new Date();
   const timeString = formatDateTime(currentTime);
-  clockElement.textContent = "Informations relevées en direct : le " + timeString;
+  clockElement.textContent =
+    "Informations relevées en direct : le " + timeString;
 }
 
 async function fetchCartCount() {
@@ -66,10 +67,40 @@ async function fetchCartCount() {
   );
   const totalPaidCarts = await responsePaidCarts.text();
 
-  document.querySelector("#allCartsCountDiv").innerText =
-    "Nombre de paniers créés : " + totalCarts;
-  document.querySelector("#paidCartsCountDiv").innerText =
-    "Nombre de paniers créés convertis en vente : " + totalPaidCarts;
+  document.querySelector("#allCartsCountDiv").innerHTML =
+    "Paniers créés : " + totalCarts;
+  document.querySelector("#paidCartsCountDiv").innerHTML =
+    "Paniers créés convertis en vente : " + totalPaidCarts;
+}
+
+async function fetchClientCount() {
+  const response = await fetch(
+    "../src/Routes/admin_management.php?countClients"
+  );
+  const clientCounts = await response.json();
+
+  const totalClientsDiv = document.querySelector("#clientsCountDiv");
+  totalClientsDiv.innerHTML =
+    "<p>Clients inscrits : " +
+    clientCounts.totalCount +
+    "</p>" +
+    "<p>Clients particuliers : " +
+    clientCounts.type1Count +
+    "</p>" +
+    "<p>Clients entreprises : " +
+    clientCounts.type2Count +
+    "</p>";
+}
+
+async function fetchTotalRevenue() {
+  const response = await fetch(
+    "../src/Routes/admin_management.php?countTotalRevenue"
+  );
+  const totalRevenue = await response.text();
+
+  const revenueCountDiv = document.querySelector("#revenueCountDiv");
+  revenueCountDiv.innerHTML =
+    "Montant total des paniers payés : " + totalRevenue + "€";
 }
 
 const allCartsListDiv = document.querySelector("#allCartsListDiv");
@@ -299,8 +330,10 @@ function updateUserRole(userId, newRole) {
 // ON LOAD //
 
 window.addEventListener("DOMContentLoaded", () => {
-  displayAllCarts();
   fetchCartCount();
-  displayAllUsers();
+  fetchClientCount();
+  fetchTotalRevenue();
+  displayAllCarts();
   setInterval(updateClock, 1000);
+  displayAllUsers();
 });

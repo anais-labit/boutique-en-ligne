@@ -51,9 +51,13 @@ if ($_SESSION['user']->gettype() === 1 || $_SESSION['user']->gettype() === 2) {
                 <h3>Chiffres clés</h3>
                 <div id="allCartsCountDiv"> </div>
                 <div id="paidCartsCountDiv"></div>
-                <h3>Tous les paniers</h3>
+                <div id="clientsCountDiv"></div>
+                <div id="revenueCountDiv"></div>
+
+                <h3>Suivi des commandes</h3>
+                <h4>Tous les paniers</h4>
                 <div id="allCartsListDiv"> </div>
-                <h3>Les paniers convertis en ventes</h3>
+                <h4>Les paniers convertis en ventes</h4>
                 <div id="paidCartsListDiv"> </div>
                 <div id="paidCartsCountDiv"></div>
             </div>

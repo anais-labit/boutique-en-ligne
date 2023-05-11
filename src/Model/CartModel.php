@@ -36,4 +36,10 @@ class CartModel extends AbstractModel
         $this->tableName = "carts";
         return $this->countByCriteria($fieldName, $fieldValue);
     }
+
+    public function addPaidCartsAmounts(string $fieldName, string $fieldValue): int
+    {
+        $this->tableName = "carts";
+        return $this->addAmounts($fieldName, $fieldValue);
+    }
 }
