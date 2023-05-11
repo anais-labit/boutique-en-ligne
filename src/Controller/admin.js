@@ -52,6 +52,13 @@ function refresh() {
   displayAllCarts();
   clock();
   displayAllUsers();
+  Swal.fire({
+    title: "Mise à jour des données",
+    text: "Les données ont bien été actualisées.",
+    icon: "success",
+    // showConfirmButton: false, // Supprime le bouton "OK"
+    timer: 2000,
+  }); // Affiche la pop-up pendant 3 secondes
 }
 function clock() {
   const clockElement = document.querySelector("#clock");
