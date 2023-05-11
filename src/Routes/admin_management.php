@@ -3,6 +3,8 @@
 use App\Controller\UpdateController;
 use App\Model\ProductModel;
 use App\Model\UserModel;
+use App\Model\CartModel;
+
 
 
 is_file("../config.php") == true ?
@@ -12,7 +14,19 @@ is_file("../config.php") == true ?
 // require_once '../../vendor/autoload.php';
 require_once ROOT_DIR . '/vendor/autoload.php';
 
+// DASHBOARD //
 
+if (isset($_GET['countAllCarts'])) {
+    $cartModel = new CartModel();
+    $totalCarts = $cartModel->countAllCarts();
+    echo $totalCarts;
+}
+
+if (isset($_GET['countPaidCarts'])) {
+    $cartModel = new CartModel();
+    $totalPaidCarts = $cartModel->countCartsByCriteria('paid', 'YES');
+    echo $totalPaidCarts;
+}
 
 // GESTION DES PRODUITS // 
 
@@ -60,7 +74,17 @@ function displayProducersInSelect()
     }
 }
 
+if (isset($_POST['displayAllCarts'])) {
+    $productModel = new CartModel();
+    $carts = $productModel->readAllCarts();
+    echo json_encode($carts);
+}
 
+if (isset($_POST['countAllcarts'])) {
+    $cartModel = new CartModel();
+    $totalCarts = $cartModel->countAllCarts();
+    echo $totalCarts;
+}
 
 if (isset($_POST['addProdButton'])) {
 
@@ -150,7 +174,6 @@ if (isset($_POST['updateUserRole'])) {
         ':id' => $userId,
     ));
 
-    // Retourner une réponse JSON pour indiquer que la mise à jour a été effectuée avec succès
     $response = array('success' => 'Le rôle a été mis à jour avec succès.');
     echo json_encode($response);
     exit;
