@@ -146,13 +146,21 @@ abstract class AbstractModel
     {
         $requestCountByCriteria = "SELECT COUNT(*) AS total_entries FROM $this->tableName WHERE $fieldName = :fieldValue";
         $queryCountByCriteria = self::getPdo()->prepare($requestCountByCriteria);
-        $queryCountByCriteria->execute(['fieldValue' => $fieldValue]);
+        $queryCountByCriteria->execute([':fieldValue' => $fieldValue]);
         $resultCountByCriteria = $queryCountByCriteria->fetch();
         $totalEntries = $resultCountByCriteria['total_entries'];
         return $totalEntries;
     }
 
-
+    public function addAmounts(string $fieldName, string $fieldValue): int
+    {
+        $requestTotalAmount = "SELECT SUM(total_amount) AS total_revenue FROM $this->tableName WHERE $fieldName = :fieldValue";
+        $queryTotalAmount = self::getPdo()->prepare($requestTotalAmount);
+        $queryTotalAmount->execute([':fieldValue' => $fieldValue]);
+        $resultTotalAmount = $queryTotalAmount->fetch();
+        $totalAmount = $resultTotalAmount['total_revenue'];
+        return $totalAmount;
+    }
 
     public function updateOne(array $params)
     {
