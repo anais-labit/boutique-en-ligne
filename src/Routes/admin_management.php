@@ -16,17 +16,20 @@ require_once ROOT_DIR . '/vendor/autoload.php';
 
 // DASHBOARD //
 
-if (isset($_GET['countAllCarts'])) {
-    $cartModel = new CartModel();
-    $totalCarts = $cartModel->countAllCarts();
-    echo $totalCarts;
-}
-
-if (isset($_GET['countPaidCarts'])) {
+if (isset($_GET['countCarts'])) {
     $cartModel = new CartModel();
     $totalPaidCarts = $cartModel->countCartsByCriteria('paid', 'YES');
-    echo $totalPaidCarts;
+    $totalPendingCarts = $cartModel->countCartsByCriteria('paid', 'NO');
+
+    $totalCarts = [
+        'totalCount' => $totalPaidCarts + $totalPendingCarts,
+        'paidCount' => $totalPaidCarts,
+        'pendingCount' => $totalPendingCarts
+    ];
+
+    echo json_encode($totalCarts);
 }
+
 
 if (isset($_GET['countClients'])) {
     $userModel = new UserModel();

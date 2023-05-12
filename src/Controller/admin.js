@@ -1,13 +1,16 @@
-// GLOBAL PAGE
+//---------------------------------------------------- GLOBAL PAGE ----------------------------------------------------//
 
+// Variables pour les boutons de navigation
 const dashboardBtn = document.querySelector("#dashboardBtn");
 const gestionBtn = document.querySelector("#gestionBtn");
 const administrationBtn = document.querySelector("#administrationBtn");
 
+// Variables pour les formulaires
 const dashboardForm = document.querySelector("#dashboard-modal");
 const gestionForm = document.querySelector("#gestion-modal");
 const administrationForm = document.querySelector("#administration-modal");
 
+// Fonction pour masquer un formulaire
 function hideForm(form) {
   form.style.display = "none";
 }
@@ -17,10 +20,12 @@ hideForm(dashboardForm);
 hideForm(gestionForm);
 hideForm(administrationForm);
 
+// Fonction pour afficher un formulaire
 function showForm(form) {
   form.style.display = "flex";
 }
 
+// Fonction pour configurer un bouton et le formulaire associé
 function setModal(button, form) {
   button.addEventListener("click", (event) => {
     event.preventDefault();
@@ -31,77 +36,85 @@ function setModal(button, form) {
   });
 }
 
-// Set les boutons et les formulaires associés
+// Configuration des boutons et des formulaires associés
 setModal(dashboardBtn, dashboardForm);
 setModal(gestionBtn, gestionForm);
 setModal(administrationBtn, administrationForm);
 
-// DASHBOARD MODAL //
-
+// Fonction pour rafraîchir les données collectées
 function refresh() {
-  usersListDiv.innerHTML = ""; // Supprimer les anciens éléments
-  allCartsListDiv.innerHTML = ""; // Supprimer les anciens éléments
-  document.querySelector("#paidCartsListDiv").innerHTML = "";
-  document.querySelector("#allCartsCountDiv").innerHTML = "";
-  document.querySelector("#paidCartsCountDiv").innerHTML = "";
-  document.querySelector("#clientsCountDiv").innerHTML = "";
-  document.querySelector("#revenueCountDiv").innerHTML = "";
+  // Supprimer les anciennes listes
+  allCartsListDiv.innerHTML = "";
+  pendingCartsListDiv.innerHTML = "";
+  paidCartsListDiv.innerHTML = "";
+  usersListDiv.innerHTML = ""; // administration-modal
+
+  // Appeler les fonctions pour mettre à jour les données
+  clock();
   fetchCartCount();
   fetchClientCount();
   fetchTotalRevenue();
   displayAllCarts();
-  clock();
   displayAllUsers();
+
+  // Afficher une pop-up de confirmation
+  Swal.fire({
+    title: "Mise à jour des données",
+    text: "Les données ont bien été actualisées.",
+    icon: "success",
+    timer: 2000,
+  });
 }
+
+//---------------------------------------------------- DASHBOARD MODAL ----------------------------------------------------//
+
+// Fonction pour afficher l'horloge
 function clock() {
   const clockElement = document.querySelector("#clock");
   let currentTime = new Date();
   const timeString = formatDateTime(currentTime);
   clockElement.textContent = "Informations relevées le : " + timeString;
+
+  // Créer un bouton pour actualiser la page
   const refreshBtn = document.createElement("button");
   refreshBtn.setAttribute("id", "refreshBtn");
   refreshBtn.innerHTML = "Actualiser";
   clockElement.appendChild(refreshBtn);
 
+  // Ajouter un gestionnaire d'événements pour le bouton d'actualisation
   refreshBtn.addEventListener("click", async (event) => {
     event.preventDefault();
     refresh();
   });
 }
 
+// Fonction pour récupérer le nombre de paniers
 async function fetchCartCount() {
-  const requestCountAllCarts = {
-    method: "GET",
-  };
+  const response = await fetch("../src/Routes/admin_management.php?countCarts");
+  const cartCounts = await response.json();
 
-  const responseAllCarts = await fetch(
-    "../src/Routes/admin_management.php?countAllCarts",
-    requestCountAllCarts
-  );
-  const totalCarts = await responseAllCarts.text();
-
-  const requestCountPaidCarts = {
-    method: "GET",
-  };
-
-  const responsePaidCarts = await fetch(
-    "../src/Routes/admin_management.php?countPaidCarts",
-    requestCountPaidCarts
-  );
-  const totalPaidCarts = await responsePaidCarts.text();
-
-  document.querySelector("#allCartsCountDiv").innerHTML =
-    "Paniers créés : " + totalCarts;
-  document.querySelector("#paidCartsCountDiv").innerHTML =
-    "Paniers créés convertis en vente : " + totalPaidCarts;
+  // Afficher les résultats
+  const totalCartsDiv = document.querySelector("#cartsCountDiv");
+  totalCartsDiv.innerHTML =
+    "<p> Paniers créés : " +
+    cartCounts.totalCount +
+    "</p>" +
+    "<p> Paniers en attente : " +
+    cartCounts.pendingCount +
+    "</p>" +
+    "<p> Paniers convertis en ventes : " +
+    cartCounts.paidCount +
+    "</p>";
 }
 
+// Fonction pour récupérer le nombre de clients
 async function fetchClientCount() {
   const response = await fetch(
     "../src/Routes/admin_management.php?countClients"
   );
   const clientCounts = await response.json();
 
+  // Afficher les résultats
   const totalClientsDiv = document.querySelector("#clientsCountDiv");
   totalClientsDiv.innerHTML =
     "<p>Clients inscrits : " +
@@ -115,20 +128,23 @@ async function fetchClientCount() {
     "</p>";
 }
 
+// Fonction pour récupérer le chiffre d'affaire total
 async function fetchTotalRevenue() {
   const response = await fetch(
     "../src/Routes/admin_management.php?countTotalRevenue"
   );
   const totalRevenue = await response.text();
 
+  // Afficher les résultats
   const revenueCountDiv = document.querySelector("#revenueCountDiv");
   revenueCountDiv.innerHTML = "Chiffre d'affaire : " + totalRevenue + "€";
 }
 
-const allCartsListDiv = document.querySelector("#allCartsListDiv");
-
+// Fonction pour récupérer et afficher tous les paniers
 async function displayAllCarts() {
   const displayAllCartsForm = new FormData();
+
+  // via une requête POST
   displayAllCartsForm.append("displayAllCarts", "displayAllCarts");
   const requestDisplayAllCarts = {
     method: "POST",
@@ -140,6 +156,7 @@ async function displayAllCarts() {
   );
   const result = await getCarts.json();
 
+  // et une boucle qui parcourt chaque panier et crée des éléments HTML correspondants aux données voulues
   result.forEach((cart) => {
     const allCartsDiv = document.createElement("div");
     allCartsDiv.setAttribute("class", "allCartsDiv");
@@ -155,6 +172,7 @@ async function displayAllCarts() {
     const cartAmount = document.createElement("p");
     cartAmount.innerHTML = "Montant total : " + cart.total_amount + "€";
 
+    // Créer le statut de paiement du panier
     const cartStatus = document.createElement("p");
     if (cart.paid === "NO") {
       cartStatus.innerHTML = " Payé: non";
@@ -166,8 +184,37 @@ async function displayAllCarts() {
     allCartsDiv.appendChild(cartDate);
     allCartsDiv.appendChild(cartAmount);
     allCartsDiv.appendChild(cartStatus);
+
+    const allCartsListDiv = document.querySelector("#allCartsListDiv");
     allCartsListDiv.appendChild(allCartsDiv);
 
+    // Séparer les paniers en attente
+    if (cart.paid === "NO") {
+      const pendingCartsDiv = document.createElement("div");
+      pendingCartsDiv.setAttribute("class", "pendingCartsDiv");
+      pendingCartsDiv.style.display = "flex";
+
+      const cartId = document.createElement("p");
+      cartId.innerHTML = "Id: " + cart.id;
+
+      const cartDate = document.createElement("p");
+      const formattedDate = formatDateTime(cart.date);
+      cartDate.innerHTML = "Date: " + formattedDate;
+
+      const cartAmount = document.createElement("p");
+      cartAmount.innerHTML = "Montant total : " + cart.total_amount + "€";
+
+      pendingCartsDiv.appendChild(cartId);
+      pendingCartsDiv.appendChild(cartDate);
+      pendingCartsDiv.appendChild(cartAmount);
+
+      const pendingCartsListDiv = document.querySelector(
+        "#pendingCartsListDiv"
+      );
+      pendingCartsListDiv.appendChild(pendingCartsDiv);
+    }
+
+    // Séparer les paniers vendus
     if (cart.paid === "YES") {
       const paidCartsDiv = document.createElement("div");
       paidCartsDiv.setAttribute("class", "paidCartsDiv");
@@ -193,6 +240,7 @@ async function displayAllCarts() {
   });
 }
 
+// Fonction pour formater la date et l'heure
 function formatDateTime(dateString) {
   const date = new Date(dateString);
 
@@ -202,16 +250,18 @@ function formatDateTime(dateString) {
   const hours = date.getHours();
   const minutes = date.getMinutes().toString().padStart(2, "0");
 
-  return `${day}/${month}/${year} à ${hours}h${minutes}`;
+  // return `${day}/${month}/${year} à ${hours}h${minutes}`;
+  return day + "/" + month + "/" + year + " à " + hours + "h" + minutes;
 }
 
-// ADMINISTRATION MODAL //
+//---------------------------------------------------- ADMINISTRATION MODAL ----------------------------------------------------//
 
-const usersListDiv = document.querySelector("#usersListDiv");
-
+// Fonction pour afficher tous les utilisateurs
 async function displayAllUsers() {
   const displayUsersForm = new FormData();
   displayUsersForm.append("displayAllUsers", "displayAllUsers");
+
+  // via une requête POST
   const requestDisplayAllUsers = {
     method: "POST",
     body: displayUsersForm,
@@ -228,9 +278,14 @@ async function displayAllUsers() {
     userDiv.style.display = "flex";
     userDiv.style.justifyContent = "space-around";
 
-    let roleText;
+    // Afficher le type entreprise
     if (result[i].type === 2) {
-      roleText = "Entreprise";
+      const roleText = "Entreprise";
+      const userRole = document.createElement("p");
+      userRole.innerHTML = roleText;
+      userDiv.appendChild(userRole);
+
+      // ou Créer un select pour les autres types
     } else {
       const userRoleSelect = document.createElement("select");
 
@@ -241,6 +296,7 @@ async function displayAllUsers() {
         { value: 4, label: "Admin" },
       ];
 
+      // Créer une option pour chaque rôle et l'ajouter au select
       roleOptions.forEach((option) => {
         const roleOption = document.createElement("option");
         roleOption.value = option.value;
@@ -253,23 +309,17 @@ async function displayAllUsers() {
         userRoleSelect.appendChild(roleOption);
       });
 
-      userRoleSelect.addEventListener("change", function () {
-        const newRole = parseInt(this.value); // Set la nouvelle valeur de rôle sélectionnée (convertie en entier)
-        const userId = result[i].id; // Get l'ID de l'utilisateur correspondant
+      userDiv.appendChild(userRoleSelect);
 
+      // Ajouter un écouteur d'événement pour le changement de rôle
+      userRoleSelect.addEventListener("change", function () {
+        const newRole = parseInt(this.value);
+        const userId = result[i].id;
         updateUserRole(userId, newRole);
       });
-
-      // Ajouter le select à userDiv
-      userDiv.appendChild(userRoleSelect);
     }
 
-    if (roleText) {
-      const userRole = document.createElement("p");
-      userRole.innerHTML = roleText;
-      userDiv.appendChild(userRole);
-    }
-
+    // Associer les données voulues et les afficher
     const userId = document.createElement("p");
     userId.innerHTML = " id: " + result[i].id + " ";
     userDiv.appendChild(userId);
@@ -278,21 +328,26 @@ async function displayAllUsers() {
     userEmail.innerHTML = "email: " + result[i].email;
     userDiv.appendChild(userEmail);
 
+    // Ajouter un bouton de suppression
     const deleteUserButton = document.createElement("button");
     deleteUserButton.setAttribute("name", "deleteUser");
     deleteUserButton.setAttribute("value", result[i].id);
     deleteUserButton.innerHTML = "Supprimer";
 
+    userDiv.appendChild(deleteUserButton);
+
+    // Ajouter un écouteur d'événement pour la suppression de l'utilisateur
     deleteUserButton.addEventListener("click", function () {
       const userId = this.getAttribute("value");
       showDeleteConfirmation(userId);
     });
 
-    userDiv.appendChild(deleteUserButton);
+    const usersListDiv = document.querySelector("#usersListDiv");
     usersListDiv.appendChild(userDiv);
   }
 }
 
+// Fonction pour supprimer un utilisateur
 function deleteUser(id) {
   const deleteUserForm = new FormData();
   deleteUserForm.append("deleteUser", id);
@@ -308,6 +363,7 @@ function deleteUser(id) {
   displayAllUsers();
 }
 
+// Fonction pour afficher la confirmation de suppression
 function showDeleteConfirmation(userId) {
   Swal.fire({
     title: "Êtes-vous sûr(e) ?",
@@ -322,11 +378,12 @@ function showDeleteConfirmation(userId) {
     if (result.isConfirmed) {
       Swal.fire("Supprimé !", "Le compte a été supprimé.", "success");
       console.log(userId);
-      deleteUser(userId);
+      deleteUser(userId); // Appel de la fonction deleteUser(id)
     }
   });
 }
 
+// Fonction pour mettre à jour le rôle de l'utilisateur
 function updateUserRole(userId, newRole) {
   const updateUserForm = new FormData();
   updateUserForm.append("updateUserRole", "true");
@@ -343,13 +400,14 @@ function updateUserRole(userId, newRole) {
         title: "Mise à jour du rôle",
         text: "Le rôle de l'utilisateur a été mis à jour avec succès.",
         icon: "success",
-        // showConfirmButton: false, // Supprime le bouton "OK"
-        timer: 2000, // Affiche la pop-up pendant 3 secondes
+        timer: 2000,
       });
     });
+  // (Optionnel) Retrier les users par type après updateUserRole()
+  refresh();
 }
 
-// ON LOAD //
+//---------------------------------------------------- ON LOAD ----------------------------------------------------//
 
 window.addEventListener("DOMContentLoaded", () => {
   clock();
