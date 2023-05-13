@@ -50,13 +50,16 @@ function refresh() {
   usersListDiv.innerHTML = ""; // administration-modal
 
   // Appeler les fonctions pour mettre à jour les données
+  showConfirmation();
   clock();
   fetchCartCount();
   fetchClientCount();
   fetchTotalRevenue();
   displayAllCarts();
   displayAllUsers();
+}
 
+function showConfirmation() {
   // Afficher une pop-up de confirmation
   Swal.fire({
     title: "Mise à jour des données",
@@ -137,7 +140,10 @@ async function fetchTotalRevenue() {
 
   // Afficher les résultats
   const revenueCountDiv = document.querySelector("#revenueCountDiv");
-  revenueCountDiv.innerHTML = "Chiffre d'affaire : " + totalRevenue + "€";
+  const revenue = document.createElement("p");
+  revenueCountDiv.appendChild(revenue);
+
+  revenue.innerHTML = "Chiffre d'affaire : " + totalRevenue + "€";
 }
 
 // Fonction pour récupérer et afficher tous les paniers
@@ -156,88 +162,63 @@ async function displayAllCarts() {
   );
   const result = await getCarts.json();
 
-  // et une boucle qui parcourt chaque panier et crée des éléments HTML correspondants aux données voulues
-  result.forEach((cart) => {
-    const allCartsDiv = document.createElement("div");
-    allCartsDiv.setAttribute("class", "allCartsDiv");
-    allCartsDiv.style.display = "flex";
+  // Création du tableau pour tous les paniers
+  const allCartsTable = createCartTable(result);
 
-    const cartId = document.createElement("p");
-    cartId.innerHTML = "Id: " + cart.id;
+  // Ajout du tableau à la div allCartsListDiv
+  const allCartsListDiv = document.querySelector("#allCartsListDiv");
+  allCartsListDiv.appendChild(allCartsTable);
 
-    const cartDate = document.createElement("p");
-    const formattedDate = formatDateTime(cart.date);
-    cartDate.innerHTML = "Date: " + formattedDate;
+  // Création des tableaux pour les paniers payés et en attente
+  const pendingCartsTable = createCartTable(result, "NO");
+  const paidCartsTable = createCartTable(result, "YES");
 
-    const cartAmount = document.createElement("p");
-    cartAmount.innerHTML = "Montant total : " + cart.total_amount + "€";
+  // Ajout des tableaux à leurs div respectives
+  const pendingCartsListDiv = document.querySelector("#pendingCartsListDiv");
+  pendingCartsListDiv.appendChild(pendingCartsTable);
 
-    // Créer le statut de paiement du panier
-    const cartStatus = document.createElement("p");
-    if (cart.paid === "NO") {
-      cartStatus.innerHTML = " Payé: non";
-    } else {
-      cartStatus.innerHTML = " Payé: oui";
-    }
+  const paidCartsListDiv = document.querySelector("#paidCartsListDiv");
+  paidCartsListDiv.appendChild(paidCartsTable);
+}
 
-    allCartsDiv.appendChild(cartId);
-    allCartsDiv.appendChild(cartDate);
-    allCartsDiv.appendChild(cartAmount);
-    allCartsDiv.appendChild(cartStatus);
+// Fonction pour créer un tableau avec les paniers correspondant au statut donné (ou tous les paniers si aucun statut n'est spécifié)
+function createCartTable(carts, status = null) {
+  // Création du tableau
+  const table = document.createElement("table");
+  table.setAttribute("class", "cartTable");
 
-    const allCartsListDiv = document.querySelector("#allCartsListDiv");
-    allCartsListDiv.appendChild(allCartsDiv);
-
-    // Séparer les paniers en attente
-    if (cart.paid === "NO") {
-      const pendingCartsDiv = document.createElement("div");
-      pendingCartsDiv.setAttribute("class", "pendingCartsDiv");
-      pendingCartsDiv.style.display = "flex";
-
-      const cartId = document.createElement("p");
-      cartId.innerHTML = "Id: " + cart.id;
-
-      const cartDate = document.createElement("p");
-      const formattedDate = formatDateTime(cart.date);
-      cartDate.innerHTML = "Date: " + formattedDate;
-
-      const cartAmount = document.createElement("p");
-      cartAmount.innerHTML = "Montant total : " + cart.total_amount + "€";
-
-      pendingCartsDiv.appendChild(cartId);
-      pendingCartsDiv.appendChild(cartDate);
-      pendingCartsDiv.appendChild(cartAmount);
-
-      const pendingCartsListDiv = document.querySelector(
-        "#pendingCartsListDiv"
-      );
-      pendingCartsListDiv.appendChild(pendingCartsDiv);
-    }
-
-    // Séparer les paniers vendus
-    if (cart.paid === "YES") {
-      const paidCartsDiv = document.createElement("div");
-      paidCartsDiv.setAttribute("class", "paidCartsDiv");
-      paidCartsDiv.style.display = "flex";
-
-      const cartId = document.createElement("p");
-      cartId.innerHTML = "Id: " + cart.id;
-
-      const cartDate = document.createElement("p");
-      const formattedDate = formatDateTime(cart.date);
-      cartDate.innerHTML = "Date: " + formattedDate;
-
-      const cartAmount = document.createElement("p");
-      cartAmount.innerHTML = "Montant total : " + cart.total_amount + "€";
-
-      paidCartsDiv.appendChild(cartId);
-      paidCartsDiv.appendChild(cartDate);
-      paidCartsDiv.appendChild(cartAmount);
-
-      const paidCartsListDiv = document.querySelector("#paidCartsListDiv");
-      paidCartsListDiv.appendChild(paidCartsDiv);
-    }
+  // En-tête du tableau
+  const headerRow = document.createElement("tr");
+  const headers = ["Id", "Date", "Montant"];
+  headers.forEach((headerText) => {
+    const headerCell = document.createElement("th");
+    headerCell.textContent = headerText;
+    headerRow.appendChild(headerCell);
   });
+  table.appendChild(headerRow);
+
+  // Filtrage des paniers selon le statut donné
+  const filteredCarts = status
+    ? carts.filter((cart) => cart.paid === status)
+    : carts;
+
+  // Remplissage du tableau avec les données des paniers filtrés
+  filteredCarts.forEach((cart) => {
+    const row = document.createElement("tr");
+    const fields = [
+      cart.id,
+      formatDateTime(cart.date),
+      cart.total_amount + "€",
+    ];
+    fields.forEach((fieldText) => {
+      const cell = document.createElement("td");
+      cell.textContent = fieldText;
+      row.appendChild(cell);
+    });
+    table.appendChild(row);
+  });
+
+  return table;
 }
 
 // Fonction pour formater la date et l'heure
@@ -272,21 +253,20 @@ async function displayAllUsers() {
   );
   const result = await getUsers.json();
 
+  const table = document.createElement("table");
+  table.classList.add("userTable");
+
   for (let i in result) {
-    const userDiv = document.createElement("div");
-    userDiv.setAttribute("class", "userDiv");
-    userDiv.style.display = "flex";
-    userDiv.style.justifyContent = "space-around";
+    const row = document.createElement("tr");
 
     // Afficher le type entreprise
     if (result[i].type === 2) {
       const roleText = "Entreprise";
-      const userRole = document.createElement("p");
-      userRole.innerHTML = roleText;
-      userDiv.appendChild(userRole);
-
-      // ou Créer un select pour les autres types
+      const userRoleCell = document.createElement("td");
+      userRoleCell.innerHTML = roleText;
+      row.appendChild(userRoleCell);
     } else {
+      const userRoleCell = document.createElement("td");
       const userRoleSelect = document.createElement("select");
 
       // Correspondances entre les valeurs et les libellés des rôles
@@ -309,7 +289,7 @@ async function displayAllUsers() {
         userRoleSelect.appendChild(roleOption);
       });
 
-      userDiv.appendChild(userRoleSelect);
+      userRoleCell.appendChild(userRoleSelect);
 
       // Ajouter un écouteur d'événement pour le changement de rôle
       userRoleSelect.addEventListener("change", function () {
@@ -317,16 +297,18 @@ async function displayAllUsers() {
         const userId = result[i].id;
         updateUserRole(userId, newRole);
       });
+
+      row.appendChild(userRoleCell);
     }
 
     // Associer les données voulues et les afficher
-    const userId = document.createElement("p");
-    userId.innerHTML = " id: " + result[i].id + " ";
-    userDiv.appendChild(userId);
+    const userIdCell = document.createElement("td");
+    userIdCell.innerHTML = " id: " + result[i].id + " ";
+    row.appendChild(userIdCell);
 
-    const userEmail = document.createElement("p");
-    userEmail.innerHTML = "email: " + result[i].email;
-    userDiv.appendChild(userEmail);
+    const userEmailCell = document.createElement("td");
+    userEmailCell.innerHTML = "email: " + result[i].email;
+    row.appendChild(userEmailCell);
 
     // Ajouter un bouton de suppression
     const deleteUserButton = document.createElement("button");
@@ -334,7 +316,9 @@ async function displayAllUsers() {
     deleteUserButton.setAttribute("value", result[i].id);
     deleteUserButton.innerHTML = "Supprimer";
 
-    userDiv.appendChild(deleteUserButton);
+    const deleteButtonCell = document.createElement("td");
+    deleteButtonCell.appendChild(deleteUserButton);
+    row.appendChild(deleteButtonCell);
 
     // Ajouter un écouteur d'événement pour la suppression de l'utilisateur
     deleteUserButton.addEventListener("click", function () {
@@ -342,9 +326,11 @@ async function displayAllUsers() {
       showDeleteConfirmation(userId);
     });
 
-    const usersListDiv = document.querySelector("#usersListDiv");
-    usersListDiv.appendChild(userDiv);
+    table.appendChild(row);
   }
+
+  const usersListDiv = document.querySelector("#usersListDiv");
+  usersListDiv.appendChild(table);
 }
 
 // Fonction pour supprimer un utilisateur
