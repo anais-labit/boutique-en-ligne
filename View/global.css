@@ -321,6 +321,7 @@ html::-webkit-scrollbar-thumb {
   font-size: var(--text-m);
   cursor: pointer;
 }
+<<<<<<< HEAD
 
 /* Styles spécifiques à la page admin.php */
 
@@ -505,6 +506,63 @@ html::-webkit-scrollbar-thumb {
 .admin-page .cartTable tr:hover {
   background-color: var(--light-grey);
 }
+=======
+ 
+/* ========== PAYMENT FORM */
+
+#paymentForm {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* background: var(--ivory-transparent); */
+  /* position: fixed; */
+  /* top: 0;
+  right: -105%; */
+  /* z-index: 10000; */
+  height: 70vh;
+  width: 20vw;
+  position: relative;
+  left:40%;
+  top:80%;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+
+}
+
+.paymentDivs {
+
+  position: relative;
+}
+
+  .paymentInput {
+    border-bottom: solid 1px grey;
+    margin-bottom: 20px;
+    padding: 10px;
+    padding-left: 35px;
+    /* position: relative; */
+  }
+
+  #paymentIcons {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-size: 90%;
+  }
+
+  .paymentInput:focus {
+    border-color: #f8e1a4;
+    color: #f8e1a4;
+  }
+
+  #paymentSubmit {
+
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #f8e1a4;
+  }
+>>>>>>> 349daf597d7314ad54580fa2cbbd522479182052
 
 /* ============ MEDIAQUERIES ============= */
 

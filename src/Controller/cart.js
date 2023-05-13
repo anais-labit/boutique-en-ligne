@@ -1,4 +1,13 @@
 const cartDisplay = document.querySelector("#cartDisplay");
+const cartSubmit = document.querySelector("#cartSubmit");
+const paymentForm = document.querySelector("#paymentForm");
+
+cartSubmit.addEventListener("click", submitCart);
+
+async function submitCart() {
+     paymentForm.style.display = "flex";
+     cartDisplay.style.display = "none";
+}
 
 async function displayCart() {
 
