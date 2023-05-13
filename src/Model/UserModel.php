@@ -95,7 +95,6 @@ class UserModel extends AbstractModel
 
     public function getCompany(): string
     {
-
         return $this->company;
     }
 
