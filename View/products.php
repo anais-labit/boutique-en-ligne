@@ -43,8 +43,11 @@ if(session_id() =="") session_start();
 
     </div>
     <div id="productsDiv">
+        
 
     </div>
+
+    
  
     </main>
 </body>

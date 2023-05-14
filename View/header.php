@@ -42,7 +42,7 @@ if (isset($_POST['disconnect'])) {
         <div class="icons">
             <div id="search-button" class="fas fa-search"></div>
             <a href="" class="fas fa-shopping-cart"></a>
-            <div id="login-btn" class="fas fa-user"></div>
+            <div id="nav-register-section" class="fas fa-user nav-register-section"></div>
         </div>
     </div>
     <div class="header-bot">
@@ -67,39 +67,7 @@ if (isset($_POST['disconnect'])) {
 </nav>
 <!-- Fin Mobile Navbar -->
 
-<!-- Login Form -->
-<div class="login-form-container">
-
-
-    <div id="close-login-btn" class="fas fa-times"></div>
-    <form action="" method="post" id="loginForm">
-        <h3>Se connecter</h3>
-        <span>email</span>
-        <input type="text" name="loginEmail" id="loginEmail" class="box" placeholder="Email">
-        <span>mot de passe</span>
-        <input type="password" name="loginPassword" class="box loginInputs" id="loginPassword" placeholder="Mot de passe">
-        <div class="checkbox">
-            <input type="checkbox" name="" id="remember-me">
-            <label for="remember-me">Se souvenir de moi</label>
-        </div>
-        <?php if (isset($_SESSION['user']) && $_SESSION['user']->getType() == 4) : ?>
-            <a href="admin.php">Admin</a>
-        <?php elseif(isset($_SESSION['user'])) : ?>
-            <a href="profil.php">profil</a>
-            <?php endif ?>
-
-        <?php if(isset($_SESSION['user'])) :?>
-                <button type="submit" name="disconnect" id="decoButton" class="btn">Déconnexion</button>
-               
-            <?php else :?>
-        <button type="submit" id="loginButton" class="btn">Connexion</button>
-        <?php endif ?>
-        <p>Mot de passe oublié ? <a href="#"> Cliquez-ici</a></p>
-        <p>Pas encore de compte? <a href="#"> S'inscrire</a></p>
-
-    </form>
-</div>
-
+    <?php require_once '../View/authentication.php'; ?>
 
 
 

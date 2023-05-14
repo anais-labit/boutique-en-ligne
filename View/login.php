@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 // require_once '../src/Controller/AuthController.php';
 // require_once '../src/Model/UserModel.php';
 is_file("../config.php") == true ?
@@ -30,13 +30,31 @@ if (session_id() == "") session_start();
 
     <?php include 'header.php' ?>
 
-    <form method="post" class="loginForms" id="loginForm">
+   <div id="close-login-btn" class="fas fa-times"></div>
+    <form action="" method="post" id="loginForm">
+        <h3>Se connecter</h3>
+        <span>email</span>
+        <input type="text" name="loginEmail" id="loginEmail" class="box" placeholder="Email">
+        <span>mot de passe</span>
+        <input type="password" name="loginPassword" class="box loginInputs" id="loginPassword" placeholder="Mot de passe">
+        <div class="checkbox">
+            <input type="checkbox" name="" id="remember-me">
+            <label for="remember-me">Se souvenir de moi</label>
+        </div>
+        <?php if (isset($_SESSION['user']) && $_SESSION['user']->getType() == 4) : ?>
+            <a href="admin.php">Admin</a>
+        <?php elseif (isset($_SESSION['user'])) : ?>
+            <a href="profil.php">profil</a>
+        <?php endif ?>
 
-        <input type="email" name="loginEmail" class="loginInputs" id="loginEmail" placeholder="Email">
+        <?php if (isset($_SESSION['user'])) : ?>
+            <button type="submit" name="disconnect" id="decoButton" class="btn">Déconnexion</button>
 
-        <input type="password" name="loginPassword" class="loginInputs" id="loginPassword" placeholder="Mot de passe">
-
-        <button type="submit" id="loginButton">Connexion</button>
+        <?php else : ?>
+            <button type="submit" id="loginButton" class="btn">Connexion</button>
+        <?php endif ?>
+        <p>Mot de passe oublié ? <a href="#"> Cliquez-ici</a></p>
+        <p>Pas encore de compte? <a href="register.php"> S'inscrire</a></p>
 
     </form>
 
@@ -44,4 +62,4 @@ if (session_id() == "") session_start();
 
 <script defer src="../src/Controller/login.js"></script>
 
-</html>
+</html> -->
