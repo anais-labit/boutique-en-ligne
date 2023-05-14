@@ -321,7 +321,6 @@ html::-webkit-scrollbar-thumb {
   font-size: var(--text-m);
   cursor: pointer;
 }
-<<<<<<< HEAD
 
 /* Styles spécifiques à la page admin.php */
 
@@ -506,7 +505,6 @@ html::-webkit-scrollbar-thumb {
 .admin-page .cartTable tr:hover {
   background-color: var(--light-grey);
 }
-=======
  
 /* ========== PAYMENT FORM */
 
@@ -562,7 +560,6 @@ html::-webkit-scrollbar-thumb {
     padding: 10px;
     background-color: #f8e1a4;
   }
->>>>>>> 349daf597d7314ad54580fa2cbbd522479182052
 
 /* ============ MEDIAQUERIES ============= */
 
