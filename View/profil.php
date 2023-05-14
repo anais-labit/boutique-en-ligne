@@ -31,10 +31,12 @@ if (session_id() == "") session_start();
 
     <form action="profil.php" method="POST" id="updateForm" enctype="multipart/form-data">
 
-        <select class="updateLabels" name="updateType" id="updateType">
-            <option value="1">Particulier</option>
-            <option value="2">Entreprise</option>
-        </select>
+        <?php if ($_SESSION['user']->getType() == 1) : ?>
+            <label>Particulier</label>
+        <?php elseif ($_SESSION['user']->getType() == 2) : ?>
+            <label>Entreprise</label>
+        <?php endif ?>
+
 
         <!-- <label class="updateLabels" id="updateLabelAvatar" for="updateLabelAvatar">Avatar</label> -->
         <div class="avatar" id="avatarContainer"><img src="<?= './assets/images/avatars/avatar' . $currentAvatar . '.png' ?>" width="60" height="60" alt="avatar"></div>

@@ -1,4 +1,48 @@
 const cartDisplay = document.querySelector("#cartDisplay");
+const cartSubmit = document.querySelector("#cartSubmit");
+const paymentForm = document.querySelector("#paymentForm");
+const paymentSubmit = document.querySelector("#paymentSubmit");
+
+cartSubmit.addEventListener("click", submitCart);
+
+paymentSubmit.addEventListener("click", validatePayment);
+
+function submitCart() {
+     paymentForm.style.display = "flex";
+     cartDisplay.style.display = "none";
+}
+
+async function validatePayment(e) {
+     e.preventDefault();
+
+     const validateCartForm = new FormData(paymentForm);
+
+     validateCartForm.append("validateCart", "validateCart");
+
+     const requestValidateCart = {
+          method:"POST",
+          body: validateCartForm
+     };
+
+     const validateCart = await fetch("../src/Controller/payment.php", requestValidateCart);
+
+     const response = await validateCart.json();
+
+     if(response.success == true) {
+
+          paymentForm.innerHTML = "";
+          const validation = document.createElement("p");
+          validation.innerHTML = response.message;
+          paymentForm.appendChild(validation);
+     }
+
+     else if(response.success == false) {
+
+          const error = document.createElement("span");
+          error.innerHTML = response.message;
+          paymentForm.appendChild(error);
+     }
+}
 
 async function displayCart() {
 

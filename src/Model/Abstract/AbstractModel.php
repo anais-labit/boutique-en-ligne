@@ -26,8 +26,7 @@ abstract class AbstractModel
     {
         if (!self::$pdo) {
             self::connect();
-
-        } 
+        }
         return self::$pdo;
     }
 
@@ -116,23 +115,52 @@ abstract class AbstractModel
         return $resultReadLast[0][0];
     }
 
-    public function readOneSingleInfo(string $field, string $key, int $id){
+    public function readOneSingleInfo(string $field, string $key, int $id)
+    {
 
         $sql = "SELECT $field FROM $this->tableName WHERE $key = :$key";
-    
+
         $query = self::getPdo()->prepare($sql);
-    
+
         $query->execute([
             ':' . $key => $id
         ]);
-    
+
         $result = $query->fetchAll();
 
         return $result[0][0];
     }
 
-    
 
+    public function countAll(): int
+    {
+        $requestCountAll = "SELECT COUNT(*) AS total_entries FROM $this->tableName";
+        $queryCountAll = self::getPdo()->prepare($requestCountAll);
+        $queryCountAll->execute();
+        $resultCountAll = $queryCountAll->fetch();
+        $totalEntries = $resultCountAll['total_entries'];
+        return $totalEntries;
+    }
+
+    public function countByCriteria(string $fieldName, string $fieldValue): int
+    {
+        $requestCountByCriteria = "SELECT COUNT(*) AS total_entries FROM $this->tableName WHERE $fieldName = :fieldValue";
+        $queryCountByCriteria = self::getPdo()->prepare($requestCountByCriteria);
+        $queryCountByCriteria->execute([':fieldValue' => $fieldValue]);
+        $resultCountByCriteria = $queryCountByCriteria->fetch();
+        $totalEntries = $resultCountByCriteria['total_entries'];
+        return $totalEntries;
+    }
+
+    public function addAmounts(string $fieldName, string $fieldValue): int
+    {
+        $requestTotalAmount = "SELECT SUM(total_amount) AS total FROM $this->tableName WHERE $fieldName = :fieldValue";
+        $queryTotalAmount = self::getPdo()->prepare($requestTotalAmount);
+        $queryTotalAmount->execute([':fieldValue' => $fieldValue]);
+        $resultTotalAmount = $queryTotalAmount->fetch();
+        $totalAmount = $resultTotalAmount['total'];
+        return $totalAmount;
+    }
 
     public function updateOne(array $params)
     {
@@ -153,9 +181,6 @@ abstract class AbstractModel
 
         //Conversion du tableau en string
         $requestString = implode(', ', $requestString);
-
-
-
 
         $requestUpdateOne = "UPDATE $this->tableName SET $requestString WHERE id = :id";
 
@@ -188,11 +213,5 @@ abstract class AbstractModel
         $queryDeleteOne = self::getPdo()->prepare($requestDeleteOne);
 
         $queryDeleteOne->execute($params);
-
-        if ($queryDeleteOne) {
-            echo "ok";
-            echo json_encode(['test' => 'reussi']);
-            var_dump($queryDeleteOne);
-        }
     }
 }

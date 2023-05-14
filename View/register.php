@@ -1,10 +1,10 @@
-<?php 
+<!-- <?php 
     // require_once '../src/Model/UserModel.php';
-    is_file("../config.php") == true ?
+   /*  is_file("../config.php") == true ?
     require_once '../config.php' :
     require_once '../../config.php';
 // require_once ROOT_DIR .'/src/Routes/product_display.php';
-require_once ROOT_DIR .'/vendor/autoload.php';
+require_once ROOT_DIR .'/vendor/autoload.php'; */
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -15,15 +15,15 @@ require_once ROOT_DIR .'/vendor/autoload.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page d'inscription</title>
     <!-- <script defer src="../Controller/register.js"></script> -->
-    <script defer src="../src/Controller/register.js"></script>
-    <link rel="stylesheet" href="global.css">
+    <!-- <script defer src="../src/Controller/register.js"></script>
+    <link rel="stylesheet" href="global.css"> --> -->
 
 
-</head>
+<!-- </head> -->
 
-<body>
+<!-- <body>
 
-    <?php include 'header.php' ?>
+    <?php /* include 'header.php'  */?>
 
     <form method="post" class="loginForms" id="registerForm">
 
@@ -65,4 +65,4 @@ require_once ROOT_DIR .'/vendor/autoload.php';
 
 </body>
 
-</html>
+</html> -->

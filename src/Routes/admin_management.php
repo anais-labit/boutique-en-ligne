@@ -3,6 +3,8 @@
 use App\Controller\UpdateController;
 use App\Model\ProductModel;
 use App\Model\UserModel;
+use App\Model\CartModel;
+
 
 
 is_file("../config.php") == true ?
@@ -12,6 +14,42 @@ is_file("../config.php") == true ?
 // require_once '../../vendor/autoload.php';
 require_once ROOT_DIR . '/vendor/autoload.php';
 
+// DASHBOARD //
+
+if (isset($_GET['countCarts'])) {
+    $cartModel = new CartModel();
+    $totalPaidCarts = $cartModel->countCartsByCriteria('paid', 'YES');
+    $totalPendingCarts = $cartModel->countCartsByCriteria('paid', 'NO');
+
+    $totalCarts = [
+        'totalCount' => $totalPaidCarts + $totalPendingCarts,
+        'paidCount' => $totalPaidCarts,
+        'pendingCount' => $totalPendingCarts
+    ];
+
+    echo json_encode($totalCarts);
+}
+
+
+if (isset($_GET['countClients'])) {
+    $userModel = new UserModel();
+    $totalIndividualClients = $userModel->countUsersByCriteria('type', '1');
+    $totalBusinessClients = $userModel->countUsersByCriteria('type', '2');
+
+    $clientCounts = [
+        'totalCount' => $totalIndividualClients + $totalBusinessClients,
+        'type1Count' => $totalIndividualClients,
+        'type2Count' => $totalBusinessClients
+    ];
+
+    echo json_encode($clientCounts);
+}
+
+if (isset($_GET['countTotalRevenue'])) {
+    $cartModel = new CartModel();
+    $totalRevenue = $cartModel->addPaidCartsAmounts('paid', 'YES');
+    echo json_encode($totalRevenue);
+}
 
 
 // GESTION DES PRODUITS // 
@@ -60,7 +98,17 @@ function displayProducersInSelect()
     }
 }
 
+if (isset($_POST['displayAllCarts'])) {
+    $productModel = new CartModel();
+    $carts = $productModel->readAllCarts();
+    echo json_encode($carts);
+}
 
+if (isset($_POST['countAllcarts'])) {
+    $cartModel = new CartModel();
+    $totalCarts = $cartModel->countAllCarts();
+    echo $totalCarts;
+}
 
 if (isset($_POST['addProdButton'])) {
 
@@ -68,7 +116,7 @@ if (isset($_POST['addProdButton'])) {
 
     // $productPriceType = $_POST['productPriceType'];
 
-    $targetDir = "../View/images/products/";
+    $targetDir = "../View/assets/images/products/";
     $targetFile = $targetDir . basename($_FILES['photo']['name']);
     move_uploaded_file($_FILES['photo']['tmp_name'], $targetFile);
     $path = $targetDir . ($_FILES['photo']['name']);
@@ -125,30 +173,32 @@ if (isset($_POST['addProducerButton'])) {
 // GESTION DES UTILISATEURS // 
 
 
-function displayAllUsers()
-{
-
-    $users = new UserModel();
-
-    $displayUsers = $users->readAllUsers();
-
-    foreach ($displayUsers as $key => $value) {
-        if ($value['type'] === 1) {
-            $type = "particulier";
-        } else if ($value['type'] === 2) {
-            $type = "entreprise";
-        } else if ($value['type'] === 3) {
-            $type = "collaborateur";
-        } else if ($value['type'] === 4) {
-            $type = "administrateur";
-        }
-        echo "<p> id :" . $value['id'] . " Utilisateur :" . $value['email'] . " rôle : " . $type ."</p>" .
-            "<button type='submit' name='delete-user-button' class='delete-user-button' value='" . $value['id'] . "'>Supprimer</button>";
-    }
-};
-
-if (isset($_POST['delete-user-button'])) {
+if (isset($_POST['displayAllUsers'])) {
     $userModel = new UserModel();
-    $userModel->deleteOne([':id' => $_POST['delete-user-button']]);
+    $users = $userModel->readAllUsersByType();
+    echo json_encode($users);
+}
 
+if (isset($_POST['deleteUser'])) {
+    $usertoDelete = new UserModel();
+    $usertoDelete->deleteOne([':id' => $_POST['deleteUser']]);
+    echo (json_encode(['success' => 'Le compte a bien été supprimé.']));
+}
+
+// Vérifier si la clé "updateUserRole" existe dans les données envoyées
+if (isset($_POST['updateUserRole'])) {
+    // Récupérer les paramètres envoyés depuis le formulaire
+    $userId = $_POST['userId'];
+    $newRole = $_POST['newRole'];
+
+    // Appeler la méthode updateOne pour mettre à jour le rôle de l'utilisateur
+    $userModel = new UserModel();
+    $userModel->updateOne(array(
+        ':type' => $newRole,
+        ':id' => $userId,
+    ));
+
+    $response = array('success' => 'Le rôle a été mis à jour avec succès.');
+    echo json_encode($response);
+    exit;
 }

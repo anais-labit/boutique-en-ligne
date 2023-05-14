@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model;
 
 use App\Model\Abstract\AbstractModel;
@@ -29,70 +30,83 @@ class ProductModel extends AbstractModel
         parent::connect();
         $this->tableName = 'products';
     }
-    
 
-    public function getId() {
+
+    public function getId()
+    {
 
         return $this->id;
     }
 
-    public function setId(int $id) {
+    public function setId(int $id)
+    {
 
         $this->id = $id;
     }
 
-    public function setQuantity(int $quantity) {
+    public function setQuantity(int $quantity)
+    {
 
         $this->quantity = $quantity;
     }
 
-    public function getQuantity():int {
+    public function getQuantity(): int
+    {
 
         return $this->quantity;
     }
 
-    public function setName(string $product) {
+    public function setName(string $product)
+    {
 
         $this->product = $product;
     }
 
-    public function getName():string {
+    public function getName(): string
+    {
 
         return $this->product;
     }
 
-    public function setImage(string $image) {
+    public function setImage(string $image)
+    {
 
         $this->image = $image;
     }
 
-    public function getImage():string {
+    public function getImage(): string
+    {
 
         return $this->image;
     }
 
-    public function getPriceType():string {
+    public function getPriceType(): string
+    {
 
         return $this->priceType;
     }
 
-    public function getWeight():int {
+    public function getWeight(): int
+    {
 
         return $this->weight;
     }
 
-    public function getPriceKg():int {
+    public function getPriceKg(): int
+    {
 
         return $this->priceKg;
     }
 
-    public function getPriceUnit():int {
+    public function getPriceUnit(): int
+    {
 
         return $this->priceUnit;
     }
 
 
-    public function createCategory(array $params) {
+    public function createCategory(array $params)
+    {
 
         $this->tableName = "categories";
 
@@ -100,31 +114,32 @@ class ProductModel extends AbstractModel
     }
 
 
-    public function createSubCategory(array $params) {
+    public function createSubCategory(array $params)
+    {
 
         $this->tableName = "sub_categories";
 
         $this->createOne($params);
     }
 
-    public function createProducer(array $params) {
+    public function createProducer(array $params)
+    {
 
         $this->tableName = "producers";
 
         $this->createOne($params);
-
     }
 
-    public function readOneCategoryFilters(int $id_category):array {
+    public function readOneCategoryFilters(int $id_category): array
+    {
 
         $this->tableName = "sub_categories";
 
         return $this->readOnebyForeignKey('id_category', $id_category);
-
     }
 
 
-    public function readAllCategories():array
+    public function readAllCategories(): array
     {
 
         $this->tableName = "categories";
@@ -133,7 +148,7 @@ class ProductModel extends AbstractModel
     }
 
 
-    public function readAllSubCategories():array
+    public function readAllSubCategories(): array
     {
 
         $this->tableName = "sub_categories";
@@ -142,7 +157,7 @@ class ProductModel extends AbstractModel
     }
 
 
-    public function readAllProducers():array
+    public function readAllProducers(): array
     {
 
         $this->tableName = "producers";
@@ -150,7 +165,9 @@ class ProductModel extends AbstractModel
         return $this->readAll();
     }
 
-    public function addToCart(array $params) {
+
+    public function addToCart(array $params)
+    {
 
         $this->tableName = 'cart_products';
 
@@ -161,7 +178,7 @@ class ProductModel extends AbstractModel
     public function updateCartQuantity(int $idProduct, int $idCart, int $quantity)
     {
         $this->tableName = 'cart_products';
-        
+
         $requestDeleteOne = "UPDATE cart_products SET quantity = :quantity
         WHERE  id_product = :id_product
         AND id_cart = :id_cart
@@ -178,11 +195,10 @@ class ProductModel extends AbstractModel
 
 
     public function deleteFromCart(array $params)
-    {        
+    {
         $this->tableName = 'cart_products';
 
         $this->deleteOne($params);
-
     }
 
     public function catchProductInfos($word)
@@ -198,7 +214,8 @@ class ProductModel extends AbstractModel
         echo $json;
     }
 
-    public function setObject(int $id):object {
+    public function setObject(int $id): object
+    {
 
 
         $requestSetProductObject = "SELECT * FROM products WHERE id = :id";
@@ -227,16 +244,15 @@ class ProductModel extends AbstractModel
 
         $this->producer = $resultSetProductObject[0][8];
 
-       if($resultSetProductObject[0][9] !== null) {
+        if ($resultSetProductObject[0][9] !== null) {
 
-           $this->priceKg = $resultSetProductObject[0][9];
-           $this->priceType = "kg";
-       }
-       elseif($resultSetProductObject[0][10] !== null) {
+            $this->priceKg = $resultSetProductObject[0][9];
+            $this->priceType = "kg";
+        } elseif ($resultSetProductObject[0][10] !== null) {
 
-           $this->priceUnit = $resultSetProductObject[0][10];
-           $this->priceType = "pièces";
-       }
+            $this->priceUnit = $resultSetProductObject[0][10];
+            $this->priceType = "pièces";
+        }
 
         return $this;
     }

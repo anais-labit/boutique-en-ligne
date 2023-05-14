@@ -28,7 +28,7 @@ if(session_id() =="") session_start();
     <div id="singleCardDiv">
         
     </div>
-    <?php // if(isset($_SESSION['user'])): ?>
+    <?php  if(isset($_SESSION['user'])): ?>
         <div id="rating"></div>
         <form method="POST" id="commentForm"> 
             <label for="comment">Ajouter votre commentaire</label>
@@ -36,7 +36,9 @@ if(session_id() =="") session_start();
             <button 
             type="submit" name="commentButton" value="<?=$_GET["productId"]?>" id="commentButton">Envoyer</button>
         </form>
-    <?php // endif; ?>
+    <?php  else: ?>
+        <p>Connectez vous pour laisser votre avis</p>
+    <?php  endif; ?>
     
 
     <div id="comments">

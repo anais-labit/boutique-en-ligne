@@ -95,7 +95,6 @@ class UserModel extends AbstractModel
 
     public function getCompany(): string
     {
-
         return $this->company;
     }
 
@@ -291,7 +290,28 @@ class UserModel extends AbstractModel
         return $this->readAll();
     }
 
+    public function readAllUsersByType(): array
+    {
+        
+        $requestReadAll = "SELECT * FROM users ORDER BY 
+        CASE 
+        WHEN type = '4' THEN 1
+        WHEN type = '3' THEN 2
+        WHEN type = '1' THEN 3
+        WHEN type = '2' THEN 4
+        END";
+
+        $queryReadAll = self::getPdo()->prepare($requestReadAll);
+        $queryReadAll->execute();
+        $resultReadAll = $queryReadAll->fetchAll();
+
+        return $resultReadAll;
+    }
 
 
-
+    public function countUsersByCriteria(string $fieldName, string $fieldValue): int
+    {
+        $this->tableName = "users";
+        return $this->countByCriteria($fieldName, $fieldValue);
+    }
 }
