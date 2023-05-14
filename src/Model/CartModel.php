@@ -53,4 +53,10 @@ class CartModel extends AbstractModel
         $this->tableName = "carts";
         return $this->addAmounts($fieldName, $fieldValue);
     }
+
+    public function validateCart(array $params): void
+    {
+        $this->tableName = "carts";
+        $this->updateOne($params);
+    }
 }

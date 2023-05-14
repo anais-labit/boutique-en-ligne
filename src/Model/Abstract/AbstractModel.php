@@ -182,9 +182,6 @@ abstract class AbstractModel
         //Conversion du tableau en string
         $requestString = implode(', ', $requestString);
 
-
-
-
         $requestUpdateOne = "UPDATE $this->tableName SET $requestString WHERE id = :id";
 
         $queryUpdateOne = self::getPdo()->prepare($requestUpdateOne);
