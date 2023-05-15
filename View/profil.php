@@ -27,14 +27,12 @@ if (session_id() == "") session_start();
 
 <body>
     <?php require_once 'header.php';
-    $currentAvatar = $_SESSION['user']->getAvatar();
     ?>
     <div class="profil-page">
         <h2>Gestion de profil</h2>
         <form action="profil.php" method="POST" id="updateForm" enctype="multipart/form-data">
-            <!-- <div id="avatars"><img class="avatarIMG" src="<?= $currentAvatar ?>" alt="avatar"></div> -->
-            <label class="updateLabels" id="updateLabelAvatar" for="updateAvatar">Choix d'avatar</label>
-            <div id="avatars">
+            <label class="updateLabels" id="updateLabelAvatar" for="updateAvatar">Avatar</label>
+              <div id="avatars">
                 <?php
                 for ($x = 1; $x <= 5; $x++) {
                     // CHANGER ICI LE CHEMIN DES IMAGES POUR HEBERGEMENT DIFFÉRENT
@@ -45,7 +43,7 @@ if (session_id() == "") session_start();
                 ';
                     } else {
                         echo '
-                        <img src="./assets/images/avatars/avatar' . $x . '.png">
+                        <img src="./assets/images/avatars/avatar' . $x . '.png" class="unselectedAvatars" id="'. $x . '">
                         ';
                     }
                 }

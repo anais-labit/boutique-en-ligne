@@ -5,7 +5,11 @@ const deleteButton = document.querySelector("#deleteButton");
 
 async function updateSelf() {
   const reqUpdate = new FormData(updateForm);
+
+  console.log(updateForm);
   reqUpdate.append("updateProfile", "updateProfile");
+
+  console.log(reqUpdate);
 
   const options = {
     method: "POST",
