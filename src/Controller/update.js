@@ -13,6 +13,8 @@ async function updateSelf() {
   };
 
   const updateUser = await fetch("../src/Routes/user_management.php", options);
+  const test = await updateUser.json();
+  // console.log(test.errors);
 }
 
 updateButton.addEventListener("click", async (event) => {

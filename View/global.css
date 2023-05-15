@@ -67,7 +67,6 @@ html {
   scroll-padding-top: 5rem;
   scroll-behavior: smooth;
   font-family: "Grotesk";
-  background: var(--ecru);
 }
 
 html::-webkit-scrollbar {
@@ -81,6 +80,10 @@ html::-webkit-scrollbar-track {
 html::-webkit-scrollbar-thumb {
   background: var(--venitien);
   border-radius: 1rem;
+}
+
+body {
+  background: var(--ecru);
 }
 
 /* ========== HEADER STYLE PROPERTIES */
@@ -218,108 +221,203 @@ html::-webkit-scrollbar-thumb {
   background: var(--navajowhite);
 }
 
-/* ================== Nav LOGIN FORM */
+/* ================== Authentication Section */
 
-.login-form-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--ivory-transparent);
-  position: fixed;
-  top: 0;
-  right: -105%;
-  z-index: 10000;
-  height: 100%;
-  width: 100%;
-}
 
-.login-form-container.active {
-  right: 0;
-}
-
-.login-form-container form {
-  background: var(--navajowhite);
-  border: var(--border);
-  width: 40rem;
-  padding: 2rem;
-  box-shadow: var(--shadow);
-  border-radius: 0.5rem;
-  margin: 2rem;
-}
-
-.login-form-container form h3 {
-  font-family: var(--title-font);
-  font-size: var(--text-m);
-  text-transform: uppercase;
-  color: var(--light-black);
-  text-align: center;
-}
-
-.login-form-container form span {
-  display: block;
-  font-family: var(--title-font);
-  font-size: var(--text-xs);
-  padding-top: 1rem;
-}
-
-.login-form-container form .box {
-  margin: 0.7rem 0;
-  font-size: var(--text-s);
-  border: var(--border);
-  border-radius: 0.5rem;
-  padding: 1rem 1.2rem;
-  color: var(--light-black);
-  text-transform: none;
-}
-
-.login-form-container form .checkbox {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem 0;
-}
-
-.login-form-container form .checkbox label {
-  font-family: var(--title-font);
-  font-size: var(--text-xs);
-  color: var(--sienna);
-  cursor: pointer;
-}
-
-.login-form-container form .btn {
-  text-align: center;
-  background: #f1c34a;
-  width: 100%;
-  margin: 1.5rem 0;
-  padding: 16px 20px;
-  border: 2px solid var(--light-black);
-  font-family: var(--title-font);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  line-height: 20px;
-  color: var(--ivory);
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.login-form-container form p {
-  padding-top: 0.8rem;
-  color: var(--light-black);
-  font-family: var(--title-font);
-  font-size: var(--text-xs);
-}
-
-.login-form-container form p a {
-  color: var(--sienna);
-  text-decoration: underline;
-}
-
-.login-form-container #close-login-btn {
+.authentication-container {
   position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  font-size: var(--text-m);
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -60%) scale(0);
+  width: 100%;
+  height: 100%;
+  background: rgba(245, 245, 245, 0.557);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.5s ease, height 0.2s ease;
+}
+
+.authentication-container.active-popup {
+  transform: translate(-50%, -60%) scale(1);
+}
+.wrapper {
+  position: relative;
+  max-width: 470px;
+  width: 100%;
+  padding: 20px 30px 120px;
+  border-radius: 12px;
+  background: var(--ambre);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin-bottom: 120px;
+  transition: transform 0.5s ease, height 0.2s ease;
+}
+
+.wrapper .icon-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  color: var(--ivory);
+  background: var(--sienna);
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 12px;
   cursor: pointer;
+  z-index: 1;
+}
+
+.form header {
+  font-size: var(--text-l);
+  font-family: var(--title-font);
+  color: var(--ivory);
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: var(--light-black);
+  text-align: center;
+  cursor: pointer;
+}
+
+.wrapper form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* CONNEXION */
+
+form input {
+  height: 40px;
+  border-radius: 8px;
+  outline: none;
+  border: none;
+  padding: 0 15px;
+  font-family: var(--body-font);
+  font-size: var(--text-xs);
+}
+
+form .checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--text-xs);
+  font-family: var(--body-font);
+}
+
+.checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--ivory);
+  cursor: pointer;
+}
+
+form .checkbox label {
+  cursor: pointer;
+  color: var(--ivory);
+}
+
+form button[type="submit"] {
+  margin-top: 15px;
+  padding: none;
+  font-size: var(--text-s);
+  font-family: var(--body-font);
+  background: var(--ivory);
+  height: 60px;
+  border-radius: 8px;
+  outline: none;
+  border: none;
+  padding: 0 15px;
+  cursor: pointer;
+}
+
+form p {
+  color: var(--ivory);
+  font-size: var(--text-xs);
+  font-family: var(--body-font);
+  text-align: center;
+  margin-top: 15px;
+}
+
+form p a {
+  color: var(--sienna);
+  text-decoration: none;
+}
+
+form p a:hover {
+  color: var(--venitien);
+}
+
+/* INSCRIPTION */
+.form.register header {
+  font-size: var(--text-l);
+  font-family: var(--title-font);
+  color: var(--sienna);
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: var(--light-black);
+  text-align: center;
+  cursor: pointer;
+  opacity: 0.6;
+}
+.form.register {
+  position: absolute;
+  left: 50%;
+  bottom: -122%;
+  transform: translateX(-50%);
+  width: calc(100% + 200px);
+  padding: 20px 140px;
+  border-radius: 50%;
+  background: var(--ivory);
+  overflow: auto;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+  padding-bottom: 100px;
+  margin-bottom: 180px;
+}
+
+.wrapper.register-active .form.register {
+  border-radius: 32%;
+  box-shadow: var(--shadow);
+  bottom: -44%;
+}
+
+.form.register::-webkit-scrollbar {
+  display: none;
+}
+.form.register label {
+  font-size: var(--text-xs);
+  font-family: var(--body-font);
+  color: var(--sienna);
+  margin-bottom: 5px;
+}
+
+.form.register select {
+  height: 40px;
+  border-radius: 8px;
+  outline: none;
+  border: 1px solid var(--sienna);
+  padding: 0 15px;
+  font-family: var(--body-font);
+  font-size: var(--text-xs);
+  color: var(--sienna);
+  background: var(--ivory);
+  margin-bottom: 5px;
+}
+
+.form.register input {
+  height: 40px;
+  border-radius: 8px;
+  outline: none;
+  border: 1px solid var(--ambre);
+  padding: 0 15px;
+  font-family: var(--body-font);
+  font-size: var(--text-xs);
+  background: var(--ivory);
 }
 
 /* Styles spécifiques à la page admin.php */
@@ -561,6 +659,137 @@ html::-webkit-scrollbar-thumb {
     background-color: #f8e1a4;
   }
 
+/* ============ PRODUCTS PAGE ============= */
+#filterDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+  #categoriesFiltersDiv {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  #subCategoriesFiltersDiv {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  #filterDiv button {
+    border: solid 1px black;
+    border-radius: 5px;
+    padding: 5px;
+    margin-right: 20px;
+    background-color: white;
+    color: black;
+    font-family: var(--body-font);
+    font-size: var(--text-xs);
+  }
+
+  #filterDiv button:hover {
+    /* border: solid 1px black; */
+    background-color: sienna;
+    color: white;
+    transition-duration: 0.5s;
+  }
+
+#productsDiv {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  justify-content: center;
+  margin-left: 10em;
+  margin-right: 10em;
+  margin-top: 2em;
+}
+
+  .productCards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 10vw;
+    min-height: 40vh;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+    border-radius: 5px;
+    margin-bottom: 30px;
+    margin-right: 30px;
+  }
+
+  .productCards a {
+    text-decoration: none;
+    color: var(--light-black);
+    height: 70%;
+    margin-bottom: 30px;
+  }
+
+  .productCards img {
+    width: 140px;
+    height: 140px;
+  }
+
+  .cardTitle {
+    font-family: var(--body-font);
+    font-size: var(--text-xs);
+    margin-bottom: 10px;
+    width: fit-content;
+    padding: 3px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .cardWeight {
+    font-family: var(--body-font);
+    font-size: var(--text-xs);
+    width: fit-content;
+    border: solid 1px black;
+    padding: 3px;
+    font-size: 70%;
+  }
+
+  .cardPrice {
+    font-family: var(--body-font);
+    font-size: var(--text-xs);
+    /* margin-bottom: 10px; */
+    width: fit-content;
+    padding: 3px;
+    /* font-size: 70%; */
+  }
+
+  .cardInputs {
+    /* width: 50%;
+    border: solid 1px black;
+    border-radius: 5px;
+    padding: 5px; */
+    margin-bottom: 10px;
+    width: 60%;
+    padding: 0.5rem;
+    font-family: var(--body-font);
+    font-size: var(--text-xs);
+    border: var(--border);
+    border-radius: 0.5rem;
+  }
+
+  .cardButtons {
+    /* margin: 2rem;   */ 
+    padding: 0.5rem 0.5rem;
+    font-family: var(--title-font);
+    font-size: var(--text-xs);
+    color: var(--ivory);
+    background-color: sienna;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
 /* ============ MEDIAQUERIES ============= */
 
 @media (max-width: 991px) {
