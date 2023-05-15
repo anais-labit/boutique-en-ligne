@@ -27,32 +27,35 @@ if (session_id() == "") session_start();
 
 <body>
     <?php require_once 'header.php';
-    $currentAvatar = $_SESSION['user']->getAvatar(); ?>
-
+    $currentAvatar = $_SESSION['user']->getAvatar();
+    ?>
     <div class="profil-page">
         <h2>Gestion de profil</h2>
         <form action="profil.php" method="POST" id="updateForm" enctype="multipart/form-data">
+            <!-- <div id="avatars"><img class="avatarIMG" src="<?= $currentAvatar ?>" alt="avatar"></div> -->
+            <label class="updateLabels" id="updateLabelAvatar" for="updateAvatar">Choix d'avatar</label>
+            <div id="avatars">
+                <?php
+                for ($x = 1; $x <= 5; $x++) {
+                    // CHANGER ICI LE CHEMIN DES IMAGES POUR HEBERGEMENT DIFFÉRENT
+                    if ("http://localhost/boutique-en-ligne/View/assets/images/avatars/avatar" . $x . ".png" == $_SESSION['user']->getAvatar()) {
 
+                        echo '
+                        <img src="./assets/images/avatars/avatar' . $x . '.png" id="selectedAvatar">
+                ';
+                    } else {
+                        echo '
+                        <img src="./assets/images/avatars/avatar' . $x . '.png">
+                        ';
+                    }
+                }
+                ?>
+            </div>
             <?php if ($_SESSION['user']->getType() == 1) : ?>
                 <label>Particulier</label>
             <?php elseif ($_SESSION['user']->getType() == 2) : ?>
                 <label>Entreprise</label>
             <?php endif ?>
-
-
-        <!-- <label class="updateLabels" id="updateLabelAvatar" for="updateLabelAvatar">Avatar</label> -->
-        <div class="avatar" id="avatarContainer"><img src="<?= $currentAvatar ?>" width="60" height="60" alt="avatar"></div>
-
-        <!-- <input type=" radio" class="updateLabels" name="avatar" id="avatar1" value="1">
-            <img class="avatar" alt="avatar" src="./images/avatar1.png" width="60" height="60" />
-            <input type="radio" class="updateLabels" name="avatar" id="avatar2" value="2">
-            <img class="avatar" alt="avatar" src="./images/avatar2.png" width="60" height="60" />
-            <input type="radio" class="updateLabels" name="avatar" id="avatar3" value="3">
-            <img class="avatar" alt="avatar" src="./images/avatar3.png" width="60" height="60" />
-            <input type="radio" class="updateLabels" name="avatar" id="avatar4" value="4">
-            <img class="avatar" alt="avatar" src="./images/avatar4.png" width="60" height="60" />
-            <input type="radio" class="updateLabels" name="avatar" id="avatar5" value="5">
-            <img class="avatar" alt="avatar" src="./images/avatar5.png" width="60" height="60" /> -->
             <?php if ($_SESSION['user']->getType() == 1) : ?>
                 <label class="updateLabels" id="updateLabelFirstName" for="updateFirstName">Prénom</label>
                 <input type="text" name="updateFirstName" class="loginInputs" id="updateFirstName" value="<?= $_SESSION['user']->getFirstName() ?>">

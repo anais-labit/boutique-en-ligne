@@ -419,25 +419,35 @@ form p a:hover {
   font-size: var(--text-xs);
   background: var(--ivory);
 }
-  #avatars {
-    display: flex;
-  }
+#avatars {
+  display: flex;
+  align-items: center;
+}
 
-  .avatarIMG {
-    border: none;
-  }
+.avatarIMG {
+  border: none;
+}
 
-  #avatars img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin: 0 10px;
-    cursor: pointer;
-  }
+#avatars img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 0 10px;
+  cursor: pointer;
+}
 
-  #avatars img:hover {
-    transform: scale(1.2);
-  }
+#avatars #selectedAvatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 0 10px;
+  border: 3px solid var(--seagreen);
+  transform: none;
+}
+
+#avatars img:hover {
+  transform: scale(1.2);
+}
 
 /* Styles spécifiques à la page admin et profil */
 
