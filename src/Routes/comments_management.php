@@ -19,6 +19,8 @@ if(isset($_POST["sendComment"])) {
         ':date' => date('Y-m-d H:i:s'),
         ':comment' => $_POST['comment'],
         ':id_user' => (int)$_SESSION['user']->getId(),
+        ':user_first_name' => $_SESSION['user']->getFirstName(),
+        ':user_avatar' => $_SESSION['user']->getAvatar(),
         ':id_product' => (int)$_POST['productId'],
         ':rate' => (int)$_POST['addRating']
     ]);
@@ -31,28 +33,9 @@ if(isset($_POST['displayComments'])) {
     $comments = new CommentModel();
 
     $commentsList = $comments->readOnebyForeignKey("id_product", (int)$_POST['displayComments']);
+    // var_dump($commentsList);
 
-    $ratings = $comments->getAverageRating((int)$_POST['displayComments']);
-
-    // echo $ratings;
-    // var_dump($ratings, $commentsList);
-
-    // echo json_encode(["commentList" => $commentsList, "ratings" => $ratings]);
-    // echo json_encode(["commentList" => $commentsList]);
     echo json_encode($commentsList);
 }
 
-// if(isset($_POST['addRating'])) {
-    
-//         $rating = new CommentModel();
-    
-//         $rating->createOne([
-//             ':date' => date('Y-m-d H:i:s'),
-//             ':rating' => (int)$_POST['addRating'],
-//             ':id_user' => (int)$_SESSION['user']->getId(),
-//             ':id_product' => (int)$_POST['productId'],
-//         ]);
-    
-//         echo json_encode($_POST);
-// }
 ?>
