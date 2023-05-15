@@ -1,17 +1,12 @@
-const singleCardDiv =  document.querySelector("#singleCardDiv");
+const singleCardPicture = document.querySelector("#singleCardPicture");
+const singleCardContent = document.querySelector("#singleCardContent");
 const commentBtn = document.querySelector("#commentButton");
 const commentForm = document.querySelector("#commentForm");
-const commentsDiv = document.querySelector("#comments");
 const ratingDiv = document.querySelector("#rating");
+const commentsDiv = document.querySelector("#comments");
 const commentInput = document.querySelector("#commentInput");
 
 
-const fullStar = document.createElement("i");
-fullStar.setAttribute("class", "fa-solid fa-star");
-const emptyStar = document.createElement("i");
-emptyStar.setAttribute("class", "fa-regular fa-star");
-const halfStar = document.createElement("i");
-halfStar.setAttribute("class", "fa-solid fa-star-half-stroke");
 let ratingValue = null;
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -27,45 +22,61 @@ async function displayOneProduct() {
 
     const productInfos = await singleProduct.json()
 
-        const singleCard = document.createElement("div");
-        singleCard.setAttribute("class", "SingleProductCard");
+
+        const singleCardTitle = document.createElement("p");
+        singleCardTitle.setAttribute("id", "singleCardTitle");
+        singleCardTitle.innerHTML = productInfos.name;
+        singleCardContent.appendChild(singleCardTitle);
 
         const singleCardImage = document.createElement("img");
         singleCardImage.setAttribute("src", productInfos.image);
         singleCardImage.setAttribute("width", "300px");
         singleCardImage.setAttribute("height", "300px");
-        singleCardDiv.appendChild(singleCardImage);
+        singleCardPicture.appendChild(singleCardImage);
 
-        const singleCardTitle = document.createElement("p");
-        singleCardTitle.innerHTML = productInfos.name;
-        singleCardDiv.appendChild(singleCardTitle);
 
-        const singleCardRate = document.createElement("p");
+        const ratingSection = document.createElement("a");
+        ratingSection.setAttribute("href", "#comments");
+        ratingSection.setAttribute("id", "ratingSection");
+
+        const productCommentsNumber = document.createElement("p");
+        productCommentsNumber.setAttribute("id", "productCommentsNumber");
+        productCommentsNumber.innerHTML = productInfos.commentsNumber + " avis";
+
+        ratingSection.appendChild(productCommentsNumber);
+        
+
+        const productRating = document.createElement("div");
+        productRating.setAttribute("id", "productRating");
+        
         for(let i = 1; i <= 5; i++) {    
             const ratingStar = document.createElement("i");
             if(i <= productInfos.rating) {
                 ratingStar.setAttribute("class", "fa-solid fa-star");
             }
             else if(i > productInfos.rating) {
-                if(i - productInfos.rating <= 0.5) {          
+                if(i - productInfos.rating <= 0.5) {
                     ratingStar.setAttribute("class", "fa-solid fa-star-half-stroke");
-                    console.log(i - productInfos.rating)
                 }
                 else {
                     ratingStar.setAttribute("class", "fa-regular fa-star");
                 }
             }
-            singleCardDiv.appendChild(ratingStar);
+            productRating.appendChild(ratingStar);
+            ratingSection.appendChild(productRating);
         }
-        singleCardDiv.appendChild(singleCardRate);
+
+        singleCardContent.appendChild(ratingSection);
 
         const singleCardDescription = document.createElement("p");
+        singleCardDescription.setAttribute("id", "singleCardDescription");
         singleCardDescription.innerHTML = productInfos.description;
-        singleCardDiv.appendChild(singleCardDescription);
+        singleCardContent.appendChild(singleCardDescription);
 
         const singleCardPrice =  document.createElement("p");
+        singleCardPrice.setAttribute("id", "singleCardPrice");
         singleCardPrice.innerHTML = (productInfos.price/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + productInfos.priceType;
-        singleCardDiv.appendChild(singleCardPrice)
+        singleCardContent.appendChild(singleCardPrice)
 
         for(let i = 1; i <= 5; i++) {
 
@@ -77,18 +88,19 @@ async function displayOneProduct() {
         }
         
 
-        // const addQuantityButton = document.createElement("input");
-        // addQuantityButton.setAttribute("type", "number");
-        // addQuantityButton.setAttribute("id", `quantity${productInfos.id}`)
-        // singleCardDiv.appendChild(addQuantityButton);
+        const addQuantityInput = document.createElement("input");
+        addQuantityInput.setAttribute("type", "number");
+        addQuantityInput.setAttribute("id", `quantityInput`);
+        addQuantityInput.setAttribute("min", "1");
+        addQuantityInput.setAttribute("placeholder", "Ma quantité");
+        singleCardContent.appendChild(addQuantityInput);
 
-        // const addCartButton =  document.createElement("button");
-        // addCartButton.setAttribute("value", productInfos.id);
-        // addCartButton.innerHTML = "Ajouter";
-        // addCartButton.addEventListener("click", addCart)
-        // singleCardDiv.appendChild(addCartButton);
-
-        // singleCardDiv.appendChild(singleCard);
+        const addCartButton =  document.createElement("button");
+        addCartButton.setAttribute("id", "addCartButton");
+        addCartButton.setAttribute("value", productInfos.id);
+        addCartButton.innerHTML = "Ajouter au panier";
+        addCartButton.addEventListener("click", ()=>{addCart("#quantityInput", productId)})
+        singleCardContent.appendChild(addCartButton);
 }
 
 async function displayComments() {
@@ -115,14 +127,49 @@ async function displayComments() {
 
     const result = await displayComments.json()
 
-    for(let i  in result) {
+    console.log(result);
+
+    for(let i in result) {
+
+        const commentLine = document.createElement("div");
+        commentLine.setAttribute("id", `commentLine${i}`);
+        commentLine.setAttribute("class", `commentLine`);
+
+        const commentInfos = document.createElement("div");
+        commentInfos.setAttribute("class", `commentInfos`);
+
+        const commentContent = document.createElement("div");
+        commentContent.setAttribute("class", `commentContent`);
+
+        const userAvatar = document.createElement("img");
+        userAvatar.setAttribute("src", result[i].user_avatar);
+        userAvatar.setAttribute("width", "50px");
+        userAvatar.setAttribute("height", "50px");
+        commentInfos.appendChild(userAvatar);
+
+        const userName = document.createElement("p");
+        userName.innerHTML = result[i].user_first_name;
+        commentInfos.appendChild(userName);
+
+        const userRating = document.createElement("p");
+        userRating.innerHTML = "Note : " + result[i].rate + "/5";
+        commentInfos.appendChild(userRating);
+
+        const commentDate =  document.createElement("p");
+        let formatedDate = new Date(result[i].date).toLocaleString("fr-FR", {year:"numeric", month:"numeric", day:"numeric"}) ;
+        commentDate.innerHTML = "publié le " + formatedDate;
+        commentInfos.appendChild(commentDate);
+
+        commentLine.appendChild(commentInfos);
 
         const commentText =  document.createElement("p");
         commentText.innerHTML = result[i].comment;
+        commentContent.appendChild(commentText);
 
-        commentsDiv.appendChild(commentText);
+        commentLine.appendChild(commentContent);
+
+        commentsDiv.appendChild(commentLine);
     }
-
 }
 
 
