@@ -236,6 +236,7 @@ section {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  box-shadow: var(--shadow);
 }
 
 .home .banner-image {
@@ -257,47 +258,154 @@ section {
 
 .home .banner-content span {
   font-family: var(--title-font);
-  font-size: var(--text-xl);
-  color: var(--ivory);
-  -webkit-text-stroke-color: var(--light-black);
-  -webkit-text-stroke-width: 1.5px;
-  letter-spacing: 0.1em;
+  font-size: var(--text-xxl);
+  color: var(--lightblack);
 }
 
 .home .banner-content h3 {
   font-size: var(--text-xxl);
   color: var(--ambre);
   -webkit-text-stroke-color: var(--light-black);
-  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-width: 2.5px;
   font-family: var(--title-font);
   margin: 1rem 0;
 }
 
-.home .banner-content a {
+.home .banner-content .banner-btn {
+  background: var(--light-black);
+  color: var(--ivory);
+  padding: 1rem 2rem;
+  border: 2px solid var(--ambre);
+  border-radius: 0.5rem;
+  font-family: var(--title-font);
   font-size: var(--text-s);
-  background: var(--ivory);
-  font-weight: bolder;
-  color: var(--light-black);
-  border-radius: 5rem;
-  border: 1px solid var(--khaki);
-  padding: 1rem 1rem;
-  font-family: var(--body-font);
-  margin-bottom: 2rem;
   text-transform: uppercase;
+  cursor: pointer;
   width: fit-content;
 }
 
-.home .banner-content a:hover {
+.home .banner-content .banner-btn:hover {
+  background: var(--ambre);
+  color: var(--light-black);
+  border: 2px solid var(--light-black);
+}
+
+/* ============= HOMEPAGE BASKET SECTION */
+.heading {
+  text-align: center;
+  color: var(--light-black);
+  font-size: var(--text-xl);
+  font-family: var(--title-font);
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  padding: 1rem;
+}
+
+.heading span {
+  color: var(--ambre);
+}
+
+.basket-category .box-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.basket-category .box-container .box {
+  background: var(--ivory);
+  border: 0.1rem solid var(--light-black);
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem;
+  flex: 1 1 10rem;
+}
+
+.basket-category .box-container .box img {
+  width: 12rem;
+  margin: 0.5rem 0;
+}
+
+.basket-category .box-container .box h3 {
+  font-size: var(--text-l);
+  font-family: var(--title-font);
+  color: var(--light-black);
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
+.basket-category .box-container .box p {
+  font-size: var(--text-s);
+  font-family: var(--body-font);
+  color: var(--light-black);
+  min-height: 4rem;
+  margin: 0.5rem 0;
+}
+
+.basket-category .box-container .box .basket-btn {
+  display: block;
+  text-align: center;
+  font-size: var(--text-xs);
+  background: var(--ambre);
+  font-weight: bolder;
+  color: var(--light-black);
+  border-radius: 5rem;
+  border: 1px solid var(--light-black);
+  padding: 0.5rem 0.5rem;
+  font-family: var(--body-font);
+  margin-top: 2rem;
+  width: fit-content;
+}
+
+.basket-category .box-container .box .basket-btn:hover {
   background: var(--light-black);
   color: var(--ambre);
   border: 1px solid var(--ambre);
   border-radius: 5rem;
-  letter-spacing: 0.5px;
-  padding: 1rem 1rem;
+  padding: 0.5rem 0.5rem;
 }
 
-.home .home-btn {
+.basket-category .box-container .box:nth-child(4) {
+  background: var(--ambre);
+  border: 0.1rem solid var(--light-black);
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem;
+  flex: 1 1 10rem;
+}
+
+.basket-category .box-container .box:nth-child(4) h3 {
+  color: var(--ivory);
+  -webkit-text-stroke-color: var(--light-black);
+  -webkit-text-stroke-width: 1px;
+}
+
+.basket-category .box-container .box:nth-child(4) .basket-btn {
+  display: block;
+  text-align: center;
+  font-size: var(--text-xs);
+  background: var(--light-black);
+  font-weight: bolder;
+  color: var(--ivory);
+  border-radius: 5rem;
+  border: 1px solid var(--light-black);
+  padding: 0.5rem 0.5rem;
+  font-family: var(--body-font);
   margin-top: 2rem;
+  width: fit-content;
+}
+
+.basket-category .box-container .box:nth-child(4) .basket-btn:hover {
+  background: var(--ivory);
+  color: var(--light-black);
+  border: 1px solid var(--light-black);
+  border-radius: 5rem;
+  padding: 0.5rem 0.5rem;
 }
 
 /* ================== Authentication Section */
@@ -789,15 +897,20 @@ form p a:hover {
     text-align: center;
     align-items: center;
   }
-  .home .banner-content span{
-    font-size: var(--text-xl);
+  .home .banner-content span {
+    font-size: var(--text-xxl);
     -webkit-text-stroke-width: 1px;
     letter-spacing: normal;
+    line-height: 10rem;
   }
 
   .home .banner-content h3 {
     font-size: var(--text-l);
     -webkit-text-stroke-width: 1px;
+  }
+
+  .heading {
+    font-size: var(--text-l);
   }
 }
 

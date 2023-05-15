@@ -29,13 +29,46 @@ if (session_id() == "") session_start();
         <div class="banner-content">
             <span>Fresh Market</span>
             <h3>Des produits Frais et Locaux</h3>
-            <a href="#" class="home-btn">Commencer maintenant</a>
+            <a href="#" class="banner-btn">Découvrez nos produits</a>
         </div>
         <div class="banner-image">
         </div>
     </section>
     <!-- HOME SECTION END -->
-<!-- CATEGROY SECTION START -->
+    <!-- BASKET SECTION START -->
+    <section class="basket-category" id="basketCategory">
+        <h1 class="heading">Choisissez votre <span>panier</span> :</h1>
+
+        <div class="box-container">
+            <div class="box">
+                <h3>Le Petit Panier</h3>
+                <p>Le panier pour les célibataires ou les couples.</p>
+                <img src="../View/assets/images/baskets/panier.jpg" alt="Panier de fruits et légumes">
+                <a href="#" class="basket-btn">Acheter Maintenant</a>
+            </div>
+            <div class="box">
+                <h3>Le Panier Moyen</h3>
+                <p>Le panier pour les familles de 3 à 4 personnes.</p>
+                <img src="../View/assets/images/baskets/panier.jpg" alt="Panier de fruits et légumes">
+                <a href="#" class="basket-btn">Acheter Maintenant</a>
+            </div>
+            <div class="box">
+                <h3>Le Grand Panier</h3>
+                <p>Le panier pour les familles nombreuses.</p>
+                <img src="../View/assets/images/baskets/panier.jpg" alt="Panier de fruits et légumes">
+                <a href="#" class="basket-btn">Acheter Maintenant</a>
+            </div>
+            <div class="box">
+                <h3>Le Panier Maison</h3>
+                <p>Le panier à composer soi même</p>
+                <img src="../View/assets/images/baskets/panier.jpg" alt="Panier de fruits et légumes">
+                <a href="#" class="basket-btn">Acheter Maintenant</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- BASKET SECTION END -->
+    <!-- CATEGROY SECTION START -->
     <section class="category" id="category">
         <h1 class="heading">Sélectionner par <span>catégories</span></h1>
 
@@ -43,7 +76,7 @@ if (session_id() == "") session_start();
             <div class="box"></div>
         </div>
     </section>
-<!-- CATEGORY SECTION END -->
+    <!-- CATEGORY SECTION END -->
 
 
 
