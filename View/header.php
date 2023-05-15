@@ -54,7 +54,7 @@ if (isset($_POST['disconnect'])) {
             <a href="#">À Propos</a>
             <a href="products.php">Nos produits</a>
             <a href="#">Nos Producteurs</a>
-            <a href="#">Actualités</a>
+            <!-- <a href="#">Actualités</a> -->
         </nav>
     </div>
 </header>

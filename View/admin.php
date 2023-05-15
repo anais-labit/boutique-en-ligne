@@ -129,7 +129,7 @@ if ($_SESSION['user']->gettype() === 1 || $_SESSION['user']->gettype() === 2) {
         <div id="administration-modal" class="hiddenModal">
             <div class="modal-content">
                 <h2>Administration des utilisateurs</h2>
-                <h3>Gestion des utilisateurs</h3>
+                <h3>Rôles et suppression</h3>
                 <div id="usersListDiv"></div>
                 <form method="POST" id="container">
                 </form>

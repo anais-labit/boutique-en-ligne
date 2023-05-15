@@ -259,7 +259,7 @@ async function displayAllUsers() {
 
   // En-tête du tableau
   const headerRow = document.createElement("tr");
-  const headers = ["Role", "Id", "Email"];
+  const headers = ["Rôle", "Id", "Email"];
   headers.forEach((headerText) => {
     const headerCell = document.createElement("th");
     headerCell.textContent = headerText;
