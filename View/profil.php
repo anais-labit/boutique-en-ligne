@@ -77,7 +77,7 @@ if (session_id() == "") session_start();
             <input type="password" name="updatePassword" class="loginInputs" id="updatePassword">
             <label class="updateLabels" for="updateConfirmPassword">Confirmez votre mot de passe</label>
             <input type="password" name="updateConfirmPassword" class="loginInputs" id="updateConfirmPassword">
-            <label for="confirmOldPassword">Saisissez votre ancien ancien mot de passe</label>
+            <label for="confirmOldPassword">Saisissez votre ancien mot de passe</label>
             <input type="password" name="confirmOldPassword" class="loginInputs" id="confirmOldPassword">
 
             <div class="profilBtnContainer">
