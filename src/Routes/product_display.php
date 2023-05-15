@@ -76,6 +76,8 @@ if(isset($_GET['productId'])) {
     $rating = new CommentModel();
     $productRating = $rating->getAverageRating((int)$_GET['productId']);
 
+    $productComments = $rating->getCommentsNumber((int)$_GET['productId']);
+
     if($fetchProduct[0][9] !== null) {
 
         $price = $fetchProduct[0][9];
@@ -97,6 +99,7 @@ if(isset($_GET['productId'])) {
         "weight" => $fetchProduct[0][7],
         "price" => $price,
         "priceType" => $priceType,
+        "commentsNumber" => $productComments,
         "rating" => $productRating
     ];
         
