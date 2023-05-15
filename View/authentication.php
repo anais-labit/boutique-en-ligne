@@ -37,10 +37,38 @@
 
       <form method="post" class="loginForms" id="registerForm">
 
-        <select name="registerType" id="registerType">
-          <option value="1">Particulier</option>
-          <option value="2">Entreprise</option>
-        </select>
+          <select name="registerType" id="registerType">
+            <option value="1">Particulier</option>
+            <option value="2">Entreprise</option>
+          </select>
+          
+          <label class="registerLabels" id="registerLabelAvatar" for="registerAvatar">Choix d'avatar</label>
+            <div id="avatars">
+
+            <div id="avatar1">
+
+            
+            <img src="./assets/images/avatars/avatar1.png" id="avatarIMG1" class="avatarIMG">
+
+            </div>
+            <div id="avatar2">
+
+            <img src="./assets/images/avatars/avatar2.png" id="avatarIMG2" class="avatarIMG">
+              
+            </div>
+            <div id="avatar3">
+            <img src="./assets/images/avatars/avatar3.png" id="avatarIMG3" class="avatarIMG">
+              
+            </div>
+            <div id="avatar4">
+            <img src="./assets/images/avatars/avatar4.png" id="avatarIMG4" class="avatarIMG">
+              
+            </div>
+            <div id="avatar5">
+            <img src="./assets/images/avatars/avatar5.png" id="avatarIMG5" class="avatarIMG">
+              
+            </div>
+          </div>
 
         <label class="registerLabels" id="registerLabelFirstName" for="registerFirstName">Prénom</label>
         <input type="text" name="registerFirstName" class="loginInputs" id="registerFirstName">

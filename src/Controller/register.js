@@ -12,6 +12,23 @@ const registerConfirmPassword =  document.querySelector("#registerConfirmPasswor
 const registerButton = document.querySelector("#registerButton");
 const registerMessage = document.createElement("p");
 
+const avatars = [];
+for(let i = 1; i >= 5; i++) {
+    avatars[i] = document.querySelector("#avatarIMG" + i);
+    console.log(avatars[i]);
+    avatars[i].addEventListener("click", () => {
+        avatars[i].style.border = "2px solid #1E90FF";
+        avatars[i].value = i;
+        console.log(avatars[i].value);
+        console.log("ok");
+    })
+}
+
+console.log("salut");
+
+let avatarIMG = document.querySelectorAll(".avatarIMG");
+console.log(avatarIMG);
+
 registerLabelCompany.style.display = "none";
 registerCompany.style.display = "none";
 

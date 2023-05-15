@@ -419,6 +419,25 @@ form p a:hover {
   font-size: var(--text-xs);
   background: var(--ivory);
 }
+  #avatars {
+    display: flex;
+  }
+
+  .avatarIMG {
+    border: none;
+  }
+
+  #avatars img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 0 10px;
+    cursor: pointer;
+  }
+
+  #avatars img:hover {
+    transform: scale(1.2);
+  }
 
 /* Styles spécifiques à la page admin et profil */
 
