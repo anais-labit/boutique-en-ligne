@@ -16,7 +16,7 @@ class AuthController {
 
 
     public function register(int $type, string $firstName, string $lastName, string $company, string $email, 
-    string $address, int $zipCode, string $city, string $password) {
+    string $address, int $zipCode, string $city, string $password, string $avatar) {
 
         $applicant = new UserModel();
 
@@ -36,11 +36,13 @@ class AuthController {
                 ':type' => $type,
                 ':firstname' => $firstName,
                 ':lastname' => $lastName,
+                ':company' => $company,
                 ':email' => $email,
                 ':address' => $address,
                 ':zip_code' => $zipCode,
                 ':city' => $city,
                 ':password' => $cryptedPassword,
+                ':avatar' => $avatar,
                 ':verified' => "NON"
             ]);
             
