@@ -89,7 +89,7 @@ async function displaySingleSubCategoryProducts() {
 
 
 function rawDisplay(results) {
-    console.log(results);
+    // console.log(results);    
         
     for(let i in results) {
 
@@ -139,7 +139,7 @@ function rawDisplay(results) {
         addCartButton.setAttribute("class", "cardButtons");
         addCartButton.setAttribute("value", results[i].id);
         addCartButton.innerHTML = "Ajouter";
-        addCartButton.addEventListener("click", addCart)
+        addCartButton.addEventListener("click", ()=>{addCart(`#quantity${results[i].id}`, results[i].id)})
         card.appendChild(addCartButton);
  
         productsDiv.appendChild(card);
@@ -221,14 +221,18 @@ async function displaySingleSubCategoriesButtons(id_cat) {
 
 //                    Fonction de gestion/affichage du panier
 
-async function addCart() {
+async function addCart(input, id) {
 
     const addCartForm = new FormData();
-    const quantityToAdd = document.querySelector(`#quantity${this.value}`);
+    const quantityToAdd = document.querySelector(`${input}`);
+    console.log(id);
+    console.log(input);
+    console.log(quantityToAdd);
+    console.log(input.value)
 
 
     addCartForm.append("addOneProductToCart", "addOneProductToCart");
-    addCartForm.append("productID", this.value);
+    addCartForm.append("productID", id);
     addCartForm.append("quantity", quantityToAdd.value);
 
     addCartrequest = {

@@ -57,30 +57,25 @@ searchButton.onclick = () => {
 let avatarLink = ""
 const avatars = document.querySelectorAll(".avatarIMG");
 
-console.log(avatars);
+for(const avatar of avatars) {
 
-for(let i in avatars) {
 
-    avatars[i].onclick = () => {
+    avatar.onclick = () => {
 
-      avatarLink = avatars[i].src;
-      console.log(avatarLink);
-      console.log(avatars[i].src);
+      avatarLink = avatar.src;
 
-      avatars[i].style.border = "2px solid #FFC107";
-      avatars[i].classList.add("selected");
+      avatar.style.border = "2px solid #FFC107";
+      avatar.classList.add("selected");
 
-      for(let j in avatars) {
-        if(avatars[j] != avatars[i]) {
-          // if(avatars[j].style.border = "2px solid #FFC107") {
-          if(avatars[j].className = "selected") {
-            avatars[j].style.removeProperty("border");
-            avatars[j].classList.remove("selected");
+      for(const i of avatars) {
+        if(i != avatar) {
+          if(i.className = "selected") {
+            i.style.removeProperty("border");
+            i.classList.remove("selected");
           }
         }
       }
-    };
-  
+    }; 
 }
 
 window.onscroll = () => {
@@ -101,9 +96,6 @@ loginButton.addEventListener("click", login);
 
 async function login(ev) {
   ev.preventDefault();
-
-  const email = loginEmail.value;
-  const password = loginPassword.value;
 
   const reqLogin = new FormData(loginForm);
 
