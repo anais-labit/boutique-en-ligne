@@ -436,15 +436,6 @@ form p a:hover {
   cursor: pointer;
 }
 
-#avatars #selectedAvatar {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  margin: 0 10px;
-  border: 3px solid var(--seagreen);
-  transform: none;
-}
-
 #avatars img:hover {
   transform: scale(1.2);
 }
@@ -473,6 +464,15 @@ form p a:hover {
   justify-content: center;
   overflow: hidden;
   padding-bottom: 40px;
+}
+
+#avatars #selectedAvatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 0 10px;
+  border: 3px solid var(--seagreen);
+  transform: none;
 }
 
 .admin-page h2,

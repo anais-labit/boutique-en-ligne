@@ -45,7 +45,7 @@ if (session_id() == "") session_start();
                 ';
                     } else {
                         echo '
-                        <img src="./assets/images/avatars/avatar' . $x . '.png">
+                        <img src="./assets/images/avatars/avatar' . $x . '.png" class="unselectedAvatars">
                         ';
                     }
                 }
