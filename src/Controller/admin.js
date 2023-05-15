@@ -50,7 +50,6 @@ function refresh() {
   usersListDiv.innerHTML = ""; // administration-modal
 
   // Appeler les fonctions pour mettre à jour les données
-  showConfirmation();
   clock();
   fetchCartCount();
   fetchClientCount();
@@ -136,14 +135,14 @@ async function fetchTotalRevenue() {
   const response = await fetch(
     "../src/Routes/admin_management.php?countTotalRevenue"
   );
-  const totalRevenue = await response.text();
+  const ca = await response.text();
 
   // Afficher les résultats
   const revenueCountDiv = document.querySelector("#revenueCountDiv");
   const revenue = document.createElement("p");
   revenueCountDiv.appendChild(revenue);
 
-  revenue.innerHTML = "Chiffre d'affaire : " + totalRevenue + "€";
+  revenue.innerHTML = "Chiffre d'affaire : " + ca + "€";
 }
 
 // Fonction pour récupérer et afficher tous les paniers
@@ -208,7 +207,7 @@ function createCartTable(carts, status = null) {
     const fields = [
       cart.id,
       formatDateTime(cart.date),
-      cart.total_amount + "€",
+      cart.total_amount / 100 + "€",
     ];
     fields.forEach((fieldText) => {
       const cell = document.createElement("td");
@@ -255,6 +254,16 @@ async function displayAllUsers() {
 
   const table = document.createElement("table");
   table.classList.add("userTable");
+
+  // En-tête du tableau
+  const headerRow = document.createElement("tr");
+  const headers = ["Role", "Id", "Email"];
+  headers.forEach((headerText) => {
+    const headerCell = document.createElement("th");
+    headerCell.textContent = headerText;
+    headerRow.appendChild(headerCell);
+  });
+  table.appendChild(headerRow);
 
   for (let i in result) {
     const row = document.createElement("tr");
@@ -303,11 +312,11 @@ async function displayAllUsers() {
 
     // Associer les données voulues et les afficher
     const userIdCell = document.createElement("td");
-    userIdCell.innerHTML = " id: " + result[i].id + " ";
+    userIdCell.innerHTML = result[i].id;
     row.appendChild(userIdCell);
 
     const userEmailCell = document.createElement("td");
-    userEmailCell.innerHTML = "email: " + result[i].email;
+    userEmailCell.innerHTML = result[i].email;
     row.appendChild(userEmailCell);
 
     // Ajouter un bouton de suppression

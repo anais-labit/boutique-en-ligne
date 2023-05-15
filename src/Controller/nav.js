@@ -53,6 +53,36 @@ searchButton.onclick = () => {
     .classList.toggle("active");
 };
 
+
+let avatarLink = ""
+const avatars = document.querySelectorAll(".avatarIMG");
+
+console.log(avatars);
+
+for(let i in avatars) {
+
+    avatars[i].onclick = () => {
+
+      avatarLink = avatars[i].src;
+      console.log(avatarLink);
+      console.log(avatars[i].src);
+
+      avatars[i].style.border = "2px solid #FFC107";
+      avatars[i].classList.add("selected");
+
+      for(let j in avatars) {
+        if(avatars[j] != avatars[i]) {
+          // if(avatars[j].style.border = "2px solid #FFC107") {
+          if(avatars[j].className = "selected") {
+            avatars[j].style.removeProperty("border");
+            avatars[j].classList.remove("selected");
+          }
+        }
+      }
+    };
+  
+}
+
 window.onscroll = () => {
   document
     .querySelector(".header .header-top .search-form")
@@ -150,6 +180,7 @@ async function register(ev) {
         && await checkPasswords(password, confirmPassword)) {
 
             const reqRegister = new FormData(registerForm)
+            reqRegister.append("avatar", avatarLink)
 
             const requestOptions = {
                 method: 'POST',
@@ -172,6 +203,7 @@ async function register(ev) {
         && await checkPasswords(password, confirmPassword)) {
 
             const reqRegister = new FormData(registerForm)
+            reqRegister.append("avatar", avatarLink)
 
             const requestOptions = {
                 method: 'POST',
