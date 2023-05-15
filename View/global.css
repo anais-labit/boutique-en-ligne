@@ -408,6 +408,92 @@ section {
   padding: 0.5rem 0.5rem;
 }
 
+/* =============== PRODUCERS SECTION */
+.producers-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.producers-container .producers-banner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.producers-container .producers-banner {
+  flex: 1 1 40rem;
+  height: 25rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.producers-container .producers-banner img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.producers-container .producers-banner .producers-content {
+  position: absolute;
+  top: 50%;
+  left: 4%;
+  transform: translateY(-50%);
+}
+
+.producers-container .producers-banner .producers-content h3 {
+  font-size: var(--text-xl);
+  font-family: var(--title-font);
+  color: var(--light-black);
+  -webkit-text-stroke-color: var(--ivory);
+  -webkit-text-stroke-width: 1px;
+  margin-bottom: 1rem;
+}
+
+.producers-container .producers-banner .producers-content p {
+  display: flex;
+  justify-content: center;
+  font-size: var(--text-s);
+  background: var(--ivory);
+  font-family: var(--body-font);
+  color: var(--venitien);
+  padding: 0.5rem 0;
+  width: fit-content;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.producers-container .producers-banner:hover img {
+  transform: scale(1.2) rotate(-5deg);
+}
+
+.producers-container .producers-banner .producers-content .producers-btn {
+  display: block;
+  text-align: center;
+  background: var(--ivory);
+  font-family: var(--body-font);
+  font-size: var(--text-s);
+  font-weight: bolder;
+  color: var(--light-black);
+  border-radius: 5rem;
+  border: 1px solid var(--light-black);
+  padding: 0.5rem 0.5rem;
+  font-family: var(--body-font);
+  margin-top: 2rem;
+  width: fit-content;
+}
+
+.producers-container .producers-banner .producers-content .producers-btn:hover {
+  background: var(--ambre);
+  color: var(--light-black);
+  border: 1px solid var(--light-black);
+  border-radius: 5rem;
+  padding: 0.5rem 0.5rem;
+}
+
 /* ================== Authentication Section */
 
 .authentication-container {
@@ -894,36 +980,36 @@ form p a:hover {
   margin-bottom: 1em;
 }
 
-  #categoriesFiltersDiv {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 20px;
-  }
+#categoriesFiltersDiv {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
 
-  #subCategoriesFiltersDiv {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
+#subCategoriesFiltersDiv {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 
-  #filterDiv button {
-    border: solid 1px black;
-    border-radius: 5px;
-    padding: 5px;
-    margin-right: 20px;
-    background-color: white;
-    color: black;
-    font-family: var(--body-font);
-    font-size: var(--text-xs);
-  }
+#filterDiv button {
+  border: solid 1px black;
+  border-radius: 5px;
+  padding: 5px;
+  margin-right: 20px;
+  background-color: white;
+  color: black;
+  font-family: var(--body-font);
+  font-size: var(--text-xs);
+}
 
-  #filterDiv button:hover {
-    /* border: solid 1px black; */
-    background-color: sienna;
-    color: white;
-    transition-duration: 0.5s;
-  }
+#filterDiv button:hover {
+  /* border: solid 1px black; */
+  background-color: sienna;
+  color: white;
+  transition-duration: 0.5s;
+}
 
 #productsDiv {
   display: flex;
@@ -935,51 +1021,51 @@ form p a:hover {
   margin-top: 2em;
 }
 
-  .productCards {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 10vw;
-    min-height: 40vh;
-    padding: 10px;
-    background-color: white;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
-    border-radius: 5px;
-    margin-bottom: 30px;
-    margin-right: 30px;
-  }
+.productCards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 10vw;
+  min-height: 40vh;
+  padding: 10px;
+  background-color: white;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  margin-bottom: 30px;
+  margin-right: 30px;
+}
 
-  .productCards a {
-    text-decoration: none;
-    color: var(--light-black);
-    height: 70%;
-    margin-bottom: 30px;
-  }
+.productCards a {
+  text-decoration: none;
+  color: var(--light-black);
+  height: 70%;
+  margin-bottom: 30px;
+}
 
-  .productCards img {
-    width: 140px;
-    height: 140px;
-  }
+.productCards img {
+  width: 140px;
+  height: 140px;
+}
 
-  .cardTitle {
-    font-family: var(--body-font);
-    font-size: var(--text-xs);
-    margin-bottom: 10px;
-    width: fit-content;
-    padding: 3px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
+.cardTitle {
+  font-family: var(--body-font);
+  font-size: var(--text-xs);
+  margin-bottom: 10px;
+  width: fit-content;
+  padding: 3px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
-  .cardWeight {
-    font-family: var(--body-font);
-    font-size: var(--text-xs);
-    width: fit-content;
-    border: solid 1px black;
-    padding: 3px;
-    font-size: 70%;
-  }
+.cardWeight {
+  font-family: var(--body-font);
+  font-size: var(--text-xs);
+  width: fit-content;
+  border: solid 1px black;
+  padding: 3px;
+  font-size: 70%;
+}
 
 
 .cardPrice {
@@ -1247,7 +1333,7 @@ form p a:hover {
   }
 
   /* Media queries pour la page admin.php */
-  
+
   .admin-page,
   .profil-page {
     padding: 1rem;
