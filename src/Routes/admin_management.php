@@ -48,7 +48,8 @@ if (isset($_GET['countClients'])) {
 if (isset($_GET['countTotalRevenue'])) {
     $cartModel = new CartModel();
     $totalRevenue = $cartModel->addPaidCartsAmounts('paid', 'YES');
-    echo json_encode($totalRevenue);
+    $ca = $totalRevenue / 100;
+    echo json_encode($ca);
 }
 
 

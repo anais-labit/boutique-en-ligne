@@ -136,14 +136,14 @@ async function fetchTotalRevenue() {
   const response = await fetch(
     "../src/Routes/admin_management.php?countTotalRevenue"
   );
-  const totalRevenue = await response.text();
+  const ca = await response.text();
 
   // Afficher les résultats
   const revenueCountDiv = document.querySelector("#revenueCountDiv");
   const revenue = document.createElement("p");
   revenueCountDiv.appendChild(revenue);
 
-  revenue.innerHTML = "Chiffre d'affaire : " + totalRevenue + "€";
+  revenue.innerHTML = "Chiffre d'affaire : " + ca + "€";
 }
 
 // Fonction pour récupérer et afficher tous les paniers
@@ -208,7 +208,7 @@ function createCartTable(carts, status = null) {
     const fields = [
       cart.id,
       formatDateTime(cart.date),
-      cart.total_amount + "€",
+      cart.total_amount / 100 + "€",
     ];
     fields.forEach((fieldText) => {
       const cell = document.createElement("td");
