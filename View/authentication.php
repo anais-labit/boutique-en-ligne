@@ -1,4 +1,6 @@
-<section class="authentication-container" id="authentication-container">
+<?php if(!isset($_SESSION['user'])) :?>
+
+  <section class="authentication-container" id="authentication-container">
   <div class="wrapper">
     <span class="icon-close"><i class="fa fa-times"></i></span>
 
@@ -14,18 +16,7 @@
           <input type="checkbox" name="" id="remember-me">
           <label for="remember-me">Se souvenir de moi</label>
         </div>
-        <?php if (isset($_SESSION['user']) && $_SESSION['user']->getType() == 4) : ?>
-          <a href="admin.php">Admin</a>
-        <?php elseif (isset($_SESSION['user'])) : ?>
-          <a href="profil.php">profil</a>
-        <?php endif ?>
-
-        <?php if (isset($_SESSION['user'])) : ?>
-          <button type="submit" name="disconnect" id="decoButton" class="authentication-btn">Déconnexion</button>
-
-        <?php else : ?>
           <button type="submit" id="loginButton" class="btn authentication-btn">Se Connecter</button>
-        <?php endif ?>
         <p>Mot de passe oublié ? <a href="#"> Cliquez-ici</a></p>
         <p>Pas encore de compte? <a href="#"> S'inscrire</a></p>
       </form>
@@ -103,3 +94,41 @@
     </div>
   </div>
 </section>
+      
+
+<?php else: ?>
+
+  <section class="authentication-container" id="authentication-container">
+  <div class="wrapper">
+    <span class="icon-close"><i class="fa fa-times"></i></span>
+
+    <!-- CONNEXION -->
+    <div class="form login login-form-container">
+      <header id="connexionHeader">Mes paramètres</header>
+      <form action="" method="post" id="loginForm">
+
+     
+                <?php if (isset($_SESSION['user']) && $_SESSION['user']->getType() == 4) : ?>
+                  <a href="admin.php">Admin</a>
+                <?php elseif (isset($_SESSION['user'])) : ?>
+                  <a href="profil.php" class="authentication-btn">Profil</a>
+                <?php endif ?>
+
+        <?php if (isset($_SESSION['user'])) : ?>
+          <button type="submit" name="disconnect" id="decoButton" class="authentication-btn">Déconnexion</button>
+
+        <?php endif ?>
+
+      </form>
+    </div>
+    <!-- INSCRIPTION -->
+    
+    <div class="form register register-form-container" style="display:none">
+
+      <header>S'inscrire</header>
+
+    </div>
+  </div>
+</section>
+
+  <?php endif ?>

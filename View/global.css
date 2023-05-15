@@ -636,6 +636,20 @@ form .authentication-btn {
   cursor: pointer;
 }
 
+#loginForm a {
+  /* color: var(--sienna); */
+  text-decoration: none;
+  color: var(--light-black);
+  /* align-self: center; */
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* form  a {
+  text-decoration: none;
+} */
+
 form p {
   color: var(--ivory);
   font-size: var(--text-xs);
@@ -958,7 +972,7 @@ form p a:hover {
   /* top: 0;
   right: -105%; */
   /* z-index: 10000; */
-  height: 70vh;
+  min-height: 70vh;
   width: 20vw;
   position: relative;
   left: 40%;
