@@ -17,10 +17,10 @@ if(isset($_POST['displayAllProducts'])) {
     $products = new ProductModel();
     
     $productList = $products->readAll();
+
+    // var_dump($productList);
     
     echo json_encode($productList);
-
-    
 
 }
 

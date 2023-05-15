@@ -89,6 +89,7 @@ async function displaySingleSubCategoryProducts() {
 
 
 function rawDisplay(results) {
+    console.log(results);
         
     for(let i in results) {
 
@@ -98,22 +99,29 @@ function rawDisplay(results) {
 
         const singlePageLink = document.createElement("a");
         singlePageLink.setAttribute("href", `singleCard.php?productId=${results[i].id}`);
+        
+        const cardImage = document.createElement("img");
+        cardImage.setAttribute("src", results[i].image);
+        // cardImage.setAttribute("width", "300px");
+        // cardImage.setAttribute("height", "300px");
+        singlePageLink.appendChild(cardImage);    
 
         const cardTitle = document.createElement("p");
+        cardTitle.setAttribute("class", "cardTitle");
         cardTitle.innerHTML = results[i].product;
         singlePageLink.appendChild(cardTitle);
 
-        const cardImage = document.createElement("img");
-        cardImage.setAttribute("src", results[i].image);
-        cardImage.setAttribute("width", "300px");
-        cardImage.setAttribute("height", "300px");
-        singlePageLink.appendChild(cardImage);       
+        const cardWeight = document.createElement("p");
+        cardWeight.setAttribute("class", "cardWeight");
+        cardWeight.innerHTML = results[i].weight_gr + "g";
+        singlePageLink.appendChild(cardWeight)
 
-        const cardDescription = document.createElement("p");
-        cardDescription.innerHTML = results[i].description;
-        singlePageLink.appendChild(cardDescription);
+        // const cardDescription = document.createElement("p");
+        // cardDescription.innerHTML = results[i].description;
+        // singlePageLink.appendChild(cardDescription);
 
         const cardPrice =  document.createElement("p");
+        cardPrice.setAttribute("class", "cardPrice");
         results[i].price_kg !== null ?
             cardPrice.innerHTML = (results[i].price_kg/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + "/kg":
             cardPrice.innerHTML = (results[i].price_unit/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + "/unité";
@@ -122,10 +130,13 @@ function rawDisplay(results) {
         card.appendChild(singlePageLink);
         const addQuantityButton = document.createElement("input");
         addQuantityButton.setAttribute("type", "number");
+        addQuantityButton.setAttribute("class", "cardInputs");
+        addQuantityButton.setAttribute("placeholder", "Ma quantité");
         addQuantityButton.setAttribute("id", `quantity${results[i].id}`)
         card.appendChild(addQuantityButton);
 
         const addCartButton =  document.createElement("button");
+        addCartButton.setAttribute("class", "cardButtons");
         addCartButton.setAttribute("value", results[i].id);
         addCartButton.innerHTML = "Ajouter";
         addCartButton.addEventListener("click", addCart)
