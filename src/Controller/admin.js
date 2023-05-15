@@ -256,6 +256,16 @@ async function displayAllUsers() {
   const table = document.createElement("table");
   table.classList.add("userTable");
 
+  // En-tête du tableau
+  const headerRow = document.createElement("tr");
+  const headers = ["Role", "Id", "Email"];
+  headers.forEach((headerText) => {
+    const headerCell = document.createElement("th");
+    headerCell.textContent = headerText;
+    headerRow.appendChild(headerCell);
+  });
+  table.appendChild(headerRow);
+
   for (let i in result) {
     const row = document.createElement("tr");
 
@@ -303,11 +313,11 @@ async function displayAllUsers() {
 
     // Associer les données voulues et les afficher
     const userIdCell = document.createElement("td");
-    userIdCell.innerHTML = " id: " + result[i].id + " ";
+    userIdCell.innerHTML = result[i].id;
     row.appendChild(userIdCell);
 
     const userEmailCell = document.createElement("td");
-    userEmailCell.innerHTML = "email: " + result[i].email;
+    userEmailCell.innerHTML = result[i].email;
     row.appendChild(userEmailCell);
 
     // Ajouter un bouton de suppression
