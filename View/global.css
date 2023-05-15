@@ -16,6 +16,7 @@
   --title-font: "Sharp Grotesk Semi-Bold 20", sans-serif;
   --body-font: "Sharp Grotesk Book 20", sans-serif;
   /* Font-Sizing */
+  --text-xxl: 80px;
   --text-xl: 50px;
   --text-l: 36px;
   --text-m: 26px;
@@ -321,7 +322,7 @@ form .checkbox label {
   color: var(--ivory);
 }
 
-form button[type="submit"] {
+form .authentication-btn {
   margin-top: 15px;
   padding: none;
   font-size: var(--text-s);
@@ -419,12 +420,13 @@ form p a:hover {
   background: var(--ivory);
 }
 
-/* Styles spécifiques à la page admin.php */
+/* Styles spécifiques à la page admin et profil */
 
+#updateForm,
 #administration-modal,
 #dashboard-modal,
 #gestion-modal {
-  background-color: #f8e1a4;
+  background-color: var(--ambre);
   border-radius: 0.5rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
   padding: 2rem;
@@ -435,21 +437,25 @@ form p a:hover {
   justify-content: center;
 }
 
-.admin-page {
+.admin-page,
+.profil-page {
   padding-left: 20rem;
   padding-right: 20rem;
   justify-content: center;
   overflow: hidden;
   padding-bottom: 40px;
-  height: 93.5vh;
-  overflow-y: auto;
 }
 
-.admin-page h2 {
+.admin-page h2,
+.profil-page h2 {
+  padding-top: 20px;
   font-family: var(--title-font);
-  font-size: var(--text-l);
-  color: var(--light-black);
+  font-size: var(--text-xxl);
+  color: var(--ivory);
+  -webkit-text-stroke-color: var(--light-black);
+  -webkit-text-stroke-width: 2px;
   margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .admin-page h3 {
@@ -480,9 +486,11 @@ form p a:hover {
   display: flex;
 }
 
-.admin-page label {
+.admin-page label,
+.profil-page label {
   font-family: var(--body-font);
   font-size: var(--text-xs);
+  padding-top: 10px;
   color: var(--light-black);
   display: block;
 }
@@ -505,13 +513,19 @@ form p a:hover {
 .admin-page input[type="text"],
 .admin-page input[type="number"],
 .admin-page input[type="file"],
-.admin-page textarea {
+.admin-page textarea,
+.profil-page input[type="text"],
+.profil-page input[type="number"],
+.profil-page input[type="password"],
+.profil-page textarea {
   width: 100%;
   padding: 0.5rem;
   font-family: var(--body-font);
   font-size: var(--text-xs);
   border: var(--border);
+  border-color: var(--sienna);
   border-radius: 0.5rem;
+  resize: none;
 }
 
 .admin-page input[type="file"] {
@@ -531,7 +545,8 @@ form p a:hover {
   width: 80rem;
 }
 
-.admin-page button {
+.admin-page button,
+.profil-page button {
   margin: 2rem;
   padding: 0.5rem 0.5rem;
   font-family: var(--title-font);
@@ -543,7 +558,14 @@ form p a:hover {
   cursor: pointer;
 }
 
-.admin-page button:hover {
+.profilBtnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-page button:hover,
+.profil-page button:hover {
   background-color: var(--khaki);
 }
 
@@ -778,6 +800,7 @@ form p a:hover {
   border-radius: 0.5rem;
   cursor: pointer;
 }
+
 /* ============ MEDIAQUERIES ============= */
 
 @media (max-width: 991px) {
@@ -826,24 +849,24 @@ form p a:hover {
   }
 
   /* Media queries pour la page admin.php */
-  .admin-page {
+  .admin-page,
+  .profil-page {
     padding: 1rem;
   }
 
-  .admin-page h2 {
+  .admin-page h2,
+  .profil-page h2 {
     font-size: var(--text-m);
   }
 
-  .admin-page label {
-    font-size: var(--text-xs);
-  }
-
+  .admin-page label,
   .admin-page input[type="text"],
-  .admin-page textarea {
-    font-size: var(--text-xs);
-  }
-
-  .admin-page button {
+  .admin-page textarea,
+  .admin-page button,
+  .profil-page label,
+  .profil-page input[type="text"],
+  .profil-page textarea,
+  .profil-page button {
     font-size: var(--text-xs);
   }
 
