@@ -109,13 +109,11 @@ class UpdateController
 
             $userModel->deleteOne($id);
             header('Content-Type: application/json');
-            echo (json_encode(['success' => 'Votre compte a bien été supprimé.']));
+            echo (json_encode(['success' => 'Votre compte a bien été supprimé']));
             session_unset();
             session_destroy();
         }
     }
-
-    
 }
 
 
