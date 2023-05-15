@@ -22,14 +22,14 @@ if (
 
         $applicant = new AuthController();
 
-        echo $applicant->register(1, $_POST['registerFirstName'], $_POST['registerLastName'], $_POST['registerCompany'], $_POST['registerEmail'], $_POST['registerAdress'], $_POST['registerZipCode'], $_POST['registerCity'], $_POST['registerPassword']);
+        echo $applicant->register(1, $_POST['registerFirstName'], $_POST['registerLastName'], $_POST['registerCompany'], $_POST['registerEmail'], $_POST['registerAdress'], $_POST['registerZipCode'], $_POST['registerCity'], $_POST['registerPassword'], $_POST['avatar']);
     }
 
     if (isset($_POST['registerCompany']) && $_POST['registerFirstName'] == null && $_POST['registerLastName'] == null && $_POST['registerType'] == 2) {
 
         $applicant = new AuthController();
 
-        echo $applicant->register(2, $_POST['registerFirstName'], $_POST['registerLastName'], $_POST['registerCompany'], $_POST['registerEmail'], $_POST['registerAdress'], $_POST['registerZipCode'], $_POST['registerCity'], $_POST['registerPassword']);
+        echo $applicant->register(2, $_POST['registerFirstName'], $_POST['registerLastName'], $_POST['registerCompany'], $_POST['registerEmail'], $_POST['registerAdress'], $_POST['registerZipCode'], $_POST['registerCity'], $_POST['registerPassword'], $_POST['avatar']);
     }
 }
 

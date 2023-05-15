@@ -39,7 +39,7 @@ if (session_id() == "") session_start();
 
 
         <!-- <label class="updateLabels" id="updateLabelAvatar" for="updateLabelAvatar">Avatar</label> -->
-        <div class="avatar" id="avatarContainer"><img src="<?= './assets/images/avatars/avatar' . $currentAvatar . '.png' ?>" width="60" height="60" alt="avatar"></div>
+        <div class="avatar" id="avatarContainer"><img src="<?= $currentAvatar ?>" width="60" height="60" alt="avatar"></div>
 
         <!-- <input type=" radio" class="updateLabels" name="avatar" id="avatar1" value="1">
             <img class="avatar" alt="avatar" src="./images/avatar1.png" width="60" height="60" />
