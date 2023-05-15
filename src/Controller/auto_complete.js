@@ -14,10 +14,10 @@ field.addEventListener("keyup", async (event) => {
       .then((response) => response.json())
       .then((response) => {
         // Suppression des résultats précédemment affichés si le champ de recherche a été vidé
-        suggestionsArray.forEach((p) => container.removeChild(p));
+        suggestionsArray.forEach((link) => container.removeChild(link));
         suggestionsArray.length = 0;
 
-        // Création de nouveaux éléments "p" pour afficher les nouveaux résultats de recherche
+        // Création de nouveaux éléments "a" pour afficher les nouveaux résultats de recherche
         response.forEach((result) => {
           const p = document.createElement("p");
           const link = document.createElement("a");
@@ -26,12 +26,12 @@ field.addEventListener("keyup", async (event) => {
           link.appendChild(p);
           container.appendChild(link);
           // Ajout de chaque élément "p" créé dans le tableau "suggestionsArray"
-          suggestionsArray.push(p);
+          suggestionsArray.push(link);
         });
       });
   } else {
     // Suppression des résultats affichés si le champ de recherche a été vidé
-    suggestionsArray.forEach((p) => container.removeChild(p));
+    suggestionsArray.forEach((link) => container.removeChild(link));
     suggestionsArray.length = 0;
   }
 });
