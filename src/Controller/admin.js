@@ -50,7 +50,6 @@ function refresh() {
   usersListDiv.innerHTML = ""; // administration-modal
 
   // Appeler les fonctions pour mettre à jour les données
-  showConfirmation();
   clock();
   fetchCartCount();
   fetchClientCount();
