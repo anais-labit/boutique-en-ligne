@@ -100,7 +100,6 @@ async function login(ev) {
 
 // Register function 
 
-
 registerLabelCompany.style.display = "none";
 registerCompany.style.display = "none";
 
@@ -199,15 +198,12 @@ async function checkEmptyFields(...fields) {
             registerMessage.innerHTML = "Veuillez remplir tous les champs";
     
             registerForm.appendChild(registerMessage);
-    
+
             return false;
         }        
     }
-
     return true;
 }
-
-
 
 async function checkPasswordSecurity(password) {
 
@@ -217,11 +213,8 @@ async function checkPasswordSecurity(password) {
 
         return false;          
     }
-
     return true;
-
 }
-
 
 
 async function checkPasswords(password, confirmPassword) {
