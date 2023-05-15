@@ -2,6 +2,7 @@ const field = document.querySelector("#field");
 const searchForm = document.querySelector("#searchForm");
 // Tableau pour stocker les résultats affichés sous forme de balises "p"
 const suggestionsArray = [];
+const container = document.querySelector("#searchResult");
 
 field.addEventListener("keyup", async (event) => {
   event.preventDefault();
@@ -13,21 +14,24 @@ field.addEventListener("keyup", async (event) => {
       .then((response) => response.json())
       .then((response) => {
         // Suppression des résultats précédemment affichés si le champ de recherche a été vidé
-        suggestionsArray.forEach((p) => searchForm.removeChild(p));
+        suggestionsArray.forEach((p) => container.removeChild(p));
         suggestionsArray.length = 0;
 
         // Création de nouveaux éléments "p" pour afficher les nouveaux résultats de recherche
         response.forEach((result) => {
           const p = document.createElement("p");
+          const link = document.createElement("a");
+          link.setAttribute("href", "singleCard.php?productId=" + result.id);
           p.textContent = result.product;
-          searchForm.appendChild(p);
+          link.appendChild(p);
+          container.appendChild(link);
           // Ajout de chaque élément "p" créé dans le tableau "suggestionsArray"
           suggestionsArray.push(p);
         });
       });
   } else {
     // Suppression des résultats affichés si le champ de recherche a été vidé
-    suggestionsArray.forEach((p) => searchForm.removeChild(p));
+    suggestionsArray.forEach((p) => container.removeChild(p));
     suggestionsArray.length = 0;
   }
 });

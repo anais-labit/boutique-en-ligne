@@ -34,11 +34,13 @@ if (isset($_POST['disconnect'])) {
     <div class="header-top">
         <a href="#" class="logo"><img src="./assets/images/logos/FreshMarket-Logo.png" alt=""></a>
 
-        <form action="" class="search-form" id ="searchForm">
-            <input type="search" name="search" placeholder="Rechercher un produit" id="field">
-            <label for="search-box" class="fas fa-search"></label>
-        </form>
-
+        <div id="searchContainer">
+            <form action="" class="search-form" id="searchForm">
+                <input type="search" name="search" placeholder="Rechercher un produit" id="field">
+                <label for="search-box" class="fas fa-search"></label>
+            </form>
+            <div id="searchResult"></div>
+        </div>
         <div class="icons">
             <div id="search-button" class="fas fa-search"></div>
             <a href="" class="fas fa-shopping-cart" id="cartIcon"></a>
@@ -68,7 +70,7 @@ if (isset($_POST['disconnect'])) {
 </nav>
 <!-- Fin Mobile Navbar -->
 
-    <?php require_once '../View/authentication.php'; ?>
+<?php require_once '../View/authentication.php'; ?>
 
 
 
