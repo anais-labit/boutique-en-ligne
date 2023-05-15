@@ -60,7 +60,7 @@ if (session_id() == "") session_start();
             </div>
             <div class="box">
                 <h3>Le Panier Maison</h3>
-                <p>Le panier à composer soi même</p>
+                <p>Le panier à composer soi-même.</p>
                 <img src="../View/assets/images/baskets/panier.jpg" alt="Panier de fruits et légumes">
                 <a href="#" class="basket-btn">Acheter Maintenant</a>
             </div>
@@ -77,7 +77,7 @@ if (session_id() == "") session_start();
                 <img class="producers-img-container" src="../View/assets/images/producers/producteur1.jpg" alt="photo d'un producteur">
                 <div class="producers-content">
                     <h3>Guillaume Rabelais</h3>
-                    <p>Producteurs de Carottes Bio cultivées dans le Lubéron</p>
+                    <p>Producteurs de Carottes Bio cultivées dans le Luberon</p>
                     <a href="" class="producers-btn">En savoir plus</a>
                 </div>
             </div>
