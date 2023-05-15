@@ -53,10 +53,12 @@ searchButton.onclick = () => {
     .classList.toggle("active");
 };
 
+
 let avatarLink = ""
 const avatars = document.querySelectorAll(".avatarIMG");
 
 for(const avatar of avatars) {
+
 
     avatar.onclick = () => {
 
