@@ -63,10 +63,10 @@ class UpdateController
             }
         };
         if (!filter_var($_POST['updateEmail'], FILTER_VALIDATE_EMAIL)) {
-            $errors[] = 'L\'adresse email est invalide.';
+            $errors[] = 'L\'adresse email est invalide';
         }
         if (!password_verify($_POST['confirmOldPassword'], $savedPassword)) {
-            $errors[] = 'Les modifications n\'ont pas été prises en compte';
+            $errors[] = ' Les modifications n\'ont pas été prises en compte.';
         }
 
         // Le code à exécuter si aucune erreur n'a été trouvée
