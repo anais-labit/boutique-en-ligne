@@ -24,7 +24,7 @@
           <button type="submit" name="disconnect" id="decoButton" class="authentication-btn">Déconnexion</button>
 
         <?php else : ?>
-          <button type="submit" id="loginButton" class="authentication-btn">Se Connecter</button>
+          <button type="submit" id="loginButton" class="btn authentication-btn">Se Connecter</button>
         <?php endif ?>
         <p>Mot de passe oublié ? <a href="#"> Cliquez-ici</a></p>
         <p>Pas encore de compte? <a href="#"> S'inscrire</a></p>
