@@ -1065,9 +1065,9 @@ form p a:hover {
   .header .header-top .search-form.active {
     top: 115%;
   }
-}
 
   /* Media queries pour la page admin.php */
+  
   .admin-page,
   .profil-page {
     padding: 1rem;
