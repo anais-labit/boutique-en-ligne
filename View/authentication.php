@@ -21,7 +21,7 @@
         <?php endif ?>
 
         <?php if (isset($_SESSION['user'])) : ?>
-          <button type="submit" name="disconnect" id="decoButton" class="btn">Déconnexion</button>
+          <button type="submit" name="disconnect" id="decoButton" class="authentication-btn">Déconnexion</button>
 
         <?php else : ?>
           <button type="submit" id="loginButton" class="btn authentication-btn">Se Connecter</button>

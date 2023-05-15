@@ -26,17 +26,24 @@ if (session_id() == "") session_start();
 
     <!-- HOME SECTION START -->
     <section class="home" id="">
-        <div class="banner-image">
-            <img src="../View/assets/images/banner-img.png" alt="">
-        </div>
-
         <div class="banner-content">
             <span>Fresh Market</span>
             <h3>Des produits Frais et Locaux</h3>
             <a href="#" class="home-btn">Commencer maintenant</a>
         </div>
+        <div class="banner-image">
+        </div>
     </section>
     <!-- HOME SECTION END -->
+<!-- CATEGROY SECTION START -->
+    <section class="category" id="category">
+        <h1 class="heading">Sélectionner par <span>catégories</span></h1>
+
+        <div class="box-container">
+            <div class="box"></div>
+        </div>
+    </section>
+<!-- CATEGORY SECTION END -->
 
 
 
