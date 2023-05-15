@@ -223,7 +223,6 @@ body {
 
 /* ================== Authentication Section */
 
-
 .authentication-container {
   position: absolute;
   top: 60%;
@@ -441,6 +440,7 @@ form p a:hover {
   padding-right: 20rem;
   justify-content: center;
   overflow: hidden;
+  padding-bottom: 40px;
 }
 
 .admin-page h2 {
@@ -478,9 +478,9 @@ form p a:hover {
   display: flex;
 }
 
-.admin-page .form-group {
-  margin-bottom: 1.5rem;
-}
+/* .modal-content {
+  width: 100%;
+} */
 
 .admin-page label {
   font-family: var(--body-font);
@@ -545,19 +545,15 @@ form p a:hover {
   cursor: pointer;
 }
 
-#modal-content button {
-  background-color: #9a4726;
-}
-
 .admin-page button:hover {
   background-color: var(--khaki);
 }
 
-.cartTable {
+.cartTable,
+.userTable {
   width: 100%;
   border-collapse: collapse;
 }
-
 .cartTable th,
 .cartTable td,
 .userTable th,
@@ -588,11 +584,8 @@ form p a:hover {
 .admin-page .cartTable th,
 .admin-page .cartTable td {
   padding: 12px;
-  font-size: 14px;
+  font-size: var(--text-xs);
   border-bottom: 1px solid var(--light-grey);
-}
-
-.admin-page .cartTable th {
   background-color: var(--light-grey);
 }
 
@@ -603,7 +596,7 @@ form p a:hover {
 .admin-page .cartTable tr:hover {
   background-color: var(--light-grey);
 }
- 
+
 /* ========== PAYMENT FORM */
 
 #paymentForm {
@@ -619,45 +612,42 @@ form p a:hover {
   height: 70vh;
   width: 20vw;
   position: relative;
-  left:40%;
-  top:80%;
+  left: 40%;
+  top: 80%;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
-
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 .paymentDivs {
-
   position: relative;
 }
 
-  .paymentInput {
-    border-bottom: solid 1px grey;
-    margin-bottom: 20px;
-    padding: 10px;
-    padding-left: 35px;
-    /* position: relative; */
-  }
+.paymentInput {
+  border-bottom: solid 1px grey;
+  margin-bottom: 20px;
+  padding: 10px;
+  padding-left: 35px;
+  /* position: relative; */
+}
 
-  #paymentIcons {
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    font-size: 90%;
-  }
+#paymentIcons {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  font-size: 90%;
+}
 
-  .paymentInput:focus {
-    border-color: #f8e1a4;
-    color: #f8e1a4;
-  }
+.paymentInput:focus {
+  border-color: #f8e1a4;
+  color: #f8e1a4;
+}
 
-  #paymentSubmit {
-
-    border-radius: 10px;
-    padding: 10px;
-    background-color: #f8e1a4;
-  }
+#paymentSubmit {
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #f8e1a4;
+}
 
 /* ============ MEDIAQUERIES ============= */
 
@@ -705,21 +695,8 @@ form p a:hover {
   .header .header-top .search-form.active {
     top: 115%;
   }
-}
 
-@media (max-width: 450px) {
-  html {
-    font-size: 50%;
-  }
-
-  .header .header-top {
-    padding: 1rem;
-  }
-}
-
-/* Media queries pour la page admin.php */
-
-@media (max-width: 768px) {
+  /* Media queries pour la page admin.php */
   .admin-page {
     padding: 1rem;
   }
@@ -739,5 +716,27 @@ form p a:hover {
 
   .admin-page button {
     font-size: var(--text-xs);
+  }
+
+  .cartTable th,
+  .cartTable td,
+  .userTable th,
+  .userTable td {
+    padding: 3px;
+    font-family: var(--body-font);
+    font-size: 12px;
+  }
+  .userTable {
+    width: fit-content;
+  }
+}
+
+@media (max-width: 450px) {
+  html {
+    font-size: 50%;
+  }
+
+  .header .header-top {
+    padding: 1rem;
   }
 }
