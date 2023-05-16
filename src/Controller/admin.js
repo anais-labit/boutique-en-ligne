@@ -269,6 +269,12 @@ async function displayAllUsers() {
 
   for (let i in result) {
     const row = document.createElement("tr");
+    console.log(typeof result[i].type);
+
+    // Vérifier si result[i].type n'est pas un nombre et le convertir
+    if (typeof result[i].type !== "number") {
+      result[i].type = Number(result[i].type);
+    }
 
     // Afficher le type entreprise
     if (result[i].type === 2) {
