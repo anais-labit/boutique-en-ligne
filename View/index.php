@@ -78,7 +78,7 @@ if (session_id() == "") session_start();
                 <div class="producers-content">
                     <h3>Guillaume Rabelais</h3>
                     <p>Producteurs de Carottes Bio cultivées dans le Lubéron</p>
-                    <a href="" class="producers-btn">En savoir plus</a>
+                    <a href="producers.php" class="producers-btn">En savoir plus</a>
                 </div>
             </div>
             <div class="producers-banner">
@@ -86,7 +86,7 @@ if (session_id() == "") session_start();
                 <div class="producers-content">
                     <h3>José Borelly</h3>
                     <p>Cultivateurs d'oignons dans le Var</p>
-                    <a href="" class="producers-btn">En savoir plus</a>
+                    <a href="producers.php" class="producers-btn">En savoir plus</a>
                 </div>
             </div>
         </div>
