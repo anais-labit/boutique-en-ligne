@@ -45,6 +45,11 @@ if (isset($_POST['displayHeaderCart']) || isset($_POST['displayCart'])) {
     }
     else {
 
+        if(isset($_SESSION['cart']) && empty($_SESSION['cart'])) {
+
+            unset($_SESSION['cart']);
+        }
+
         echo json_encode(["empty" => true]);
     }
 
@@ -159,12 +164,15 @@ if(isset($_POST['deleteFromCart'])) {
         }
     }
 
-    // $_SESSION['cartTotalPrice'] = $cart->getTotalPrice();
-    $cartTotalPrice = new CartModel();
-    $cartTotalPrice->updateOne([
+    if(!empty($_SESSION['cart'])) {
+
+        $cartTotalPrice = new CartModel();
+        $cartTotalPrice->updateOne([
         ':total_amount' => $cartTotalPrice->getTotalPrice(),
         ':id' => $_SESSION['cartId'][0]
     ]);
+    }
+    
     echo json_encode(["success" => true, "message" => "Produit supprimé avec succès"]);
 
 }

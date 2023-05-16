@@ -290,6 +290,7 @@ async function displayHeaderCart() {
     const cartList = await fetchHeaderCart();
 
     if(cartList.empty == true) {
+        headerCartDiv.innerHTML = `Votre panier est vide`
         return;
     }
     else if(cartList !== null) {
@@ -337,10 +338,14 @@ async function deleteFromCart(productId) {
 
    const result = await refreshCart.json();
 
-   displayHeaderCart();
-   showCartNumber();
+   if(result.success == true) {
 
-   return result
+       displayHeaderCart();
+       showCartNumber();
+   }
+
+
+//    return result
 }
 
 
@@ -359,6 +364,7 @@ async function showCartNumber() {
 
     const cartNumber = await fetchHeaderCart();
     if(cartNumber.empty == true) {
+        cartIcon.innerHTML = "";
         return;
     }
     else if(cartNumber !== null) {
