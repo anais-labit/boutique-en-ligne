@@ -191,6 +191,10 @@ async function register(ev) {
       registerMessage.innerHTML = createUser.message;
 
       registerForm.appendChild(registerMessage);
+
+      setTimeout(function () {
+        window.location.href = "index.php";
+      }, 3000);
     }
   } else if (registerType.value == "2") {
     if (
@@ -216,6 +220,10 @@ async function register(ev) {
       registerMessage.innerHTML = createUser.message;
 
       registerForm.appendChild(registerMessage);
+
+      setTimeout(function () {
+        window.location.href = "index.php";
+      }, 3000);
     }
   }
 }
