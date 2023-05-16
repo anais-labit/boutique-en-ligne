@@ -112,6 +112,7 @@
             <a href="admin.php" class="authentication-btn">Administration</a>
           <?php elseif (isset($_SESSION['user'])) : ?>
             <a href="profil.php" class="authentication-btn">Profil</a>
+            <a href="cartHistory.php" class="authentication-btn">Mes commandes</a>
           <?php endif ?>
 
           <?php if (isset($_SESSION['user'])) : ?>
