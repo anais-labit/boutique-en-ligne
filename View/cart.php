@@ -6,7 +6,6 @@ is_file("../config.php") == true ?
 
 require_once ROOT_DIR . '/vendor/autoload.php';
 
-use App\Model\CartModel;
 
 if (session_id() == "") session_start();
 ?>
@@ -26,7 +25,6 @@ if (session_id() == "") session_start();
 
 <body>
     <?php require_once '../View/header.php';
-    $cart = new CartModel();
     ?>
     <div class="cart-page">
         <h2>Votre panier</h2>
@@ -34,12 +32,14 @@ if (session_id() == "") session_start();
 
         <?php if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) : ?>
             <div id="cartTotal">
-                <p>Total : <?= $cart->getTotalPrice() ?> €</p>
-                <button id="cartSubmit" type="submit" name="submitCart" value="submitCart">Valider le panier</button>
+                
+                <p id="totalPrice"></p>
+
             </div>
         <?php endif; ?>
 
         <?php if (isset($_SESSION['user'])) : ?>
+            <button id="cartSubmit" type="submit" name="submitCart" value="submitCart">Valider le panier</button>
 
             <form method="POST" id="paymentForm">
 
@@ -110,6 +110,7 @@ if (session_id() == "") session_start();
                 <button type="submit" id="paymentSubmit" name="submitPayment" value="submitPayment">Valider le paiement</button>
             </form>
         <?php else : ?>
+            
             <p>Vous devez être connecté pour valider votre panier</p>
 
         <?php endif; ?>

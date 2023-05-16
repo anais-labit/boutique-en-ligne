@@ -19,6 +19,7 @@ if (session_id() == "") session_start();
 
 if (isset($_POST['displayHeaderCart']) || isset($_POST['displayCart'])) {
 
+    $cart = new CartModel();
     $productListForJs = [];
     $count = 0;
 
@@ -37,7 +38,7 @@ if (isset($_POST['displayHeaderCart']) || isset($_POST['displayCart'])) {
         $count++;
     }
 
-    echo json_encode(["list" => $productListForJs, "count" => $count]);
+    echo json_encode(["list" => $productListForJs, "count" => $count, "totalPrice" => $cart->getTotalPrice()]);
 
 }
 

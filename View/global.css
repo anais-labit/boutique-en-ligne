@@ -801,6 +801,7 @@ form p a:hover {
   background-color: var(--ambre);
   border-radius: 0.5rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+  border:1px solid black;
   padding: 2rem;
 }
 
@@ -877,9 +878,9 @@ form p a:hover {
   color: var(--light-black);
 }
 
-.cart-page #cartTotal {
+#cartTotal {
   display: flex;
-  justify-content: flex-end;
+  align-self: flex-end;
   padding: 40px;
 }
 
