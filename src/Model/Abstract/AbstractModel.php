@@ -18,8 +18,11 @@ abstract class AbstractModel
     public static function connect()
     {
         $password = (PHP_OS == 'Linux') ? '' : 'root';
+        // $pleskPassword = 'eShop123!';
         $dsn = 'mysql:host=localhost;dbname=eShop;charset=utf8';
+        // $pleskdsn = 'mysql:host=localhost;dbname=alexandre-aloesode_eShop;charset=utf8';
         self::$pdo = new \PDO($dsn, 'root', $password);
+        // self::$pdo = new \PDO($pleskdsn, 'eShop', $pleskPassword);
     }
 
     protected static function getPdo()
