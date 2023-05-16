@@ -2,10 +2,12 @@ const cartDisplay = document.querySelector("#cartDisplay");
 const cartSubmit = document.querySelector("#cartSubmit");
 const paymentForm = document.querySelector("#paymentForm");
 const paymentSubmit = document.querySelector("#paymentSubmit");
+const totalPrice = document.querySelector("#totalPrice");
 
-cartSubmit.addEventListener("click", submitCart);
+cartSubmit?.addEventListener("click", submitCart);
 
-paymentSubmit.addEventListener("click", validatePayment);
+paymentSubmit?.addEventListener("click", validatePayment);
+console.log("toto");
 
 function submitCart() {
      paymentForm.style.display = "flex";
@@ -47,6 +49,8 @@ async function validatePayment(e) {
 async function displayCart() {
 
      cartDisplay.innerHTML = "";
+     totalPrice.innerHTML = "";
+
      const displayCartForm = new FormData();
 
      displayCartForm.append("displayCart", "displayCart");
@@ -105,6 +109,8 @@ async function displayCart() {
 
           cartDisplay.appendChild(productLine);
      }
+
+     totalPrice.innerHTML = "Total : " + result.totalPrice + "€";
 
 }
 
