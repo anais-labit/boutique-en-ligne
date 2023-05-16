@@ -857,12 +857,14 @@ form p a:hover {
 
 .admin-page,
 .profil-page,
-.cart-page {
+.cart-page,
+.aboutUs-page {
   padding-left: 20rem;
   padding-right: 20rem;
   justify-content: center;
   overflow: hidden;
   padding-bottom: 40px;
+  text-align: justify;
 }
 
 .profil-page #msgContainer {
@@ -884,7 +886,8 @@ form p a:hover {
 
 .admin-page h2,
 .profil-page h2,
-.cart-page h2 {
+.cart-page h2,
+.aboutUs-page h2 {
   padding-top: 20px;
   font-family: var(--title-font);
   font-size: var(--text-xxl);
@@ -893,6 +896,7 @@ form p a:hover {
   -webkit-text-stroke-width: 2px;
   margin-bottom: 1.5rem;
   text-align: center;
+  text-align: justify;
 }
 
 .admin-page h3 {
@@ -901,6 +905,22 @@ form p a:hover {
   color: var(--light-black);
   margin-bottom: 1rem;
   margin-top: 1.5rem;
+  text-align: justify;
+}
+
+.aboutUs-page h3 {
+  font-family: var(--body-font);
+  font-size: var(--text-m);
+  margin-bottom: 30px;
+  background-color: var(--ivory);
+  padding: 10px;
+}
+.aboutUs-page img {
+  margin-bottom: 40px;
+}
+
+.aboutUs-page h3 span {
+  color: var(--ambre);
 }
 
 .admin-page h4 {
@@ -913,12 +933,25 @@ form p a:hover {
 
 .admin-page span,
 .admin-page p,
-.cart-page p {
+.cart-page p,
+.aboutUs-page p {
   font-family: var(--body-font);
   font-size: var(--text-s);
   color: var(--light-black);
+  text-align: justify;
+  padding: 2px;
 }
 
+.aboutUs-page ul {
+  margin: 30px;
+  text-align: justify;
+}
+.aboutUs-page li {
+  list-style-type: none;
+  font-family: var(--body-font);
+  font-weight: bolder;
+  font-size: var(--text-s);
+}
 .cart-page #cartTotal {
   display: flex;
   justify-content: flex-end;
@@ -1540,12 +1573,14 @@ i {
   /* Media queries pour la page admin.php */
 
   .admin-page,
-  .profil-page {
+  .profil-page,
+  .aboutUs-page {
     padding: 1rem;
   }
 
   .admin-page h2,
-  .profil-page h2 {
+  .profil-page h2,
+  .aboutUs-page h2 {
     font-size: var(--text-m);
   }
 

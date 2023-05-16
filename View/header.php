@@ -53,10 +53,10 @@ if (isset($_POST['disconnect'])) {
     <div class="header-bot">
         <nav class="navbar">
             <a href="index.php">Accueil</a>
-            <a href="#">À Propos</a>
+            <a href="aboutUs.php">À Propos</a>
             <a href="products.php">Nos produits</a>
             <a href="producers.php">Nos Producteurs</a>
-            <a href="#">Actualités</a>
+            <!-- <a href="#">Actualités</a> -->
 
         </nav>
     </div>
