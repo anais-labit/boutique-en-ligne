@@ -77,8 +77,9 @@ if (session_id() == "") session_start();
                 <img class="producers-img-container" src="../View/assets/images/producers/producteur1.jpg" alt="photo d'un producteur">
                 <div class="producers-content">
                     <h3>Guillaume Rabelais</h3>
-                    <p>Producteurs de Carottes Bio cultivées dans le Luberon</p>
-                    <a href="" class="producers-btn">En savoir plus</a>
+                    <p>Producteurs de Carottes Bio cultivées dans le Lubéron</p>
+                    <a href="producers.php" class="producers-btn">En savoir plus</a>
+
                 </div>
             </div>
             <div class="producers-banner">
@@ -86,7 +87,7 @@ if (session_id() == "") session_start();
                 <div class="producers-content">
                     <h3>José Borelly</h3>
                     <p>Cultivateurs d'oignons dans le Var</p>
-                    <a href="" class="producers-btn">En savoir plus</a>
+                    <a href="producers.php" class="producers-btn">En savoir plus</a>
                 </div>
             </div>
         </div>

@@ -55,8 +55,9 @@ if (isset($_POST['disconnect'])) {
             <a href="index.php">Accueil</a>
             <a href="#">À Propos</a>
             <a href="products.php">Nos produits</a>
-            <a href="#">Nos Producteurs</a>
-            <!-- <a href="#">Actualités</a> -->
+            <a href="producers.php">Nos Producteurs</a>
+            <a href="#">Actualités</a>
+
         </nav>
     </div>
 </header>
@@ -65,10 +66,10 @@ if (isset($_POST['disconnect'])) {
 <!-- Mobile Navbar -->
 <nav class="mobile-navbar">
     <a href="index.php" class="fas fa-home"></a>
-    <a href="#" class="fas fa-list"></a>
-    <a href="products.php" class="fas fa-tags"></a>
-    <a href="#" class="fas fa-comments"></a>
-    <a href="#" class="fas fa-blogs"></a>
+    <a href="profil.php" class="fas fa-address-card"></a>
+    <a href="products.php" class="fa-solid fa-shop"></a>
+    <a href="about.php" class="fas fa-circle-info"></a>
+
 </nav>
 <!-- Fin Mobile Navbar -->
 
