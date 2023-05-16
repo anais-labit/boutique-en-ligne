@@ -47,9 +47,11 @@ function refresh() {
   allCartsListDiv.innerHTML = "";
   pendingCartsListDiv.innerHTML = "";
   paidCartsListDiv.innerHTML = "";
+  // revenue.innerHTML = "";
   usersListDiv.innerHTML = ""; // administration-modal
 
   // Appeler les fonctions pour mettre à jour les données
+  showConfirmation();
   clock();
   fetchCartCount();
   fetchClientCount();
@@ -135,14 +137,14 @@ async function fetchTotalRevenue() {
   const response = await fetch(
     "../src/Routes/admin_management.php?countTotalRevenue"
   );
-  const ca = await response.text();
+  const ca = await response.json();
 
   // Afficher les résultats
   const revenueCountDiv = document.querySelector("#revenueCountDiv");
-  const revenue = document.createElement("p");
-  revenueCountDiv.appendChild(revenue);
+  // const revenue = document.createElement("p");
+  // revenueCountDiv.appendChild(revenue);
 
-  revenue.innerHTML = "Chiffre d'affaire : " + ca + "€";
+  revenueCountDiv.innerHTML = "<p> Chiffre d'affaire : " + ca + "€</p>";
 }
 
 // Fonction pour récupérer et afficher tous les paniers
@@ -257,7 +259,7 @@ async function displayAllUsers() {
 
   // En-tête du tableau
   const headerRow = document.createElement("tr");
-  const headers = ["Role", "Id", "Email"];
+  const headers = ["Rôle", "Id", "Email"];
   headers.forEach((headerText) => {
     const headerCell = document.createElement("th");
     headerCell.textContent = headerText;

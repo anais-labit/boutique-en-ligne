@@ -18,6 +18,10 @@ commentBtn?.addEventListener("click", sendComment);
 
 async function displayOneProduct() {
 
+    singleCardPicture.innerHTML = "";
+    singleCardContent.innerHTML = "";
+    ratingDiv.innerHTML = "";
+
     const singleProduct = await fetch("../src/Routes/product_display.php?productId=" + productId);
 
     const productInfos = await singleProduct.json()
@@ -194,7 +198,7 @@ async function sendComment(e) {
     const result = await sendComment.json()
 
     // if(result) commentInput.value = "";
-
+    displayOneProduct();
     displayComments();
 
 }

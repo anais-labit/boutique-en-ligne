@@ -32,7 +32,7 @@ if (session_id() == "") session_start();
         <h2>Gestion de profil</h2>
         <form action="profil.php" method="POST" id="updateForm" enctype="multipart/form-data">
             <label class="updateLabels" id="updateLabelAvatar" for="updateAvatar">Avatar</label>
-              <div id="avatars">
+            <div id="avatars">
                 <?php
                 for ($x = 1; $x <= 5; $x++) {
                     // CHANGER ICI LE CHEMIN DES IMAGES POUR HEBERGEMENT DIFFÉRENT
@@ -43,7 +43,7 @@ if (session_id() == "") session_start();
                 ';
                     } else {
                         echo '
-                        <img src="./assets/images/avatars/avatar' . $x . '.png" class="unselectedAvatars" id="'. $x . '">
+                        <img src="./assets/images/avatars/avatar' . $x . '.png" class="unselectedAvatars" id="' . $x . '">
                         ';
                     }
                 }
@@ -77,13 +77,15 @@ if (session_id() == "") session_start();
             <input type="password" name="updatePassword" class="loginInputs" id="updatePassword">
             <label class="updateLabels" for="updateConfirmPassword">Confirmez votre mot de passe</label>
             <input type="password" name="updateConfirmPassword" class="loginInputs" id="updateConfirmPassword">
-            <label for="confirmOldPassword">Saisissez votre ancien ancien mot de passe pour valider</label>
+            <label for="confirmOldPassword">Saisissez votre ancien mot de passe</label>
             <input type="password" name="confirmOldPassword" class="loginInputs" id="confirmOldPassword">
 
             <div class="profilBtnContainer">
                 <button type="submit" class="profileBtn" id="updateButton">Mettre à jour</button>
                 <button type="submit" class="profileBtn" id="deleteButton">Supprimer votre compte</button>
             </div>
+
+            <div id="msgContainer"></div>
         </form>
     </div>
 

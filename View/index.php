@@ -29,7 +29,7 @@ if (session_id() == "") session_start();
         <div class="banner-content">
             <span>Fresh Market</span>
             <h3>Des produits Frais et Locaux</h3>
-            <a href="#" class="banner-btn">Découvrez nos produits</a>
+            <a href="products.php" class="banner-btn">Découvrez nos produits</a>
         </div>
         <div class="banner-image">
         </div>
@@ -60,9 +60,9 @@ if (session_id() == "") session_start();
             </div>
             <div class="box">
                 <h3>Le Panier Maison</h3>
-                <p>Le panier à composer soi même</p>
+                <p>Le panier à composer soi-même.</p>
                 <img src="../View/assets/images/baskets/panier.jpg" alt="Panier de fruits et légumes">
-                <a href="#" class="basket-btn">Acheter Maintenant</a>
+                <a href="products.php" class="basket-btn">Acheter Maintenant</a>
             </div>
         </div>
     </section>
@@ -79,6 +79,7 @@ if (session_id() == "") session_start();
                     <h3>Guillaume Rabelais</h3>
                     <p>Producteurs de Carottes Bio cultivées dans le Lubéron</p>
                     <a href="producers.php" class="producers-btn">En savoir plus</a>
+
                 </div>
             </div>
             <div class="producers-banner">

@@ -17,8 +17,16 @@ async function updateSelf() {
   };
 
   const updateUser = await fetch("../src/Routes/user_management.php", options);
-  const test = await updateUser.json();
-  // console.log(test.errors);
+  const msg = await updateUser.json();
+  console.log(msg.errors);
+
+  document.querySelector("#msgContainer");
+  // let msg = document.createElement('p');
+  if (msg.errors) {
+    msgContainer.innerHTML = msg.errors;
+  } else {
+    msgContainer.innerHTML = msg.success;
+  }
 }
 
 updateButton.addEventListener("click", async (event) => {
@@ -36,6 +44,14 @@ async function deleteSelf() {
   };
 
   const deleteUser = await fetch("../src/Routes/user_management.php", options);
+
+  const msg = await deleteUser.json();
+  document.querySelector("#msgContainer");
+  if (msg.error) {
+    msgContainer.innerHTML = msg.error;
+  } else {
+    msgContainer.innerHTML = msg.success;
+  }
 }
 
 deleteButton.addEventListener("click", async (event) => {

@@ -64,6 +64,7 @@ async function displayCart() {
      for(let i in result.list) {
 
           const productLine = document.createElement("div");
+          productLine.setAttribute("class", "productLines");
 
           const productImg = document.createElement("img");
           productImg.setAttribute("src", result.list[i].image);
@@ -159,7 +160,7 @@ async function deleteFromCart(productId) {
 
 //     if(result.success == true) {
      // cartDisplay.removeChild(all);
-          console.log("ok");
+          // console.log("ok");
           displayCart()
 //     }
 //     return result

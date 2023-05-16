@@ -6,10 +6,10 @@ const filterDiv = document.querySelector("#filterDiv");
 const categoriesFiltersDiv = document.querySelector("#categoriesFiltersDiv")
 const subCategoriesFiltersDiv = document.querySelector("#subCategoriesFiltersDiv")
 
-headerCartDiv.style.display = "none";
+// headerCartDiv.style.display = "none";
 
-cartIcon.addEventListener("mouseover", showHeaderCart);
-cartIcon.addEventListener("mouseout", hideHeaderCart);
+cartIcon.addEventListener("click", showHeaderCart);
+// cartIcon.addEventListener("mouseout", hideHeaderCart);
 // headerCartDiv.addEventListener("mouseover", showHeaderCart);
 // headerCartDiv.addEventListener("mouseout", hideHeaderCart);
 
@@ -333,16 +333,7 @@ async function deleteFromCart(productId) {
 
 function showHeaderCart() {
 
-    headerCartDiv.style.display = "block";
-    headerCartDiv.style.position = "fixed"
-    headerCartDiv.style.top = "70px";
-    headerCartDiv.style.width = "230px";
-    headerCartDiv.style.right = "0px";
-    headerCartDiv.style.backgroundColor = "white";
-    headerCartDiv.style.border = "1px solid black";
-    headerCartDiv.style.padding = "10px";
-    headerCartDiv.style.zIndex = "1";
-    headerCartDiv.addEventListener("mouseover", showHeaderCart);
+     headerCartDiv.classList.toggle("showHeaderCart");
 
 }
 

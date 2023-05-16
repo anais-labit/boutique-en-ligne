@@ -109,7 +109,7 @@
 
      
                 <?php if (isset($_SESSION['user']) && $_SESSION['user']->getType() == 4) : ?>
-                  <a href="admin.php">Admin</a>
+                  <a href="admin.php" class="authentication-btn">Administration</a>
                 <?php elseif (isset($_SESSION['user'])) : ?>
                   <a href="profil.php" class="authentication-btn">Profil</a>
                 <?php endif ?>
