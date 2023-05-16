@@ -32,7 +32,7 @@ if (isset($_POST['disconnect'])) {
 <!-- Debut du Header -->
 <header class="header">
     <div class="header-top">
-        <a href="#" class="logo"><img src="./assets/images/logos/FreshMarket-Logo.png" alt=""></a>
+        <a href="index.php" class="logo"><img src="./assets/images/logos/FreshMarket-Logo.png" alt=""></a>
 
         <div id="searchContainer">
             <form action="" class="search-form" id="searchForm">
@@ -41,11 +41,13 @@ if (isset($_POST['disconnect'])) {
             </form>
             <div id="searchResult"></div>
         </div>
-        <div class="icons">
-            <div id="search-button" class="fas fa-search"></div>
-            <a href="" class="fas fa-shopping-cart" id="cartIcon"></a>
+        <div id="dynamicHeader">
+            <div class="icons">
+                <div id="search-button" class="fas fa-search"></div>
+                <div class="fas fa-shopping-cart" id="cartIcon"></div>
+                <div id="nav-register-section" class="fas fa-user nav-register-section"></div>
+            </div>
             <div id="headerCartDiv"></div>
-            <div id="nav-register-section" class="fas fa-user nav-register-section"></div>
         </div>
     </div>
     <div class="header-bot">

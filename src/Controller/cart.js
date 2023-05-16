@@ -160,7 +160,7 @@ async function deleteFromCart(productId) {
 
 //     if(result.success == true) {
      // cartDisplay.removeChild(all);
-          console.log("ok");
+          // console.log("ok");
           displayCart()
 //     }
 //     return result

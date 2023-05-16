@@ -101,6 +101,8 @@ body {
 .header .header-top .icons {
   display: flex;
   align-items: center;
+  position: relative;
+  top:10px;
 }
 
 .header .header-top .logo img {
@@ -168,8 +170,7 @@ body {
   color: var(--ambre);
 }
 
-.header .header-top .icons div,
-.header .header-top .icons a {
+.header .header-top .icons div {
   font-size: 1.5rem;
   margin-left: 1.5rem;
   color: var(--light-black);
@@ -225,6 +226,30 @@ body {
   right: 0;
   z-index: 1000;
 }
+
+/* ================== HEADER CART */
+#dynamicHeader {
+  display: flex;
+  flex-direction: column;
+  /* margin-top: 200px; */
+}
+
+#headerCartDiv {
+  display: none; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: solid 1px black;
+  position: absolute;
+  background-color: white;
+  top: 80px;
+}
+
+.showHeaderCart {
+  display: flex!important;
+  
+}
+
 
 /* ================== NAVBAR MOBILE */
 
