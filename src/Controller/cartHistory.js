@@ -1,6 +1,4 @@
 const allCarts = document.querySelector("#allCarts");
-const paidCarts = document.querySelector("#paidCarts");
-const unpaidCarts = document.querySelector("#unpaidCarts");
 
 async function displayAllCarts() {
 
@@ -18,27 +16,43 @@ async function displayAllCarts() {
 
      const result = await searchHistory.json();
 
+     console.log(result);
+
      for(let i in result) {
 
-        const cartPill = document.createElement("button");
+        const cartPill = document.createElement("div");
         cartPill.setAttribute("class", "cartPill");
         cartPill.setAttribute("id", `cartPill${result[i].id}`);
-        cartPill.value = result[i].id;
-        let formatedDate = new Date(result[i].date).toLocaleString("fr-FR", {year:"numeric", month:"numeric", day:"numeric"}) ;
+
+        const cartPillTitle = document.createElement("p");
+        cartPillTitle.setAttribute("class", "cartPillTitle");
+        let formatedDate = new Date(result[i].date).toLocaleString("fr-FR", {year:"numeric", month:"numeric", day:"numeric"});
         
 
         if(result[i].paid == "YES") {
-            cartPill.innerHTML = "Commande du " + formatedDate + " - " + result[i].total_amount + "€";
-            paidCarts.appendChild(cartPill);
+            cartPill.style.backgroundColor = "green";
+            cartPillTitle.innerHTML = "Panier validé le " + formatedDate + " - " + result[i].total_amount + "€";
+            cartPill.appendChild(cartPillTitle);
         }
         else {
-            cartPill.innerHTML = "Panier du " + formatedDate + " - " + result[i].total_amount + "€";
-
-            unpaidCarts.appendChild(cartPill)
+            cartPill.style.backgroundColor = "sienna";
+            cartPillTitle.innerHTML = "Panier en cours datant du " + formatedDate + " - " + result[i].total_amount + "€";
+            cartPill.appendChild(cartPillTitle);
         };
 
-        cartPill.addEventListener("click", () => {readCart(result[i].id)});
+        const cartPillButton = document.createElement("button");
+        cartPillButton.setAttribute("class", "cartPillButton");
+        cartPillButton.setAttribute("id", `cartPillButton${result[i].id}`);
+        cartPillButton.innerHTML = "Voir le détail";
+        cartPillButton.value = result[i].id;
+        cartPill.appendChild(cartPillButton);
+
+        cartPillButton.addEventListener("click", () => showCartContent(result[i].id));
+        allCarts.appendChild(cartPill);
+
+        readCart(result[i].id);
      }
+
 }
 
 async function readCart(id) {
@@ -57,28 +71,71 @@ async function readCart(id) {
 
     const result = await searchOneCart.json();
 
+    const cardContent = document.createElement("div");
+    cardContent.setAttribute("class", "cardContent");
+    cardContent.setAttribute("id", `cardContent${id}`);
+
     const divToAppend = document.querySelector(`#cartPill${id}`);
-    divToAppend.innerHTML = "";
-    // divToAppend.style.flexDirection = "column"; 
+
     for(let i in result) {
+
+        const productInfo = document.createElement("div");
+        productInfo.setAttribute("class", "productInfo");
 
         const productName = document.createElement("p");
         productName.innerHTML = result[i].name;
+        productInfo.appendChild(productName);
+
         const productQuantity = document.createElement("p");
-        productQuantity.innerHTML = result[i].quantity;
-        // const productPrice = document.createElement("p");
-        // productPrice.innerHTML = result[i].price;
-        // const productTotal = document.createElement("p");
-        // productTotal.innerHTML = result[i].total;
+        productQuantity.innerHTML = "X " + result[i].quantity;
+        productInfo.appendChild(productQuantity);
 
-        divToAppend.appendChild(productName);
-        divToAppend.appendChild(productQuantity);
-
-
-
-    
+        cardContent.appendChild(productInfo);
+        divToAppend.appendChild(cardContent);
     }
 
+    const resetCartButton = document.createElement("button");
+    resetCartButton.setAttribute("class", "resetCartButton");
+    resetCartButton.setAttribute("id", `resetCartButton${id}`);
+    resetCartButton.innerHTML = "Refaire mon panier";
+    resetCartButton.value = id;
+    resetCartButton.addEventListener("click", () => resetCart(id));
+    cardContent.appendChild(resetCartButton);
+}
+
+function showCartContent(id) {
+
+    const contentToDisplay = document.querySelector(`#cardContent${id}`);
+    contentToDisplay.classList.toggle("showCartContent");
+
+    const buttonToChange = document.querySelector(`#cartPillButton${id}`);
+    if(buttonToChange.innerHTML == "Voir le détail") {
+        buttonToChange.innerHTML = "Masquer";
+    }
+    else {
+        buttonToChange.innerHTML = "Voir le détail";
+    }
+}
+
+async function resetCart(id) {
+    
+        const resetCartForm = new FormData();
+    
+        resetCartForm.append("resetCart", id);
+    
+        const requestResetCart = {
+    
+            method:"POST",
+            body: resetCartForm
+        }
+    
+        const setCart = await fetch("../src/Routes/cart_management.php", requestResetCart)
+        const response = await setCart.json();
+        if(response.success == true) {
+
+            alert("Votre panier vient d'être recréé");
+            // window.location.reload();
+        }
 }
 
 displayAllCarts();

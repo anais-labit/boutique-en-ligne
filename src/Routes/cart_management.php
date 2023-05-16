@@ -225,12 +225,13 @@ if(isset($_POST['readOneCart'])){
 
             $cartProduct = new ProductModel();
             $cartProducts[] = ["name" => $cartProduct->readOneSingleInfo("product", "id", $product['id_product']), "quantity" => $product['quantity']];
-            // $cartProduct->setObject($product['id_product']);
-            // $cartProduct->setQuantity($product['quantity']);
-            // $cartProducts[] = $cartProduct;
-            
-            // $cartProducts[] = $product;
         }
     
         echo json_encode($cartProducts);
+}
+
+if(isset($_POST['resetCart'])) {
+
+
+
 }

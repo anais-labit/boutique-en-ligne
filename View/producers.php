@@ -31,7 +31,7 @@ if (session_id() == "") session_start();
         <h1 class="producers-page-container-heading">Nos <span>Producteurs</span></h1>
         <div class="producers-page-card">
             <div class="producers-page-title">
-                <h3>Producteurs 1</h3>
+                <h3>Guillaume</h3>
             </div>
             <div class="producers-img">
                 <img src="../View/assets/images/producers/producteur1.jpg" alt="">
@@ -43,7 +43,7 @@ if (session_id() == "") session_start();
             <div class="divider"></div>
 
             <div class="producers-page-title">
-                <h3>Producteurs 2</h3>
+                <h3>José</h3>
             </div>
             <div class="producers-img">
                 <img src="../View/assets/images/producers/producteur2.jpg" alt="">

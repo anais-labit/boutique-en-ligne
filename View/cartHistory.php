@@ -33,16 +33,8 @@ if(session_id() =="") session_start();
 
     <?php require_once '../View/header.php'; ?>
 
-    <h2>Mes Paniers</h2>
     <div id="allCarts">
-        <div id="paidCarts">
-            <h3>Mon historique d'achats</h3>
-        </div>
-            
-        <div id="unpaidCarts">
-            <h3>Mes paniers en attente</h3>
-        </div>
-
+        <h2>Mes Paniers</h2>
     </div>
 
 </body>
