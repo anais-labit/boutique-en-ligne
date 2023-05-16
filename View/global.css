@@ -114,7 +114,7 @@ body {
   display: flex;
   align-items: center;
   position: relative;
-  top:10px;
+  top: 10px;
 }
 
 .header .header-top .logo img {
@@ -243,25 +243,67 @@ body {
 #dynamicHeader {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   /* margin-top: 200px; */
 }
 
 #headerCartDiv {
-  display: none; 
+  display: none;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   border: solid 1px black;
   position: absolute;
-  background-color: white;
+  margin-top: 45px;
+  margin-right: 0.5rem;
+  background: rgba(255, 255, 255, 0.595);
   top: 80px;
+  padding: 0.5rem;
+  border-radius: 20px;
+  font-family: var(--body-font);
+  font-size: var(--text-xs);
+  color: var(--light-black);
+  max-height: max-content;
+  min-width: fit-content;
+  overflow: auto;
+}
+
+#headerCartDiv p {
+  padding: 1px;
+  padding-left: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-top: 0.5px;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: var(--body-font);
+  font-size: var(--text-xs);
+  background: white;
+  width: 93%;
+}
+
+#headerCartDiv p:hover {
+  background-color: var(--venitien);
+  color: white;
+}
+
+#headerCartDiv button {
+  text-decoration: none;
+  color: var(--light-black);
+  background-color: var(--venitien);
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  font-family: var(--body-font);
+  font-size: var(--text-xs);
+  margin-left: 1.5rem;
 }
 
 .showHeaderCart {
-  display: flex!important;
-  
+  display: flex !important;
 }
-
 
 /* ================== NAVBAR MOBILE */
 
@@ -1119,10 +1161,21 @@ form p a:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  justify-content: center;
   margin-left: 10em;
   margin-right: 10em;
   margin-top: 2em;
+}
+
+.productLines img,
+p,
+i {
+  justify-content: flex-start;
+  align-items: center;
+  text-align: left;
+  font-family: var(--body-font);
+  padding: 0.5em;
+  margin: 0.5em;
+  font-size: var(--text-s);
 }
 
 .productCards {
@@ -1380,9 +1433,8 @@ form p a:hover {
   /* border-bottom: solid 1px grey; */
 }
 
-
 /* ============ PRODUCERS PAGE ============= */
-.producers-container{
+.producers-container {
   height: 100vh;
   width: 100%;
   display: flex;
@@ -1521,7 +1573,7 @@ form p a:hover {
     -webkit-text-stroke-color: var(--ivory);
     -webkit-text-stroke-width: 1px;
     margin-bottom: 1rem;
-  } 
+  }
 
   .producers-container .producers-banner .producers-content .producers-btn {
     display: block;
