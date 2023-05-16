@@ -71,6 +71,7 @@ async function displayCart() {
           productImg.style.width = "80px";
           productLine.appendChild(productImg);
 
+          
           const productName = document.createElement("p");
           productName.innerHTML = result.list[i].name;
           productLine.appendChild(productName);
