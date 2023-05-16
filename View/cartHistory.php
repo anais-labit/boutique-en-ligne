@@ -24,11 +24,25 @@ if(session_id() =="") session_start();
     integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" 
     crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script defer src="../src/Controller/cartHistory.js"></script>
+
 
 </head>
 
 <body>
 
     <?php require_once '../View/header.php'; ?>
+
+    <h2>Mes Paniers</h2>
+    <div id="allCarts">
+        <div id="paidCarts">
+            <h3>Mon historique d'achats</h3>
+        </div>
+            
+        <div id="unpaidCarts">
+            <h3>Mes paniers en attente</h3>
+        </div>
+
+    </div>
 
 </body>

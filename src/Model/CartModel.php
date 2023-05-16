@@ -8,6 +8,8 @@ use App\Model\ProductModel;
 class CartModel extends AbstractModel
 {
 
+    public $totalPrice;
+
     public function __construct()
     {
         parent::connect();
@@ -20,10 +22,22 @@ class CartModel extends AbstractModel
         return $this->readLast();
     }
 
+    public function getCartProducts(int $cartId): array
+    {
+        $this->tableName = 'cart_products';
+        return $this->readOnebyForeignKey('id_cart', $cartId);
+    }
+
     public function readAllCarts(): array
     {
         $this->tableName = "carts";
         return $this->readAll();
+    }
+
+    public function readAllUserPaidCarts(string $fieldName, int $value): array
+    {
+        $this->tableName = "carts";
+        return $this->readOnebyForeignKey($fieldName, $value);
     }
 
     public function countAllCarts(): int
@@ -33,13 +47,13 @@ class CartModel extends AbstractModel
     }
 
     public function getTotalPrice() {
-        $totalPrice = 0;
+        $this->totalPrice = 0;
         foreach ($_SESSION['cart'] as $product) {
             $product->getPriceType() == "kg" ?
-                $totalPrice += $product->getPriceKg() * $product->getQuantity():
-                $totalPrice += $product->getPriceUnit() * $product->getQuantity();
+                $this->totalPrice += $product->getPriceKg() * $product->getQuantity():
+                $this->totalPrice += $product->getPriceUnit() * $product->getQuantity();
         }
-        return $totalPrice/100;
+        return $this->totalPrice/100;
     }
 
     public function countCartsByCriteria(string $fieldName, string $fieldValue): int
@@ -59,4 +73,5 @@ class CartModel extends AbstractModel
         $this->tableName = "carts";
         $this->updateOne($params);
     }
+
 }
