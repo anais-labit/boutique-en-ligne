@@ -25,7 +25,7 @@ class CartModel extends AbstractModel
     public function getCartProducts(int $cartId): array
     {
         $this->tableName = 'cart_products';
-        return $this->readOnebyForeignKey('id_cart', $cartId);
+        return $this->readOnebyForeignKey('id_cart', $cartId, "void");
     }
 
     public function readAllCarts(): array
@@ -37,7 +37,7 @@ class CartModel extends AbstractModel
     public function readAllUserPaidCarts(string $fieldName, int $value): array
     {
         $this->tableName = "carts";
-        return $this->readOnebyForeignKey($fieldName, $value);
+        return $this->readOnebyForeignKey($fieldName, $value, "date DESC");
     }
 
     public function countAllCarts(): int

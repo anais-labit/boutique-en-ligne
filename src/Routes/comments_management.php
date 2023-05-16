@@ -32,7 +32,7 @@ if(isset($_POST['displayComments'])) {
 
     $comments = new CommentModel();
 
-    $commentsList = $comments->readOnebyForeignKey("id_product", (int)$_POST['displayComments']);
+    $commentsList = $comments->readOnebyForeignKey("id_product", (int)$_POST['displayComments'], "date DESC");
     // var_dump($commentsList);
 
     echo json_encode($commentsList);

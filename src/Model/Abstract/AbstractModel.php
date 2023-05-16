@@ -92,9 +92,17 @@ abstract class AbstractModel
         return $resultReadOne;
     }
 
-    public function readOnebyForeignKey(string $foreignKey, int $keyValue): array
+    public function readOnebyForeignKey(string $foreignKey, int $keyValue, $order): array
     {
-        $requestReadOne = "SELECT * FROM $this->tableName WHERE $foreignKey = :$foreignKey";
+        if($order == "void") {
+            
+            $requestReadOne = "SELECT * FROM $this->tableName WHERE $foreignKey = :$foreignKey";
+        }
+
+        else {
+
+            $requestReadOne = "SELECT * FROM $this->tableName WHERE $foreignKey = :$foreignKey ORDER BY $order";
+        }
 
         $queryReadOne = self::getPdo()->prepare($requestReadOne);
 

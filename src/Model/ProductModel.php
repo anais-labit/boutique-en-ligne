@@ -135,7 +135,7 @@ class ProductModel extends AbstractModel
 
         $this->tableName = "sub_categories";
 
-        return $this->readOnebyForeignKey('id_category', $id_category);
+        return $this->readOnebyForeignKey('id_category', $id_category, "void");
     }
 
 

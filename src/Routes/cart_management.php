@@ -232,6 +232,21 @@ if(isset($_POST['readOneCart'])){
 
 if(isset($_POST['resetCart'])) {
 
+        $cart = new CartModel();
+    
+        $cartHistory = $cart->getCartProducts($_POST['resetCart']);
+
+        $cartProducts = [];
+
+        foreach($cartHistory as $product) {
+
+            $cartProduct = new ProductModel();
+            $cartProduct->setObject($product['id_product']);
+            $cartProduct->setQuantity($product['quantity']);
+            $_SESSION['cart'][] = $cartProduct;
+        }
+
+        echo json_encode(["success" => true, "message" => "Panier recréé"]);
 
 
 }

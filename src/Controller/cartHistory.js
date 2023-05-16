@@ -133,7 +133,10 @@ async function resetCart(id) {
         const response = await setCart.json();
         if(response.success == true) {
 
-            alert("Votre panier vient d'être recréé");
+            displayHeaderCart();
+            showCartNumber();
+            alert(response.message);
+            
             // window.location.reload();
         }
 }
