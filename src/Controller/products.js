@@ -225,34 +225,44 @@ async function addCart(input, id) {
 
     const addCartForm = new FormData();
     const quantityToAdd = document.querySelector(`${input}`);
-    console.log(id);
-    console.log(input);
-    console.log(quantityToAdd);
-    console.log(input.value)
 
-
-    addCartForm.append("addOneProductToCart", "addOneProductToCart");
-    addCartForm.append("productID", id);
-    addCartForm.append("quantity", quantityToAdd.value);
-
-    addCartrequest = {
-        method:"POST",
-        body: addCartForm
+    if(quantityToAdd.value == null || quantityToAdd.value == 0 || quantityToAdd.value == "") {
+            
+            quantityToAdd.style.border = "1px solid red";
+            quantityToAdd.placeholder = "Veuillez entrer une quantité";
+            // quantityToAdd.style.fontSize = "0.8rem";
     }
+
+    else {
+
+        addCartForm.append("addOneProductToCart", "addOneProductToCart");
+        addCartForm.append("productID", id);
+        addCartForm.append("quantity", quantityToAdd.value);
     
-    const productToAdd = await fetch("../src/Routes/cart_management.php", addCartrequest)
+        addCartrequest = {
+            method:"POST",
+            body: addCartForm
+        }
+        
+        const productToAdd = await fetch("../src/Routes/cart_management.php", addCartrequest)
+    
+        const cartUpdate = await productToAdd.json();
+    
+        if(cartUpdate.success == true) {
+    
+            displayHeaderCart();
+            showCartNumber();
+            showConfirmation();
+        }
 
-    const cartUpdate = await productToAdd.json();
-
-    console.log(cartUpdate);
-
-    if(cartUpdate.success == true) {
-
-        displayHeaderCart();
-        showCartNumber();
+        quantityToAdd.value = "";
+        
+        if(quantityToAdd.style.border == "1px solid red") {
+            quantityToAdd.style.border = "1px solid black";
+        }
     }
-}
 
+}
 
 async function fetchHeaderCart() {
 
@@ -351,6 +361,15 @@ async function showCartNumber() {
 }
 
 // --------------------------------------------------------------------------------------------------------------------------------------
+
+function showConfirmation() {
+    // Afficher une pop-up de confirmation
+    Swal.fire({
+      title: "Produit ajouté!",
+      icon: "success",
+      timer: 2000,
+    });
+}
 
 
 if(location.pathname == "/boutique-en-ligne/View/products.php") displayAllProducts() && displayCategoriesFilters();
