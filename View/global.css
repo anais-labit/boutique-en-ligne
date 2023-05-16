@@ -1434,6 +1434,40 @@ i {
   /* border-bottom: solid 1px grey; */
 }
 
+
+/* ============ CART HISTORY PAGE ============= */
+#allCarts {
+  display: flex;
+  justify-content: space-around; 
+}
+
+  #paidCarts {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #unpaidCarts {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cartPill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: sienna;
+    color: var(--ivory);
+    font-family: var(--title-font);
+    font-size: var(--text-xs);
+    cursor: pointer;
+  }
+
+
 /* ============ PRODUCERS PAGE ============= */
 .producers-page-container {
   display: flex;
