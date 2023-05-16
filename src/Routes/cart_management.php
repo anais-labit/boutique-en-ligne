@@ -19,27 +19,34 @@ if (session_id() == "") session_start();
 
 if (isset($_POST['displayHeaderCart']) || isset($_POST['displayCart'])) {
 
-    $cart = new CartModel();
-    $productListForJs = [];
-    $count = 0;
+    if(!empty($_SESSION['cart'])) {
 
-    foreach ($_SESSION['cart'] as $index => $product) {
-
-        $infos = [
-            "name" => $product->getName(),
-            "quantity" => $product->getQuantity(),
-            "productId" => $product->getId(),
-            "priceType" => $product->getPriceType(),
-            "image" => $product->getImage(),
-            "price" => $product->getPriceType() == "kg" ? $product->getPriceKg() : $product->getPriceUnit(),
-        ];
-        
-        array_push($productListForJs, $infos);
-        $count++;
+        $cart = new CartModel();
+        $productListForJs = [];
+        $count = 0;
+    
+        foreach ($_SESSION['cart'] as $index => $product) {
+    
+            $infos = [
+                "name" => $product->getName(),
+                "quantity" => $product->getQuantity(),
+                "productId" => $product->getId(),
+                "priceType" => $product->getPriceType(),
+                "image" => $product->getImage(),
+                "price" => $product->getPriceType() == "kg" ? $product->getPriceKg() : $product->getPriceUnit(),
+            ];
+            
+            array_push($productListForJs, $infos);
+            $count++;
+        }
+    
+        // $_SESSION['cartTotalPrice'] = $cart->getTotalPrice();
+        echo json_encode(["list" => $productListForJs, "count" => $count, "totalPrice" => $cart->getTotalPrice()]);
     }
+    else {
 
-    // $_SESSION['cartTotalPrice'] = $cart->getTotalPrice();
-    echo json_encode(["list" => $productListForJs, "count" => $count, "totalPrice" => $cart->getTotalPrice()]);
+        echo json_encode(["empty" => true]);
+    }
 
 }
 

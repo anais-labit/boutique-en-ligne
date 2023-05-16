@@ -289,7 +289,10 @@ async function displayHeaderCart() {
 
     const cartList = await fetchHeaderCart();
 
-    if(cartList !== null) {
+    if(cartList.empty == true) {
+        return;
+    }
+    else if(cartList !== null) {
 
         headerCartDiv.innerHTML = "";
     
@@ -355,8 +358,14 @@ function hideHeaderCart() {
 async function showCartNumber() {
 
     const cartNumber = await fetchHeaderCart();
-    cartIcon.innerHTML = "";
-    cartIcon.innerHTML = cartIcon.innerHTML + " " + cartNumber.count;
+    if(cartNumber.empty == true) {
+        return;
+    }
+    else if(cartNumber !== null) {
+
+        cartIcon.innerHTML = "";
+        cartIcon.innerHTML = cartIcon.innerHTML + " " + cartNumber.count;
+    }
 
 }
 

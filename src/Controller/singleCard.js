@@ -82,13 +82,16 @@ async function displayOneProduct() {
         singleCardPrice.innerHTML = (productInfos.price/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + productInfos.priceType;
         singleCardContent.appendChild(singleCardPrice)
 
-        for(let i = 1; i <= 5; i++) {
+        if(ratingDiv.value == "connected") {
 
-            const fullStar = document.createElement("i");
-            fullStar.setAttribute("class", "fa-solid fa-star");
-            fullStar.setAttribute("id", `star${i}`)
-            fullStar.addEventListener("click", () => {addRating(i)});
-            ratingDiv.appendChild(fullStar);
+            for(let i = 1; i <= 5; i++) {
+    
+                const fullStar = document.createElement("i");
+                fullStar.setAttribute("class", "fa-solid fa-star");
+                fullStar.setAttribute("id", `star${i}`)
+                fullStar.addEventListener("click", () => {addRating(i)});
+                ratingDiv.appendChild(fullStar);
+            }
         }
         
 

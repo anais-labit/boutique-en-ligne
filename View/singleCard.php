@@ -32,14 +32,17 @@ if (session_id() == "") session_start();
             <div id="singleCardContent"> </div>
         </div>
 
+        
         <?php if (isset($_SESSION['user'])) : ?>
-            <div id="rating"></div>
+            <div id="rating" value="Connected"></div>
             <form method="POST" id="commentForm">
                 <!-- <label for="comment">Ajouter votre commentaire</label> -->
                 <textarea name="comment" id="commentInput" placeholder="Votre avis compte!"></textarea>
                 <button type="submit" name="commentButton" value="<?= $_GET["productId"] ?>" id="commentButton">Envoyer</button>
             </form>
         <?php else : ?>
+            <div id="rating"></div>
+
             <h2>Connectez vous pour laisser votre avis</h2>
         <?php endif; ?>
 
