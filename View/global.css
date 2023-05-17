@@ -1468,7 +1468,6 @@ i {
   /* border-bottom: solid 1px grey; */
 }
 
-
 /* ============ CART HISTORY PAGE ============= */
 #allCarts {
   display: flex;
@@ -1477,85 +1476,84 @@ i {
   align-items: center;
 }
 
-  #allCarts p {
-    font-family: var(--body-font);
-    font-size: var(--text-xs);
-  }
+#allCarts p {
+  font-family: var(--body-font);
+  font-size: var(--text-xs);
+}
 
-  #allCarts h2 {
-    font-family: var(--title-font);
-    font-size: var(--text-l);
-    margin-bottom: 30px;
-    margin-top: 30px;
-  }
+#allCarts h2 {
+  font-family: var(--title-font);
+  font-size: var(--text-l);
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
 
-  .cartPill {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 45%;
-    height: fit-content;
-    margin-bottom: 30px;
-    border-radius: 10px;
-    padding: 10px;
-    background-color: sienna;
-    color: var(--ivory);
-    font-family: var(--title-font);
-    font-size: var(--text-xs);
-    cursor: pointer;
-  }
+.cartPill {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45%;
+  height: fit-content;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: sienna;
+  color: var(--ivory);
+  font-family: var(--title-font);
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
 
-  .cardContent {
-    display: none;
-  }
+.cardContent {
+  display: none;
+}
 
-  .showCartContent {
-    display: flex;
-    flex-direction: column;
-  }
+.showCartContent {
+  display: flex;
+  flex-direction: column;
+}
 
-  .cartPillButton {
-    text-decoration: none;
-    color: var(--light-black);
-    /* background-color: var(--venitien); */
-    background-color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    font-family: var(--body-font);
-    font-size: var(--text-xs);
-    margin-left: 1.5rem;
-  }
+.cartPillButton {
+  text-decoration: none;
+  color: var(--light-black);
+  /* background-color: var(--venitien); */
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  font-family: var(--body-font);
+  font-size: var(--text-xs);
+  margin-left: 1.5rem;
+}
 
-  .resetCartButton {
-    text-decoration: none;
-    color: var(--light-black);
-    /* background-color: var(--venitien); */
-    background-color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    font-family: var(--body-font);
-    font-size: var(--text-xs);
-    margin-left: 1.5rem;
-  }
+.resetCartButton {
+  text-decoration: none;
+  color: var(--light-black);
+  /* background-color: var(--venitien); */
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  font-family: var(--body-font);
+  font-size: var(--text-xs);
+  margin-left: 1.5rem;
+}
 
-  .cartPillButton:hover {
-    /* background-color: var(--venitien);
+.cartPillButton:hover {
+  /* background-color: var(--venitien);
     color: var(--ivory); */
-    cursor: pointer;
-  }
+  cursor: pointer;
+}
 
-  .productInfo {
-    display: flex;
-    /* justify-content: space-between; */
-    align-items: center;
-    /* width: 100%;
+.productInfo {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  /* width: 100%;
     margin-bottom: 30px; */
-  }
-
+}
 
 /* ============ PRODUCERS PAGE ============= */
 .producers-page-container {
