@@ -27,8 +27,8 @@ async function displayOneProduct() {
 
   const singleCardImage = document.createElement("img");
   singleCardImage.setAttribute("src", productInfos.image);
-  singleCardImage.setAttribute("width", "300px");
-  singleCardImage.setAttribute("height", "300px");
+  singleCardImage.setAttribute("width", "200px");
+  singleCardImage.setAttribute("height", "200px");
   singleCardPicture.appendChild(singleCardImage);
 
   const ratingSection = document.createElement("a");

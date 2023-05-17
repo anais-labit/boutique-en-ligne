@@ -40,7 +40,7 @@ if (session_id() == "") session_start();
                 <button type="submit" name="commentButton" value="<?= $_GET["productId"] ?>" id="commentButton">Envoyer</button>
             </form>
         <?php else : ?>
-            <h2>Connectez vous pour laisser votre avis</h2>
+            <h3>Connectez vous pour laisser votre avis</h3>
         <?php endif; ?>
 
         <div id="comments">
