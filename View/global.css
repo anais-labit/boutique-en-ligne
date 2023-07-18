@@ -1109,11 +1109,11 @@ form p a:hover {
   /* top: 0;
   right: -105%; */
   /* z-index: 10000; */
-  min-height: 70vh;
-  width: 20vw;
-  position: relative;
+  /* height: fit-content; */
+  width: 100%;
+  /* position: relative;
   left: 40%;
-  top: 80%;
+  top: 80%; */
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
@@ -1199,6 +1199,12 @@ form p a:hover {
   margin-left: 10em;
   margin-right: 10em;
   margin-top: 2em;
+}
+
+#pagination {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .productLines img,

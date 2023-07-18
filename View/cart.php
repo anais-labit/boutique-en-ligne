@@ -53,7 +53,6 @@ if (session_id() == "") session_start();
                     </section>
                 <?php else : ?>
                     <section class="paymentDivs">
-
                         <input readonly type="text" class="paymentInput" name="paymentFirstName" value="<?= $_SESSION['user']->getFirstName() ?>">
                         <i class="fa-regular fa-user" id="paymentIcons"></i>
                     </section>

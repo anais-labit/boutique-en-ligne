@@ -5,6 +5,8 @@ const headerCartDiv = document.querySelector("#headerCartDiv");
 const filterDiv = document.querySelector("#filterDiv");
 const categoriesFiltersDiv = document.querySelector("#categoriesFiltersDiv")
 const subCategoriesFiltersDiv = document.querySelector("#subCategoriesFiltersDiv")
+const paginationDiv = document.querySelector("#pagination");
+let numberToDisplay = 10;
 
 // headerCartDiv.style.display = "none";
 
@@ -16,9 +18,10 @@ cartIcon.addEventListener("click", showHeaderCart);
 
 //                    Fonction de display des produits (tous les produits, une catégorie, une sous-catégorie)
 async function displayAllProducts() {
+
     const allProductsForm = new FormData();
 
-    allProductsForm.append("displayAllProducts", "displayAllProducts");
+    allProductsForm.append("displayAllProducts", numberToDisplay);
 
     const requestAllProductsOptions = {
 
@@ -32,7 +35,44 @@ async function displayAllProducts() {
     const productList = await allProducts.json()
 
     rawDisplay(productList);
+
+    const showMoreButton = document.createElement("button");
+    showMoreButton.setAttribute("class", "cardButtons");
+    showMoreButton.setAttribute("id", "showMoreButton");
+    showMoreButton.style.margin = "auto";
+    // showMoreButton.style.width = "100%";
+    showMoreButton.innerHTML = "Voir plus";
+    showMoreButton.addEventListener("click", showMoreProducts);
+    paginationDiv.appendChild(showMoreButton);
     
+}
+
+async function showMoreProducts() {
+    
+        numberToDisplay += 10;
+    
+        const showMoreProductsForm = new FormData();
+    
+        showMoreProductsForm.append("displayAllProducts", numberToDisplay);
+    
+        const requestShowMoreProductsOptions = {
+    
+            method: "POST",
+            body:showMoreProductsForm
+    
+        }
+    
+        const showMoreProducts = await fetch("../src/Routes/product_display.php", requestShowMoreProductsOptions)
+    
+        const showMoreProductList = await showMoreProducts.json()
+    
+        rawDisplay(showMoreProductList);
+    
+        if(showMoreProductList.length < 10) {
+    
+            const showMoreButton = document.querySelector("#showMoreButton");
+            showMoreButton.style.display = "none";
+        }
 }
 
 async function displaySingleCategory() {

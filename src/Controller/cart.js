@@ -7,7 +7,6 @@ const totalPrice = document.querySelector("#totalPrice");
 cartSubmit?.addEventListener("click", submitCart);
 
 paymentSubmit?.addEventListener("click", validatePayment);
-console.log("toto");
 
 function submitCart() {
      paymentForm.style.display = "flex";

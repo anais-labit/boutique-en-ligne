@@ -16,9 +16,7 @@ if(isset($_POST['displayAllProducts'])) {
 
     $products = new ProductModel();
     
-    $productList = $products->readAll();
-
-    // var_dump($productList);
+    $productList = $products->readAllWithLimit((int)$_POST['displayAllProducts'], (int)$_POST['displayAllProducts'] - 10);
     
     echo json_encode($productList);
 
@@ -105,9 +103,6 @@ if(isset($_GET['productId'])) {
         
     echo json_encode($productInfos);
     }
-
-   
-
 
 ?>
 

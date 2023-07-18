@@ -216,7 +216,6 @@ if(isset($_POST['removeQuantity'])) {
         ':total_amount' => $cartTotalPrice->getTotalPrice(),
         ':id' => $_SESSION['cartId'][0]
     ]);
-    // $_SESSION['cartTotalPrice'] = $cart->getTotalPrice();
 }
 
 if(isset($_POST['displayHistory'])) {
@@ -247,11 +246,15 @@ if(isset($_POST['readOneCart'])){
 
 if(isset($_POST['resetCart'])) {
 
+        if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+            unset($_SESSION['cart']);
+        }
+
         $cart = new CartModel();
     
         $cartHistory = $cart->getCartProducts($_POST['resetCart']);
 
-        $cartProducts = [];
+        // $cartProducts = [];
 
         foreach($cartHistory as $product) {
 

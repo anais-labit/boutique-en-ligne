@@ -46,6 +46,8 @@ if(isset($_POST['validateCart'])) {
             ":paid" => "YES",
             ":id" => $_SESSION['cartId'][0]]);
 
+        unset($_SESSION['cart']);
+
         echo json_encode(["success" => true , "message" => "Paiement validé"]);
     }
        

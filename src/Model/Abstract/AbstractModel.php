@@ -64,6 +64,20 @@ abstract class AbstractModel
         return $resultReadAll;
     }
 
+    public function readAllWithLimit(int $limit, int $offset): array
+    {
+
+        $requestReadAll = "SELECT * FROM $this->tableName LIMIT $limit OFFSET $offset";
+
+        $queryReadAll = self::getPdo()->prepare($requestReadAll);
+
+        $queryReadAll->execute();
+
+        $resultReadAll = $queryReadAll->fetchAll();
+
+        return $resultReadAll;
+    }
+
 
     public function readOnebyId(int $id): array
     {
