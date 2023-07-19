@@ -5,20 +5,23 @@ const headerCartDiv = document.querySelector("#headerCartDiv");
 const filterDiv = document.querySelector("#filterDiv");
 const categoriesFiltersDiv = document.querySelector("#categoriesFiltersDiv")
 const subCategoriesFiltersDiv = document.querySelector("#subCategoriesFiltersDiv")
+const paginationDiv = document.querySelector("#pagination");
+let numberToDisplay = 10;
 
-headerCartDiv.style.display = "none";
+// headerCartDiv.style.display = "none";
 
-cartIcon.addEventListener("mouseover", showHeaderCart);
-cartIcon.addEventListener("mouseout", hideHeaderCart);
+cartIcon.addEventListener("click", showHeaderCart);
+// cartIcon.addEventListener("mouseout", hideHeaderCart);
 // headerCartDiv.addEventListener("mouseover", showHeaderCart);
 // headerCartDiv.addEventListener("mouseout", hideHeaderCart);
 
 
 //                    Fonction de display des produits (tous les produits, une catégorie, une sous-catégorie)
 async function displayAllProducts() {
+
     const allProductsForm = new FormData();
 
-    allProductsForm.append("displayAllProducts", "displayAllProducts");
+    allProductsForm.append("displayAllProducts", numberToDisplay);
 
     const requestAllProductsOptions = {
 
@@ -32,7 +35,44 @@ async function displayAllProducts() {
     const productList = await allProducts.json()
 
     rawDisplay(productList);
+
+    const showMoreButton = document.createElement("button");
+    showMoreButton.setAttribute("class", "cardButtons");
+    showMoreButton.setAttribute("id", "showMoreButton");
+    showMoreButton.style.margin = "auto";
+    // showMoreButton.style.width = "100%";
+    showMoreButton.innerHTML = "Voir plus";
+    showMoreButton.addEventListener("click", showMoreProducts);
+    paginationDiv.appendChild(showMoreButton);
     
+}
+
+async function showMoreProducts() {
+    
+        numberToDisplay += 10;
+    
+        const showMoreProductsForm = new FormData();
+    
+        showMoreProductsForm.append("displayAllProducts", numberToDisplay);
+    
+        const requestShowMoreProductsOptions = {
+    
+            method: "POST",
+            body:showMoreProductsForm
+    
+        }
+    
+        const showMoreProducts = await fetch("../src/Routes/product_display.php", requestShowMoreProductsOptions)
+    
+        const showMoreProductList = await showMoreProducts.json()
+    
+        rawDisplay(showMoreProductList);
+    
+        if(showMoreProductList.length < 10) {
+    
+            const showMoreButton = document.querySelector("#showMoreButton");
+            showMoreButton.style.display = "none";
+        }
 }
 
 async function displaySingleCategory() {
@@ -89,6 +129,7 @@ async function displaySingleSubCategoryProducts() {
 
 
 function rawDisplay(results) {
+    // console.log(results);    
         
     for(let i in results) {
 
@@ -98,22 +139,29 @@ function rawDisplay(results) {
 
         const singlePageLink = document.createElement("a");
         singlePageLink.setAttribute("href", `singleCard.php?productId=${results[i].id}`);
+        
+        const cardImage = document.createElement("img");
+        cardImage.setAttribute("src", results[i].image);
+        // cardImage.setAttribute("width", "300px");
+        // cardImage.setAttribute("height", "300px");
+        singlePageLink.appendChild(cardImage);    
 
         const cardTitle = document.createElement("p");
+        cardTitle.setAttribute("class", "cardTitle");
         cardTitle.innerHTML = results[i].product;
         singlePageLink.appendChild(cardTitle);
 
-        const cardImage = document.createElement("img");
-        cardImage.setAttribute("src", results[i].image);
-        cardImage.setAttribute("width", "300px");
-        cardImage.setAttribute("height", "300px");
-        singlePageLink.appendChild(cardImage);       
+        const cardWeight = document.createElement("p");
+        cardWeight.setAttribute("class", "cardWeight");
+        cardWeight.innerHTML = results[i].weight_gr + "g";
+        singlePageLink.appendChild(cardWeight)
 
-        const cardDescription = document.createElement("p");
-        cardDescription.innerHTML = results[i].description;
-        singlePageLink.appendChild(cardDescription);
+        // const cardDescription = document.createElement("p");
+        // cardDescription.innerHTML = results[i].description;
+        // singlePageLink.appendChild(cardDescription);
 
         const cardPrice =  document.createElement("p");
+        cardPrice.setAttribute("class", "cardPrice");
         results[i].price_kg !== null ?
             cardPrice.innerHTML = (results[i].price_kg/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + "/kg":
             cardPrice.innerHTML = (results[i].price_unit/=100).toLocaleString("fr-FR", {style:"currency", currency:"EUR"}) + "/unité";
@@ -122,13 +170,17 @@ function rawDisplay(results) {
         card.appendChild(singlePageLink);
         const addQuantityButton = document.createElement("input");
         addQuantityButton.setAttribute("type", "number");
+        addQuantityButton.setAttribute("min", "0");
+        addQuantityButton.setAttribute("class", "cardInputs");
+        addQuantityButton.setAttribute("placeholder", "Ma quantité");
         addQuantityButton.setAttribute("id", `quantity${results[i].id}`)
         card.appendChild(addQuantityButton);
 
         const addCartButton =  document.createElement("button");
+        addCartButton.setAttribute("class", "cardButtons");
         addCartButton.setAttribute("value", results[i].id);
         addCartButton.innerHTML = "Ajouter";
-        addCartButton.addEventListener("click", addCart)
+        addCartButton.addEventListener("click", ()=>{addCart(`#quantity${results[i].id}`, results[i].id)})
         card.appendChild(addCartButton);
  
         productsDiv.appendChild(card);
@@ -210,34 +262,48 @@ async function displaySingleSubCategoriesButtons(id_cat) {
 
 //                    Fonction de gestion/affichage du panier
 
-async function addCart() {
+async function addCart(input, id) {
 
     const addCartForm = new FormData();
-    const quantityToAdd = document.querySelector(`#quantity${this.value}`);
+    const quantityToAdd = document.querySelector(`${input}`);
 
-
-    addCartForm.append("addOneProductToCart", "addOneProductToCart");
-    addCartForm.append("productID", this.value);
-    addCartForm.append("quantity", quantityToAdd.value);
-
-    addCartrequest = {
-        method:"POST",
-        body: addCartForm
+    if(quantityToAdd.value == null || quantityToAdd.value == 0 || quantityToAdd.value == "") {
+            
+            quantityToAdd.style.border = "1px solid red";
+            quantityToAdd.placeholder = "Veuillez entrer une quantité";
+            // quantityToAdd.style.fontSize = "0.8rem";
     }
+
+    else {
+
+        addCartForm.append("addOneProductToCart", "addOneProductToCart");
+        addCartForm.append("productID", id);
+        addCartForm.append("quantity", quantityToAdd.value);
     
-    const productToAdd = await fetch("../src/Routes/cart_management.php", addCartrequest)
+        addCartrequest = {
+            method:"POST",
+            body: addCartForm
+        }
+        
+        const productToAdd = await fetch("../src/Routes/cart_management.php", addCartrequest)
+    
+        const cartUpdate = await productToAdd.json();
+    
+        if(cartUpdate.success == true) {
+    
+            displayHeaderCart();
+            showCartNumber();
+            showConfirmation();
+        }
 
-    const cartUpdate = await productToAdd.json();
-
-    console.log(cartUpdate);
-
-    if(cartUpdate.success == true) {
-
-        displayHeaderCart();
-        showCartNumber();
+        quantityToAdd.value = "";
+        
+        if(quantityToAdd.style.border == "1px solid red") {
+            quantityToAdd.style.border = "1px solid black";
+        }
     }
-}
 
+}
 
 async function fetchHeaderCart() {
 
@@ -264,14 +330,18 @@ async function displayHeaderCart() {
 
     const cartList = await fetchHeaderCart();
 
-    if(cartList !== null) {
+    if(cartList.empty == true) {
+        headerCartDiv.innerHTML = `Votre panier est vide`
+        return;
+    }
+    else if(cartList !== null) {
 
         headerCartDiv.innerHTML = "";
     
         for(let i in cartList.list) {
     
             const cartLine = document.createElement("p");   
-            cartLine.innerHTML= cartList.list[i].name + " " + cartList.list[i].quantity;
+            cartLine.innerHTML= cartList.list[i].name + " x" + cartList.list[i].quantity;
             
             const trashCan = document.createElement("i");
             trashCan.setAttribute("class","fa-regular fa-trash-can");
@@ -309,25 +379,20 @@ async function deleteFromCart(productId) {
 
    const result = await refreshCart.json();
 
-   displayHeaderCart();
-   showCartNumber();
+   if(result.success == true) {
 
-   return result
+       displayHeaderCart();
+       showCartNumber();
+   }
+
+
+//    return result
 }
 
 
 function showHeaderCart() {
 
-    headerCartDiv.style.display = "block";
-    headerCartDiv.style.position = "fixed"
-    headerCartDiv.style.top = "70px";
-    headerCartDiv.style.width = "230px";
-    headerCartDiv.style.right = "0px";
-    headerCartDiv.style.backgroundColor = "white";
-    headerCartDiv.style.border = "1px solid black";
-    headerCartDiv.style.padding = "10px";
-    headerCartDiv.style.zIndex = "1";
-    headerCartDiv.addEventListener("mouseover", showHeaderCart);
+     headerCartDiv.classList.toggle("showHeaderCart");
 
 }
 
@@ -339,12 +404,28 @@ function hideHeaderCart() {
 async function showCartNumber() {
 
     const cartNumber = await fetchHeaderCart();
-    cartIcon.innerHTML = "";
-    cartIcon.innerHTML = cartIcon.innerHTML + " " + cartNumber.count;
+    if(cartNumber.empty == true) {
+        cartIcon.innerHTML = "";
+        return;
+    }
+    else if(cartNumber !== null) {
+
+        cartIcon.innerHTML = "";
+        cartIcon.innerHTML = cartIcon.innerHTML + " " + cartNumber.count;
+    }
 
 }
 
 // --------------------------------------------------------------------------------------------------------------------------------------
+
+function showConfirmation() {
+    // Afficher une pop-up de confirmation
+    Swal.fire({
+      title: "Produit ajouté!",
+      icon: "success",
+      timer: 2000,
+    });
+}
 
 
 if(location.pathname == "/boutique-en-ligne/View/products.php") displayAllProducts() && displayCategoriesFilters();

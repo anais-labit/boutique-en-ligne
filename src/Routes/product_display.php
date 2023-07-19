@@ -16,11 +16,9 @@ if(isset($_POST['displayAllProducts'])) {
 
     $products = new ProductModel();
     
-    $productList = $products->readAll();
+    $productList = $products->readAllWithLimit((int)$_POST['displayAllProducts'], (int)$_POST['displayAllProducts'] - 10);
     
     echo json_encode($productList);
-
-    
 
 }
 
@@ -39,7 +37,7 @@ if(isset($_POST['displaySingleCategory'])) {
 
     $singleCategoryProducts = new ProductModel();
     
-    $singleCategoryProductsList = $singleCategoryProducts->readOnebyForeignKey('id_cat', (int)$_POST['categoryId']);
+    $singleCategoryProductsList = $singleCategoryProducts->readOnebyForeignKey('id_cat', (int)$_POST['categoryId'], "void");
     
     echo json_encode($singleCategoryProductsList);
 
@@ -59,7 +57,7 @@ if(isset($_POST['displaySingleSubCategory'])) {
 
     $singleSubCategoryProducts = new ProductModel();
     
-    $singleSubCategoryProductsList = $singleSubCategoryProducts->readOnebyForeignKey('id_sub_cat', (int)$_POST['subCategoryId']);
+    $singleSubCategoryProductsList = $singleSubCategoryProducts->readOnebyForeignKey('id_sub_cat', (int)$_POST['subCategoryId'], "void");
     
     echo json_encode($singleSubCategoryProductsList);
 
@@ -75,6 +73,8 @@ if(isset($_GET['productId'])) {
 
     $rating = new CommentModel();
     $productRating = $rating->getAverageRating((int)$_GET['productId']);
+
+    $productComments = $rating->getCommentsNumber((int)$_GET['productId']);
 
     if($fetchProduct[0][9] !== null) {
 
@@ -97,14 +97,12 @@ if(isset($_GET['productId'])) {
         "weight" => $fetchProduct[0][7],
         "price" => $price,
         "priceType" => $priceType,
+        "commentsNumber" => $productComments,
         "rating" => $productRating
     ];
         
     echo json_encode($productInfos);
     }
-
-   
-
 
 ?>
 

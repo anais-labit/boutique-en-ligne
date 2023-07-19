@@ -18,8 +18,11 @@ abstract class AbstractModel
     public static function connect()
     {
         $password = (PHP_OS == 'Linux') ? '' : 'root';
+        // $pleskPassword = 'eShop123!';
         $dsn = 'mysql:host=localhost;dbname=eShop;charset=utf8';
+        // $pleskdsn = 'mysql:host=localhost;dbname=alexandre-aloesode_eShop;charset=utf8';
         self::$pdo = new \PDO($dsn, 'root', $password);
+        // self::$pdo = new \PDO($pleskdsn, 'eShop', $pleskPassword);
     }
 
     protected static function getPdo()
@@ -61,6 +64,20 @@ abstract class AbstractModel
         return $resultReadAll;
     }
 
+    public function readAllWithLimit(int $limit, int $offset): array
+    {
+
+        $requestReadAll = "SELECT * FROM $this->tableName LIMIT $limit OFFSET $offset";
+
+        $queryReadAll = self::getPdo()->prepare($requestReadAll);
+
+        $queryReadAll->execute();
+
+        $resultReadAll = $queryReadAll->fetchAll();
+
+        return $resultReadAll;
+    }
+
 
     public function readOnebyId(int $id): array
     {
@@ -89,9 +106,17 @@ abstract class AbstractModel
         return $resultReadOne;
     }
 
-    public function readOnebyForeignKey(string $foreignKey, int $keyValue): array
+    public function readOnebyForeignKey(string $foreignKey, int $keyValue, $order): array
     {
-        $requestReadOne = "SELECT * FROM $this->tableName WHERE $foreignKey = :$foreignKey";
+        if($order == "void") {
+            
+            $requestReadOne = "SELECT * FROM $this->tableName WHERE $foreignKey = :$foreignKey";
+        }
+
+        else {
+
+            $requestReadOne = "SELECT * FROM $this->tableName WHERE $foreignKey = :$foreignKey ORDER BY $order";
+        }
 
         $queryReadOne = self::getPdo()->prepare($requestReadOne);
 

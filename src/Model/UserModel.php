@@ -23,7 +23,7 @@ class UserModel extends AbstractModel
 
     private ?string $city;
 
-    private ?int $avatar;
+    private ?string $avatar;
 
     private ?string $verified;
 
@@ -147,13 +147,13 @@ class UserModel extends AbstractModel
         return $this->city;
     }
 
-    public function setAvatar(int $avatar)
+    public function setAvatar(string $avatar)
     {
 
         $this->avatar = $avatar;
     }
 
-    public function getAvatar(): ?int
+    public function getAvatar(): ?string
     {
 
         return $this->avatar;

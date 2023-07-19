@@ -4,9 +4,9 @@ is_file("../config.php") == true ?
     require_once '../config.php' :
     require_once '../../config.php';
 
-require_once ROOT_DIR .'/vendor/autoload.php';
+require_once ROOT_DIR . '/vendor/autoload.php';
 
-if(session_id() =="") session_start();
+if (session_id() == "") session_start();
 
 
 ?>
@@ -24,25 +24,30 @@ if(session_id() =="") session_start();
 <body>
 
     <?php include 'header.php' ?>
-<main>
-    <div id="singleCardDiv">
-        
-    </div>
-    <?php  if(isset($_SESSION['user'])): ?>
-        <div id="rating"></div>
-        <form method="POST" id="commentForm"> 
-            <label for="comment">Ajouter votre commentaire</label>
-            <textarea name="comment" id="commentInput"></textarea>
-            <button 
-            type="submit" name="commentButton" value="<?=$_GET["productId"]?>" id="commentButton">Envoyer</button>
-        </form>
-    <?php  else: ?>
-        <p>Connectez vous pour laisser votre avis</p>
-    <?php  endif; ?>
-    
 
-    <div id="comments">
+    <div id="SinglePageContent">
+
+        <div id="singleCardDiv">
+            <div id="singleCardPicture"> </div>
+            <div id="singleCardContent"> </div>
+        </div>
+
+        <?php if (isset($_SESSION['user'])) : ?>
+            <div id="rating"></div>
+            <form method="POST" id="commentForm">
+                <!-- <label for="comment">Ajouter votre commentaire</label> -->
+                <textarea name="comment" id="commentInput" placeholder="Votre avis compte!"></textarea>
+                <button type="submit" name="commentButton" value="<?= $_GET["productId"] ?>" id="commentButton">Envoyer</button>
+            </form>
+        <?php else : ?>
+            <h3>Connectez vous pour laisser votre avis</h3>
+        <?php endif; ?>
+
+        <div id="comments">
+            <h2>Commentaires</h2>
+
+        </div>
+    </div>
 
     </div>
-    </main>
 </body>
