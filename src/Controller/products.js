@@ -170,6 +170,7 @@ function rawDisplay(results) {
         card.appendChild(singlePageLink);
         const addQuantityButton = document.createElement("input");
         addQuantityButton.setAttribute("type", "number");
+        addQuantityButton.setAttribute("min", "0");
         addQuantityButton.setAttribute("class", "cardInputs");
         addQuantityButton.setAttribute("placeholder", "Ma quantité");
         addQuantityButton.setAttribute("id", `quantity${results[i].id}`)
@@ -340,7 +341,7 @@ async function displayHeaderCart() {
         for(let i in cartList.list) {
     
             const cartLine = document.createElement("p");   
-            cartLine.innerHTML= cartList.list[i].name + " " + cartList.list[i].quantity;
+            cartLine.innerHTML= cartList.list[i].name + " x" + cartList.list[i].quantity;
             
             const trashCan = document.createElement("i");
             trashCan.setAttribute("class","fa-regular fa-trash-can");

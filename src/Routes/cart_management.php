@@ -206,6 +206,10 @@ if(isset($_POST['removeQuantity'])) {
 
             $newQuantity = (int)($product->getQuantity() - 1);
 
+            if($newQuantity <= 1) {                   
+                    $newQuantity = 1;
+            }
+
             $product->updateCartQuantity((int)$product->getId(), (int)$_SESSION['cartId'][0], $newQuantity);
 
             $product->setQuantity($newQuantity);

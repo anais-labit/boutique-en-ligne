@@ -253,6 +253,7 @@ body {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  align-items: center;
   border: solid 1px black;
   position: absolute;
   margin-top: 45px;
@@ -266,7 +267,8 @@ body {
   color: var(--light-black);
   max-height: max-content;
   min-width: fit-content;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #headerCartDiv p {
